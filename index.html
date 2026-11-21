@@ -1,0 +1,1683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CLO Study Timetable</title><meta name="theme-color" content="#0a3aa8">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="CLO">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap">
+<style>
+:root{--bg:#f1f5fc;--card:#fff;--fg:#0e1b40;--mut:#56628a;--bd:#d3ddf1;--acc:#1558d6;--gr:#1a9a57;--yl:#fbbd1c;--s:70%;--l:89%;--nt:rgba(21,88,214,.08);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0a1126;--card:#121b37;--fg:#e8eefc;--mut:#9aa9cc;--bd:#24315c;--acc:#5b9bff;--gr:#2fbf74;--yl:#fbbd1c;--s:38%;--l:25%;--nt:rgba(91,155,255,.1)}}
+:root[data-theme="dark"]{--bg:#0a1126;--card:#121b37;--fg:#e8eefc;--mut:#9aa9cc;--bd:#24315c;--acc:#5b9bff;--gr:#2fbf74;--yl:#fbbd1c;--s:38%;--l:25%;--nt:rgba(91,155,255,.1)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.4 "Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif}
+.app{display:flex;min-height:100vh}
+.sb{width:224px;flex:none;background:linear-gradient(180deg,#0a3aa8,#08246e);color:#fff;padding:18px 14px;display:flex;flex-direction:column;gap:14px;position:sticky;top:0;height:100vh;box-sizing:border-box}
+.brand{display:flex;align-items:center;gap:10px;font-size:22px;font-weight:800;letter-spacing:.04em}
+.brand img{width:44px;height:44px;border-radius:11px;display:block}
+.lb{background:transparent;border:0;padding:0;cursor:pointer;border-radius:11px;line-height:0}
+.lb:focus-visible{outline:2px solid var(--yl);outline-offset:2px}
+.sb.col{width:76px;align-items:center}
+.sb.col .rp,.sb.col .brand span{display:none}
+.ni{display:none;width:28px;height:28px}
+.sb.col .ni{display:block}
+.sb.col .sn button span{display:none}
+.sb.col .sn button{display:flex;justify-content:center;padding:10px;border-left:0;border-bottom:3px solid transparent}
+.sb.col .sn button.on{border-bottom-color:var(--yl)}
+.sn{display:flex;flex-direction:column;gap:4px}
+.sn button{background:transparent;border:0;color:rgba(255,255,255,.88);text-align:left;padding:10px 12px;border-radius:10px;border-left:4px solid transparent}
+.sn button:hover{background:rgba(255,255,255,.1)}
+.sn button.on{background:rgba(255,255,255,.16);color:#fff;font-weight:600;border-left-color:var(--yl)}
+.sb .rp{margin-top:auto;background:transparent;color:#fff;border:1px solid rgba(255,255,255,.4)}
+.main{flex:1;min-width:0;max-width:1040px;padding:20px 18px 40px;margin:0 auto}
+.pf{display:flex;gap:16px;align-items:center}.pf img{border-radius:18px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:12px}
+.stats b{font-size:24px;display:block}
+@media(max-width:760px){.app{flex-direction:column}.sb{width:auto;height:auto;position:static;flex-direction:row;flex-wrap:wrap;align-items:center;padding:10px 12px;gap:8px}.sn{flex-direction:row;flex-wrap:wrap}.sn button{padding:8px 10px;border-left:0;border-bottom:3px solid transparent}.sn button.on{border-bottom-color:var(--yl)}.sb .rp{margin:0 0 0 auto}.sb.col{width:auto}}
+h1{font-size:30px;font-weight:800;margin:0 0 4px;letter-spacing:-.02em}
+h2{margin:0 0 10px;font-size:20px}
+.hd{display:flex;align-items:center;gap:14px;background:linear-gradient(135deg,#0a3aa8,#1a6dff);color:#fff;border-radius:18px;padding:14px 18px;margin-bottom:16px}
+.hd img{width:56px;height:56px;border-radius:14px;box-shadow:0 2px 8px rgba(0,0,0,.3);flex:none}
+.hd h1{margin:0;color:#fff;font-size:26px}
+.hd h1::after{content:"";display:block;width:38px;height:4px;border-radius:2px;background:var(--yl);margin-top:5px}
+.hd .sub{margin:6px 0 0;color:rgba(255,255,255,.88);font-size:14px}
+.sub{color:var(--mut);margin:0 0 16px}
+button,input,textarea,select{font:inherit;color:var(--fg);background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:6px 10px}
+button{cursor:pointer}button:disabled{opacity:.4;cursor:default}
+button.on{background:var(--acc);color:var(--bg);border-color:var(--acc)}
+button.ok{background:var(--gr);color:#fff;border-color:var(--gr)}
+button:focus-visible,input:focus-visible,textarea:focus-visible,.seg:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+#prog{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-bottom:18px}
+.pc{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:10px 12px;border-top:4px solid hsl(var(--h) 60% 50%)}
+.bar{height:6px;background:var(--bd);border-radius:3px;margin:8px 0 6px}
+.bar i{display:block;height:100%;background:hsl(var(--h) 60% 50%);border-radius:3px}
+small{color:var(--mut)}
+.nav{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:10px}
+.sp{flex:1}
+#msg{min-height:20px;color:var(--acc);font-size:13px;margin-bottom:6px}
+.item{display:flex;gap:12px;align-items:center;background:hsl(var(--h) var(--s) var(--l));border-left:5px solid hsl(var(--h) 60% 50%);border-radius:8px;padding:10px 12px;margin-bottom:6px}
+.item.now{outline:3px solid var(--yl)}.item.done{opacity:.5}
+.tmv{font-size:13px;color:var(--mut);min-width:44px}.grow{flex:1}.grow b{display:block}
+.wh{display:flex;gap:8px;align-items:center;margin-bottom:10px}
+#grid{overflow-x:auto}
+.g{display:grid;gap:4px;min-width:640px}
+.dh{font-weight:600;text-align:center;padding:7px;background:var(--card);border:1px solid var(--bd);border-radius:8px}
+.dh.today{outline:2px solid var(--yl);background:color-mix(in srgb,var(--yl) 16%,var(--card))}
+.dh .add{padding:0 8px;margin-left:6px}
+.ax{position:relative;height:900px}
+.ax span{position:absolute;right:6px;font-size:12px;color:var(--mut);transform:translateY(-50%)}
+.ax span:first-child{transform:none}.ax span:last-child{transform:translateY(-100%)}
+.bd{position:relative;height:900px;border:1px solid var(--bd);border-radius:8px;overflow:hidden;background-color:var(--card);background-image:linear-gradient(var(--bd) 1px,transparent 1px);background-size:100% 60px}
+.nt{position:absolute;left:0;right:0;top:630px;bottom:0;background:var(--nt);border-top:1px dashed var(--acc)}
+.nt small{position:absolute;left:8px;top:3px}
+.lunch{position:absolute;left:0;right:0;top:180px;height:90px;display:flex;align-items:center;justify-content:center;color:var(--mut);font-weight:600;background:repeating-linear-gradient(135deg,transparent 0 8px,var(--bd) 8px 9px)}
+.lunch span{background:var(--card);padding:2px 10px;border-radius:6px}
+.seg{position:absolute;left:3px;right:3px;z-index:1;box-sizing:border-box;overflow:hidden;background:hsl(var(--h) var(--s) var(--l));border-left:5px solid hsl(var(--h) 60% 50%);border-radius:6px;padding:5px 28px 3px 8px;font-size:13px;line-height:1.25;cursor:pointer;user-select:none}
+.seg b{display:block;font-weight:600}.seg small{display:block}
+.seg.tiny b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.seg.tiny small{display:none}
+.seg.done{opacity:.5}.seg.done b{text-decoration:line-through}.seg.done b::before{content:"✓ ";color:var(--gr);font-weight:800}
+.seg.past{opacity:.6}
+.mv{position:absolute;top:2px;right:2px;width:22px;height:22px;padding:0;border:0;background:transparent;border-radius:6px;font-size:14px;line-height:1}
+.mv:hover{background:var(--bd)}
+.ghost{position:absolute;left:3px;right:3px;box-sizing:border-box;overflow:hidden;white-space:nowrap;border:1px dashed var(--bd);border-radius:6px;color:var(--mut);font-size:12px;padding:4px 8px}
+.row{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:6px;margin-bottom:6px}
+.row input{min-width:0}
+textarea{width:100%;box-sizing:border-box;min-height:70px}
+.box{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:12px;margin-bottom:12px}
+.note{color:var(--mut);margin-top:14px;font-size:13px}
+.gr{position:absolute;left:0;right:0;top:0;height:8px;cursor:ns-resize;touch-action:none;z-index:2}
+.gr::after{content:"";position:absolute;left:50%;top:2px;width:28px;height:3px;margin-left:-14px;border-radius:2px;background:currentColor;opacity:.22}
+.seg:hover .gr::after,.gr:hover::after{opacity:.7}
+#dl{position:fixed;z-index:200;background:var(--fg);color:var(--bg);padding:2px 8px;border-radius:6px;font-size:12px;pointer-events:none}
+#splash{position:fixed;inset:0;z-index:300;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 42%,#1550c8,#06194d 72%);animation:sp-out .5s ease 2.5s forwards}
+#splash svg{width:min(48vmin,300px);height:auto;overflow:visible}
+#splash *{transform-box:fill-box;transform-origin:center}
+.s-bg{animation:s-pop .6s cubic-bezier(.2,1.4,.4,1) both}
+.s-cal{animation:s-up .6s ease .35s both}
+.s-c{animation:s-pop .35s cubic-bezier(.2,1.6,.4,1) both;animation-delay:calc(.7s + var(--i)*.07s)}
+.s-y{animation:s-pop .35s cubic-bezier(.2,1.6,.4,1) 1.3s both,s-pulse .6s ease 1.75s}
+.s-cap{animation:s-drop .7s cubic-bezier(.3,1.5,.5,1) 1.25s both}
+.s-t{animation:s-rise .5s ease both;animation-delay:calc(1.8s + var(--i)*.1s)}
+@keyframes s-pop{from{opacity:0;transform:scale(.2)}to{opacity:1;transform:scale(1)}}
+@keyframes s-up{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@keyframes s-drop{from{opacity:0;transform:translateY(-70px) rotate(-12deg)}to{opacity:1;transform:none}}
+@keyframes s-rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes s-pulse{50%{transform:scale(1.3)}}
+@keyframes sp-out{to{opacity:0;visibility:hidden}}
+@media(prefers-reduced-motion:reduce){#splash{display:none}}
+.sc{background:var(--card);border:1px solid var(--bd);border-radius:10px;margin-bottom:8px;padding:0 12px}
+.sc summary{cursor:pointer;padding:10px 0;display:flex;gap:10px;flex-wrap:wrap;align-items:baseline}
+.ls{display:grid;grid-template-columns:auto 1fr 64px 64px;gap:10px;align-items:center;padding:7px 0;border-top:1px solid var(--bd);cursor:pointer}
+.ls input{width:18px;height:18px;accent-color:var(--gr)}
+.ls.dn .lt{text-decoration:line-through;opacity:.55}
+.ls small:nth-of-type(2){text-align:right}
+</style>
+</head>
+<body>
+<div id="splash" aria-hidden="true"><svg viewBox="0 0 200 200"><defs><linearGradient id="sg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0a3aa8"/><stop offset="1" stop-color="#1a6dff"/></linearGradient></defs><rect class="s-bg" width="200" height="200" rx="42" fill="url(#sg)"/><g class="s-cal"><rect x="58" y="40" width="122" height="112" rx="20" fill="#0a2e8a"/><rect x="63" y="66" width="112" height="82" rx="14" fill="#fff"/><rect x="78" y="28" width="12" height="28" rx="6" fill="#082377"/><circle cx="84" cy="50" r="9" fill="none" stroke="#fff" stroke-width="3"/><rect x="146" y="28" width="12" height="28" rx="6" fill="#082377"/><circle cx="152" cy="50" r="9" fill="none" stroke="#fff" stroke-width="3"/></g><rect class="s-c" style="--i:0" x="98" y="71" width="19" height="19" rx="4" fill="#b6cff0"/><rect class="s-c" style="--i:1" x="123" y="71" width="19" height="19" rx="4" fill="#b6cff0"/><rect class="s-c" style="--i:2" x="148" y="71" width="19" height="19" rx="4" fill="#b6cff0"/><rect class="s-c" style="--i:3" x="98" y="96" width="19" height="19" rx="4" fill="#b6cff0"/><rect class="s-y" x="123" y="96" width="19" height="19" rx="4" fill="#fbbd1c"/><rect class="s-c" style="--i:5" x="148" y="96" width="19" height="19" rx="4" fill="#b6cff0"/><rect class="s-c" style="--i:6" x="98" y="121" width="19" height="19" rx="4" fill="#b6cff0"/><rect class="s-c" style="--i:7" x="123" y="121" width="19" height="19" rx="4" fill="#b6cff0"/><rect class="s-c" style="--i:8" x="148" y="121" width="19" height="19" rx="4" fill="#b6cff0"/><g class="s-cap"><path d="M38 126 L38 150 Q72 172 106 148 L106 124 Z" fill="#0f7a44"/><polygon points="12,106 72,79 132,106 72,136" fill="#1a9a57"/><path d="M72 104 L36 121 L36 150" stroke="#fbbd1c" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="72" cy="104" r="7" fill="#fbbd1c"/><path class="s-tas" d="M36 148 L30 172 Q36 176 42 172 Z" fill="#fbbd1c"/></g><text class="s-t" style="--i:0" x="72" y="186" text-anchor="middle" font-size="34" font-weight="800" fill="#fff" font-family="'Bricolage Grotesque',system-ui,sans-serif">C</text><text class="s-t" style="--i:1" x="106" y="186" text-anchor="middle" font-size="34" font-weight="800" fill="#fff" font-family="'Bricolage Grotesque',system-ui,sans-serif">L</text><text class="s-t" style="--i:2" x="140" y="186" text-anchor="middle" font-size="34" font-weight="800" fill="#fff" font-family="'Bricolage Grotesque',system-ui,sans-serif">O</text></svg></div>
+<div class="app"><aside class="sb"><div class="brand"><button id="lbtn" class="lb" type="button" aria-label="Open or close the menu" aria-expanded="true"><img id="logo" alt="CLO logo" width="44" height="44"></button><span>CLO</span></div><nav class="sn"><button data-v="profile" title="Profile"><img class="ni" data-i="profile" alt=""><span>Profile</span></button><button data-v="tt" title="Study Timetable"><img class="ni" data-i="tt" alt=""><span>Study Timetable</span></button><button data-v="les" title="Lessons"><img class="ni" data-i="les" alt=""><span>Lessons</span></button><button data-v="set" title="Settings"><img class="ni" data-i="set" alt=""><span>Settings</span></button></nav><button id="rp" class="rp">Re-plan from today</button></aside>
+<main class="main"><header class="hd"><div><h1 id="pt">Study Timetable</h1><p class="sub" id="sub"></p></div></header>
+<div id="prog"></div>
+<div class="nav" id="sub2"><button id="t1">Today</button><button id="t2">Week</button></div>
+<div id="msg" role="status" aria-live="polite"></div>
+<div id="vp"></div>
+<div id="vt"></div>
+<div id="vl" class="box"></div>
+<div id="vw"><div class="wh"><button id="pv">Previous</button><b id="wl" class="sp"></b><button id="wkd"></button><button id="td">This week</button><button id="nx">Next</button></div><div id="af" class="box" hidden></div><div id="grid"></div></div>
+<div id="vc"></div>
+<div id="vs"></div>
+<p class="note">Study factor = real study minutes per minute of video. Tap a class to mark it done, and the moon moves it to that evening (20:00 to midnight). The plan updates itself every day: missed classes are rescheduled automatically. In the week view, drag the grip at the top of a class to make the break before it longer or shorter (double-click it to reset that day). Breaks between evening classes are 10 minutes.</p>
+</main></div>
+<script>
+const $=s=>document.querySelector(s);
+const IC="data:image/png;base64,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";$("#logo").src=IC;
+const HUES=[215,350,150,270,35,190,310,60],HOL=["2026-12-01","2026-12-08","2026-12-25","2027-01-01"];
+const DEF={s:"2026-11-23",off:[],days:{},c:[["Investment Banking",13.5,7],["Cyber Security",16,0],["AI Engineer Training",30,0],["LLM Engineer",33.5,0],["AI Agents",21,0]].map((a,i)=>({n:a[0],t:a[1],p:a[2],f:3,h:HUES[i]}))};
+/* slots: [start minute, length, priority course]; 09:00-19:30, lunch 12:00-13:30, 20 min breaks */
+const SL=[[540,90,0],[650,60],[810,90,1],[920,60],[1000,60],[1080,90]];
+const ld=k=>{try{return localStorage.getItem(k)}catch(e){return null}};
+const sv=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
+const esc=s=>String(s).replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
+const iso=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+const parse=s=>{const [y,m,d]=s.split("-").map(Number);return new Date(y,m-1,d)};
+const f=m=>String(Math.floor(m/60)%24).padStart(2,"0")+":"+String(m%60).padStart(2,"0");
+const fd=(x,o)=>x.toLocaleDateString("en-GB",o);
+let S;try{S=JSON.parse(ld("st3"));if(!S||!Array.isArray(S.c)||!S.days)throw 0}catch(e){S=JSON.parse(JSON.stringify(DEF))}
+const save=()=>sv("st3",JSON.stringify(S));
+const doneMin=()=>{const dn=S.c.map(()=>0);Object.values(S.days).forEach(cl=>cl.forEach(x=>{if(x.d&&x.c<dn.length)dn[x.c]+=x.m}));return dn};
+function slotsFor(k){if(k!=S.s||!S.fs)return SL;const f=S.fs.split(":").map(Number),s0=f[0]*60+(f[1]||0);
+ if(!(s0>540))return SL;const o=[];let cur=s0;
+ for(const q of [[90,0],[90,1],[60],[60],[90]]){if(cur+q[0]>1170)break;o.push([cur,q[0],q[1]]);cur+=q[0]+20}
+ return o}
+function plan(){
+ const t0=iso(new Date()),n=S.c.length,dn=doneMin(),al=dn.slice(),old=S.days;
+ const rem=S.c.map((c,i)=>{const L=lessons(c);if(L)return Math.round(L.reduce((a,l)=>a+(isd(l)?0:l.m),0)*c.f/30)*30;return Math.max(0,Math.round(c.t*(1-c.p/100)*c.f*2)*30-dn[i])});
+ S.days={};for(const k in old)if(k<t0||(parse(k).getDay()%6==0&&old[k].some(x=>x.man||x.d)))S.days[k]=old[k];
+ const w=c=>S.c[c].t*S.c[c].f||1;
+ let d=parse(S.s<t0?t0:S.s),g=0;
+ while(rem.some(r=>r>0)&&g++<600){
+  const k=iso(d);
+  if(d.getDay()%6&&!S.off.includes(k)){
+   const oc=old[k]||[],cl=oc.filter(x=>x.d);
+   slotsFor(k).forEach(([s,cap,pr])=>{
+    if(cl.some(x=>x.s>=s&&x.s<s+cap))return;
+    let off=0;
+    const put=(c,m)=>{cl.push({c,m,s:s+off,d:0,n:oc.some(y=>!y.d&&y.c==c&&y.s==s+off&&y.n)?1:0});rem[c]-=m;if(c>1)al[c]+=m;off+=m};
+    if(pr!==undefined&&S.c[pr]&&rem[pr]>0)put(pr,Math.min(cap,rem[pr]));
+    while(off<cap){let b=-1;for(let i=2;i<n;i++)if(rem[i]>0&&(b<0||al[i]/w(i)<al[b]/w(b)))b=i;
+     if(b<0)break;put(b,Math.min(cap-off,rem[b]))}});
+   cl.sort((a,b)=>a.s-b.s);if(cl.length)S.days[k]=cl}
+  d.setDate(d.getDate()+1)}
+ save()}
+const RAW=`#Foundations
+1|4|Welcome to the Course.
+2|2|Course Companion Study Guide and Udemy Review System
+3|7|The CIA Triad
+4|5|Practice Activity: The CIA Triad
+5|17|Identity and Access Management I
+6|5|Identity and Access Management II
+7|8|Identity Federation
+8|8|Security Governance: Policies, Standards and Procedures
+9|11|Security Governance: GDPR, HIPAA, PCI-DSS and Intellectual Property
+10|16|Cryptography
+11|1|Practice Activity: Cryptography
+12|6|Hashing and Digital Signatures
+13|3|Lab: Hashing
+14|1|Practice Activity: Hashing
+Q1|0|Quiz 1: Quiz (Foundations)
+#Network Security
+15|11|Introduction: OSI and TCP/IP
+16|17|Application and Transport Layers
+17|13|Lab: Email Forensic Investigation (Application layer SMTP Protocol)
+18|1|Practice Activity: Email Forensic Investigation
+19|6|DNS (Domain Name System)
+20|21|The Network Layer
+21|5|The Link Layer
+22|13|Security Protocols: SSL/TLS, IPSec, VPNs, SSH
+23|7|Lab Setup: MacOS (Apple Silicon Based) - Virtual Box
+24|7|Lab Setup: Windows - Virtual Box
+25|12|NMAP Port Scanning and Demo
+26|3|Lab: NMAP Port Scanning
+27|4|Lab Solution: NMAP Port Scanning
+28|7|NAT: Network Address Translation
+29|10|Firewalls
+30|11|Wireless Networks and Security
+Q2|0|Quiz 2: Quiz (Network Security)
+#Hacker Attacks
+31|14|Password Attacks
+32|14|DoS and DDoS
+33|5|DNS Attacks
+34|5|Network Attacks
+35|5|Man in the Middle Attack
+36|12|Social Engineering
+37|10|Lab (no installation required): Phishing Attack and Investigation
+Q3|0|Quiz 3: Quiz (Cyber Attacks)
+#Web Application Security
+38|13|Web Application Architecture
+39|11|SQL Injection
+40|11|Lab: SQL Injection (vm64).
+41|8|Blind SQL Injection
+42|7|Lab: Blind SQL Injection (vm64)
+43|9|Mitigating SQL Injection Attacks
+44|8|XSS: Cross Site Scripting
+45|12|Vulnerability Management
+Q4|0|Quiz 4: Quiz (Web Application Security)
+#Malware
+46|8|Malware: Introduction
+47|11|Viruses and Worms
+48|5|Trojans
+49|6|Spyware, Adware and Ransomware
+50|9|Logic Bombs and Rootkits
+51|12|Antimalware
+Q5|0|Quiz 5: Quiz (Malware)
+#Incident Response and Intrusion Detection
+52|7|Cyber Kill Chain: How the Attack Begins
+53|6|Cyber Kill Chain: Progression of Attack and Command & Control
+54|7|Case Study: The Target Incident and Cyber Kill Chain
+55|13|The Incident Response Lifecycle
+56|11|Intrusion Detection Systems (IDS)
+57|7|Intrusion Prevention Systems (IPS)
+58|12|SNORT (IPDS)
+59|24|Lab: Writing Snort Rules
+60|8|Lab Solution: Writing Snort Rules
+61|11|Lab: Snort - Monitoring Sensitive Web Access
+62|5|Lab Solution: Snort - Monitoring Sensitive Web Access
+#Network Forensics
+63|12|Network Forensics: Introduction
+64|20|Packet and Protocol Analysis
+65|19|Lab: Forensic Investigation using tcpdump
+66|4|Lab Solution: Forensic Investigation using tcpdump
+67|17|Wireshark: Overview
+68|13|Wireshark: Display Filters
+69|11|Wireshark: Capture Filters
+70|15|Lab Wireshark: Credentials Breach Investigation
+71|5|Lab Solution Wireshark: Credentials Breach Investigation
+72|10|Lab Wireshark: ACME Corporate Data Breach
+73|16|Lab Solution Wireshark: ACME Corporate Data Breach
+#Identity and Access Management (IAM): Deep Dive
+74|10|Why Identity and Access Management (IAM) Matters ?
+75|6|Access Control Models: Overview
+76|13|Discretionary Access Control and Mandatory Access Control
+77|11|Role-Based Access Control (RBAC)
+78|9|Practice Activity: Role-Based Access Control (RBAC)
+79|10|Attribute-Based Access Control (ABAC)
+80|4|Selecting the right Access Control Model
+Q6|0|Quiz 6: Quiz - Access Control Models
+#Governance, Risk and Compliance (GRC): Deep Dive
+81|8|Why GRC Matters
+82|10|GRC in Action: Real World Example
+83|13|Security Policies: Key Policies
+84|10|Change Management
+85|6|Risk in Cyber Security
+86|9|Risk Management Process
+87|13|Risk Management - Step 1: Identifying Risks
+88|11|Risk Management - Step 2: Analysing Risks
+89|9|Risk Management - Step 3: Evaluating Risks
+90|13|Risk Management - Step 4: Treating Risks
+91|7|Risk Management - Step 5: Monitoring Risk
+92|4|Practice Activity: Risk Management Case Study
+93|9|Solution Practice Activity: Risk Management Case Study
+94|5|Security Controls for Mitigating Risk
+95|13|Security Controls: By Function
+96|7|Practice Activity: Security Controls
+#Generative AI for Cyber Security
+97|7|Generative AI for Cyber Security
+98|11|Leveraging GenAI for Ransomware Identification
+99|4|Practice Activity: GenAI for Ransomware
+100|6|Solution Practice Activity: GenAI for Ransomware
+#Cybersecurity Careers
+101|10|Choosing Your Cybersecurity Career
+102|10|Security Analyst: The Foundation Role
+103|8|SOC Analyst: The Blue Team Role
+104|7|Cybersecurity Career Roadmap
+#Interview Questions and Conclusion
+105|9|Interview Questions and Conclusion
+#Bonus Section
+106|1|Bonus Lecture`;
+/* Cyber Security course content (from Udemy), matched by course name */
+const mk=(raw,p,re,name)=>{const L=[],sec=[];raw.split("\n").forEach(r=>{if(r[0]=="#"){sec.push(r.slice(1));return}const [id,m,...t]=r.split("|");L.push({id,m:+m,t:t.join("|"),s:sec.length-1,q:id[0]=="Q",p})});L.sec=sec;L.re=re;L.name=name;return L};
+const RAW_IB=`#Welcome! Course Introduction
+1|4|What does the course cover?
+2|1|Download all course materials
+#The ascendance of investment banking services
+3|2|The importance of history, name, tradition, and reputation
+4|4|The rise of investment banking services
+5|2|What is the difference between commercial and investment banking?
+6|4|Why do universal banks have a competitive advantage?
+7|3|Intrinsic conflicts of interest and the role of Chinese walls
+Q1|0|Quiz 1: Quiz #1
+8|5|Historical M&A waves
+9|5|Three of the most important IPOs in history
+#The four main areas of investment banking activity
+10|7|Capital markets – raising equity and debt capital
+11|8|Advisory – M&A and Restructuring services
+12|3|Trading and Brokerage – trading with financial securities
+13|3|Asset management – the ability to use money to make more money
+Q2|0|Quiz 2: Quiz #2
+#Strategies pursued by investment banks
+14|4|Strategies pursued by investment banks
+15|5|Relationship vs transaction-based banking
+16|1|The accidental investment banker - Book recommendation
+#Capital markets – Equity capital markets
+17|3|Why would a company want to go public?
+18|4|Who are the investors in an IPO?
+19|4|Coming up with a share price
+20|3|Technical details of IPO pricing
+21|4|IPO share allocation
+22|5|What does an IPO timetable look like?
+23|3|The IPO syndicate – members and responsibilities
+24|4|Fee distribution among investment banks
+25|3|Post-IPO stabilization: Definition of long/short position
+26|5|Post-IPO stabilization: Applying the Greenshoe option
+27|2|Greenshoe explained – Practical example
+28|2|Other ways to place equity capital – SEOs and private placements
+29|6|Facebook’s IPO - Case study
+30|1|Course Challenge #1 - IPO
+Q3|0|Quiz 3: Quiz #3
+#Capital Markets – Debt Capital Markets
+31|3|The four different types of bonds
+32|4|Why issue a bond?
+33|4|The mechanics of a bond offering. Process description
+34|3|Junk bonds
+35|4|What is securitization and why can it be useful?
+36|3|Securitization - explained
+37|5|Asset-backed securities: An example of securitization
+38|2|Loan syndication – a preferred instrument for most banks nowadays
+39|6|Project finance
+40|1|Course challenge #2 - Debt offerings
+Q4|0|Quiz 4: Quiz #4
+#Advisory services – Mergers and acquisitions
+41|5|Why acquire another company?
+42|4|Describing the typical deal lifecycles and buyer companies
+43|4|The three types of M&A processes
+44|2|M&A private deals
+45|4|M&A auctions
+46|4|M&A of listed firms
+47|4|Valuation of target companies
+48|4|Payment options in M&A deals
+49|3|Financial vs. Corporate buyers
+50|1|Course challenge #3 - M&A
+Q5|0|Quiz 5: Quiz #5
+#Advisory services – Restructuring
+51|3|Restructuring services – why and when
+52|6|Prioritization of restructuring efforts
+53|1|Course Challenge #4 - Restructuring
+Q6|0|Quiz 6: Quiz #6
+#Trading and Brokerage
+54|3|The Trading and Brokerage division
+55|5|Types of securities traded
+56|1|Proprietary trading vs principal investments
+57|3|The advent of algorithmic-driven trading
+Q7|0|Quiz 7: Quiz #7
+#Asset management
+58|3|Why hire investment banks as asset managers?
+59|3|A risk-return comparison of different investments
+60|7|Private equity funds
+Q8|0|Quiz 8: Quiz #8
+#A step-by-step guide to Company Valuation
+61|2|Why value a company?
+62|3|How much is a company worth for an investor?
+63|2|The two variables that drive a firm’s value
+64|5|The mechanism of Unlevered cash flow calculation
+65|4|Introducing a discount factor – Weighted average cost of capital
+66|1|Calculating a firm’s cost of debt
+67|5|Calculating a firm’s cost of equity
+68|1|How to find the beta for an unlisted firm?
+69|3|Estimating a company’s future cash flows
+70|2|The two stages of a DCF model
+71|2|Discounting cash flows and terminal value
+72|1|Calculating enterprise and equity value
+#Financial modeling fundamentals
+73|2|What is a financial model?
+74|3|Why use a financial model?
+75|6|Imperfect financial modeling practices
+76|5|Best financial modeling practices
+77|5|Different types of financial models we can build
+78|3|The right level of detail we should use when building a 5 or 10-year model
+79|3|The right way to approach the forecasting exercise
+80|2|Building complete financial models
+81|6|Forecasting P&L items
+82|3|Forecasting Balance sheet items (1/2)
+83|5|Forecasting Balance sheet items (2/2)
+#DCF Valuation - Introduction
+84|1|How to value a company - Introduction
+85|7|The stages of a complete DCF Valuation
+86|3|Let’s go through the structure of the DCF model we will create in Excel
+87|1|A glimpse at the company we are valuing - Cheeseco
+#DCF valuation - Forecasting of key P&L items
+88|4|Modeling the top line
+89|2|Building flexible financial models in Excel
+90|4|Modeling other items: Other revenues and Cogs
+91|2|Modeling other items: Operating expenses and D&A
+92|3|Modeling Other Items: Interest expenses, Extraordinary items and Taxes
+#DCF Valuation - Forecasting key Balance Sheet items
+93|1|How to forecast Balance Sheet items - the clear and practical way
+94|2|A key concept for finance practitioners - the “Days” methodology
+95|1|How to calculate “Days”
+96|2|How to use “Days” to project the future development of BS items
+97|2|Forecasting Property, plant & equipment, Other assets and Other liabilities
+#DCF Valuation - Creating clean output sheets
+98|3|Excel best practices! Create a good-looking and clean output sheet in your model
+99|2|Putting what we learned into practice - Populating the P&L sheet
+100|2|How to create a clean output Balance Sheet in your Financial Model
+101|4|Completing the output BS sheet for the historical period
+#DCF valuation - Calculating unlevered cash flows and Net cash flow
+102|3|Learn how to calculate Unlevered free cash flows
+103|2|Important! Reconcile UFCF to Net cash flow
+104|7|A very useful lesson! Cash flow calculation
+105|4|Arriving to actual Net cash flow figures and performing a check with cash
+106|4|A fast and effective way to modify multiple cell references in Excel
+#DCF valuation - Calculating present value of cash flows in the forecast period
+107|2|Introducing weighted average cost of capital (WACC) and perpetuity growth rate
+108|3|Learn how to find the present value of future Cash Flows in Financial Models
+#DCF valuation - Calculating Continuing value, Enterprise value and Equity value
+109|2|Calculating Continuing value and Enterprise value of the business
+110|1|Final steps! Calculating Equity value of the business
+#DCF Valuation - Additional analyses accompanying the Financial Model
+111|5|Sensitivity analysis for WACC and perpetuity growth
+112|2|An application of Goal seek
+113|4|Recap of the financial model with charts and hypothesis testing
+#Tesla valuation - Complete DCF exercise
+114|4|Organizing external inputs in a ‘Drivers’ sheet
+115|1|The input data we will work with
+116|14|Forecasting Tesla’s expected deliveries
+117|3|Comparing delivery figures with the ones of industry peers
+118|5|Estimating an average selling price of Tesla vehicles
+119|5|Calculating automotive revenue
+120|2|Peer comparison: Gross profit %
+121|3|Calculating automotive gross profit
+122|2|Calculating automotive cost of sales
+123|3|Forecasting ‘energy’ and ‘services’ revenue
+124|3|Calculating ‘energy’ and ‘services’ gross profit and cost of sales
+125|5|Forecasting operating expenses
+126|6|Building a fixed asset roll forward: estimating Capex
+127|6|Building a fixed asset roll forward: D&A schedule
+128|1|Peer comparison: D&A as a percentage of revenues
+129|2|Calculating DSO, DIO, DPO
+130|1|Producing a clean P&L output sheet
+131|2|Fill in the P&L output sheet
+132|2|Calculating investments in working capital
+133|6|Forecasting Unlevered free cash flow
+134|4|Forecasting other assets
+135|2|Forecasting other liabilities
+136|4|Completing Unlevered free cash flow
+137|5|Modeling Tesla’s financing needs in the forecast period
+138|1|Calculating Net income
+139|4|Bridging Unlevered Free cash flow to Net cash flow
+140|1|Balancing the Balance sheet
+141|6|Estimating Weighted average cost of capital (WACC)
+142|4|Performing Discounted cash flow valuation (DCF)
+143|2|Calculating enterprise value, equity value, and price per share
+144|4|Closing remarks
+#Multiples valuation – triangulating DCF results with multiples
+145|5|What are valuation multiples and why we use them?
+146|3|What types of valuation multiples are there?
+147|3|Trading vs transaction valuation multiples
+148|7|Main principles of multiples valuation
+149|6|Comparison of earnings multiples (P/E vs EV/EBITDA)
+#Multiples valuation - practical example - Volkswagen
+150|5|Introduction to the exercise
+151|9|High-level assessment of peer companies
+152|5|Assessment of P&L data - comparable companies
+153|5|How to adjust EBIT - theoretical framework
+154|3|How to adjust EV - theoretical framework
+155|8|How to adjust EBIT - practical example - Volkswagen
+156|6|How to adjust EV - practical example - Volkswagen
+157|3|Conclusion of the practical exercise
+#A guide to Leveraged Buyouts
+158|4|What is an LBO?
+159|5|How does an LBO work in practice?
+160|5|Who are the lenders?
+161|3|What is debt capacity?
+162|4|When is an LBO a feasible option?
+163|3|The LBO price
+164|5|LBO exit strategies
+#LBO Case study: Dell’s LBO
+165|2|Intro to the deal
+166|5|Dell’s business from a strategic perspective
+167|5|Details and information about the deal
+168|1|The aftermath
+#LBO Valuation - Building a leveraged buyout (LBO) model from scratch
+169|5|Introduction to the model we will build
+170|4|Establishing the maximum amount of debt that can be used in the transaction
+171|2|Financial sponsors’ perspective
+172|5|Forecasting financials until EBIT
+173|3|The optimal debt structure
+174|3|Estimating cash flows and debt payments
+175|4|Completing the model for the period 2018-2021
+176|5|Calculating Enterprise value and IRR
+177|4|Performing sensitivity analysis
+#Building a comprehensive LBO model
+178|2|Case description
+179|1|Introduction to LBO Modeling exercise
+180|8|Key drivers in the LBO model
+181|3|Constructing the Profit and Loss header
+182|2|Analyzing historical Profit and Loss figures
+183|3|Valuing the Target company
+184|5|Estimating transaction fees
+185|4|Sources and uses of funds
+186|5|Shaping the Balance sheet at transaction
+187|1|Goodwill calculation
+188|6|Integrating assumptions into the Drivers sheet
+189|4|Building a Fixed asset roll forward schedule
+190|4|Forecasting financials using the Drivers sheet
+191|5|Completing the Profit and Loss statement (up to EBITDA)
+192|5|Modeling Working capital
+193|3|Filling in the Balance sheet at transaction sheet
+194|3|Add financials to the Balance sheet
+195|5|Projecting Fixed asset roll forward
+196|6|Developing a Debt schedule
+197|5|Creating a Fixed asset amortization schedule
+198|3|Structuring Cash Flow
+199|5|Designing the Financing sheet
+200|4|Calculating Cash Flow
+201|4|Building an Equity schedule
+202|2|Finalizing the Financing Cash Flow
+203|8|Modeling the Revolver facility (first part)
+204|3|Completing the Profit and Loss statement
+205|1|Modeling the Revolver facility (second part)
+206|4|Balancing the Balance sheet
+207|7|Exit valuation and IRR comparison
+#Interview preparation
+208|1|Career guide and frequently asked interview questions
+#Who Does What in Finance?
+209|61|Who Does What in Finance?
+#Bonus lecture
+210|1|Bonus lecture: Next steps`;
+/* course content (from Udemy), matched to a course by its name */
+const RAW_LLM=`#Week 1 - Build Your First LLM Product: Exploring Top Models
+1|11|Day 1 - Running Your First LLM Locally with Ollama and Open Source Models
+2|9|Day 1 - Spanish Tutor Demo with Open-Source Models & Course Overview
+3|4|Your Path to Becoming a Proficient AI Engineer
+4|6|Day 1 - Setting Up Your LLM Development Environment with Cursor and UV
+5|10|Day 1 - Setting Up Your PC Development Environment with Git and Cursor
+6|10|Day 1 - Mac Setup: Installing Git, Cloning the Repo, and Cursor IDE
+7|8|Day 1 - Installing UV and Setting Up Your Cursor Development Environment
+8|12|Day 1 - Setting Up Your OpenAI API Key and Environment Variables
+9|9|Day 1 - Installing Cursor Extensions and Setting Up Your Jupyter Notebook
+10|12|Day 1 - Running Your First OpenAI API Call and System vs User Prompts
+11|10|Day 1 - Building a Website Summarizer with OpenAI Chat Completions API
+12|8|Day 1 - Hands-On Exercise: Building Your First OpenAI API Call from Scratch
+13|8|Day 2 - LLM Engineering Building Blocks: Models, Tools & Techniques
+14|3|Day 2 - Your 8-Week Journey: From Chat Completions API to LLM Engineer
+15|6|Day 2 - Frontier Models: OpenAI GPT, Claude, Gemini & Grok Compared
+16|12|Day 2 - Open-Source LLMs: LLaMA, Mistral, DeepSeek, and Ollama
+17|10|Day 2 - Chat Completions API: HTTP Endpoints vs OpenAI Python Client
+18|8|Day 2 - Using the OpenAI Python Client with Multiple LLM Providers
+19|10|Day 2 - Running Ollama Locally with OpenAI-Compatible Endpoints
+20|11|Day 3 - Base, Chat, and Reasoning Models: Understanding LLM Types
+21|13|Day 3 - Frontier Models: GPT, Claude, Gemini & Their Strengths and Pitfalls
+22|10|Day 3 - Testing ChatGPT-5 and Frontier LLMs Through the Web UI
+23|12|Day 3 - Testing Claude, Gemini, Grok & DeepSeek with ChatGPT Deep Research
+24|11|Day 3 - Agentic AI in Action: Deep Research, Claude Code, and Agent Mode
+25|10|Day 3 - Frontier Models Showdown: Building an LLM Competition Game
+26|13|Day 4 - Understanding Transformers: The Architecture Behind GPT and LLMs
+27|9|Day 4 - From LSTMs to Transformers: Attention, Emergent Intelligence & Agentic A…
+28|8|Day 4 - Parameters: From Millions to Trillions in GPT, LLaMA & DeepSeek
+29|4|Day 4 - What Are Tokens? From Characters to GPT’s Tokenizer
+30|8|Day 4 - Understanding Tokenization: How GPT Breaks Down Text into Tokens
+31|11|Day 4 - Tokenizing with tiktoken and Understanding the Illusion of Memory
+32|11|Day 4 - Context Windows, API Costs, and Token Limits in LLMs
+33|9|Day 5 - Building a Sales Brochure Generator with OpenAI Chat Completions API
+34|11|Day 5 - Building JSON Prompts and Using OpenAI’s Chat Completions API
+35|9|Day 5 - Chaining GPT Calls: Building an AI Company Brochure Generator
+36|11|Day 5 - Building a Brochure Generator with GPT-4 and Streaming Results
+37|9|Day 5 - Business Applications, Challenges & Building Your AI Tutor
+#Week 2 - Build a Multi-Modal Chatbot: LLMs, Gradio UI, and Agents
+38|12|Day 1 - Connecting to Multiple Frontier Models with APIs (OpenAI, Claude, Gemini)
+39|7|Day 1 - Testing GPT-5 Models with Reasoning Effort and Scaling Puzzles
+40|8|Day 1 - Testing Claude, GPT-5, Gemini & DeepSeek on Brain Teasers
+41|9|Day 1 - Local Models with Ollama, Native APIs, and OpenRouter Integration
+42|12|Day 1 - LangChain vs LiteLLM: Choosing the Right LLM Framework
+43|11|Day 1 - LLM vs LLM: Building Multi-Model Conversations with OpenAI & Claude
+44|10|Day 2 - Building Data Science UIs with Gradio (No Front-End Skills Required)
+45|10|Day 2 - Building Your First Gradio Interface with Callbacks and Sharing
+46|9|Day 2 - Building Gradio Interfaces with Authentication and GPT Integration
+47|10|Day 2 - Markdown Responses and Streaming with Gradio and OpenAI
+48|9|Day 2 - Building Multi-Model Gradio UIs with GPT and Claude Streaming
+49|9|Day 3 - Building Chat UIs with Gradio: Your First Conversational AI Assistant
+50|6|Day 3 - Building a Streaming Chatbot with Gradio and OpenAI API
+51|10|Day 3 - System Prompts, Multi-Shot Prompting, and Your First Look at RAG
+52|8|Day 4 - How LLM Tool Calling Really Works (No Magic, Just Prompts)
+53|4|Day 4 - Common Use Cases for LLM Tools and Agentic AI Workflows
+54|12|Day 4 - Building an Airline AI Assistant with Tool Calling in OpenAI and Gradio
+55|10|Day 4 - Handling Multiple Tool Calls with OpenAI and Gradio
+56|13|Day 4 - Building Tool Calling with SQLite Database Integration
+57|8|Day 5 - Introduction to Agentic AI and Building Multi-Tool Workflows
+58|8|Day 5 - How Gradio Works: Building Web UIs from Python Code
+59|11|Day 5 - Building Multi-Modal Apps with DALL-E 3, Text-to-Speech, and Gradio Bloc…
+60|8|Day 5 - Running Your Multimodal AI Assistant with Gradio and Tools
+61|9|Day 5 Extra - Compare Frontier LLMs with OpenRouter: Generate SVG Art in Python
+#Week 3 - Open-Source Gen AI: Automated Solutions with HuggingFace
+62|12|Day 1 - Introduction to Hugging Face Platform: Models, Datasets, and Spaces
+63|7|Day 1 - HuggingFace Libraries: Transformers, Datasets, and Hub Explained
+64|10|Day 1 - Introduction to Google Colab and Cloud GPUs for AI Development
+65|8|Day 1 - Getting Started with Google Colab: Setup, Runtime, and Free GPU Access
+66|10|Day 1 - Setting Up Google Colab with Hugging Face and Running Your First Model
+67|14|Day 1 - Running Stable Diffusion and FLUX on Google Colab GPUs
+68|8|Day 2 - Introduction to Hugging Face Pipelines for Quick AI Inference
+69|11|Day 2 - HuggingFace Pipelines API for Sentiment Analysis on Colab T4 GPU
+70|10|Day 2 - Named Entity Recognition, Q&A, and Hugging Face Pipeline Tasks
+71|7|Day 2 - Hugging Face Pipelines: Image, Audio & Diffusion Models in Colab
+72|9|Day 3 - Tokenizers: How LLMs Convert Text to Numbers
+73|11|Day 3 - Tokenizers in Action: Encoding and Decoding with Llama 3.1
+74|7|Day 3 - How Chat Templates Work: LLaMA Tokenizers and Special Tokens
+75|5|Day 3 - Comparing Tokenizers: Phi-4, DeepSeek, and QWENCoder in Action
+76|8|Day 4 - Deep Dive into Transformers, Quantization, and Neural Networks
+77|10|Day 4 - Working with Hugging Face Transformers Low-Level API and Quantization
+78|8|Day 4 - Inside LLaMA: PyTorch Model Architecture and Token Embeddings
+79|11|Day 4 - Inside LLaMA: Decoder Layers, Attention, and Why Non-Linearity Matters
+80|11|Day 4 - Running Open Source LLMs: Phi, Gemma, Qwen & DeepSeek with Hugging Face
+81|12|Day 5 - Visualizing Token-by-Token Inference in GPT Models
+82|9|Day 5 - Building Meeting Minutes from Audio with Whisper and Google Colab
+83|10|Day 5 - Building Meeting Minutes with OpenAI Whisper and LLaMA 3.2
+84|4|Day 5 - Week 3 Wrap-Up: Build a Synthetic Data Generator with Open Source Models
+#Week 4 - LLM Showdown: Evaluating Models for Code Gen & Business Tasks
+85|12|Day 1 - Choosing the Right LLM: Model Selection Strategy and Basics
+86|4|Day 1 - The Chinchilla Scaling Law: Parameters, Training Data and Why It Matters
+87|8|Day 1 - Understanding AI Model Benchmarks: GPQA, MMLU-Pro, and HLE
+88|8|Day 1 - Limitations of AI Benchmarks: Data Contamination and Overfitting
+89|9|Day 1 - Build a Connect Four Leaderboard (Reasoning Benchmark)
+90|9|Day 2 - Navigating AI Leaderboards: Artificial Analysis, HuggingFace & More
+91|11|Day 2 - Artificial Analysis Deep Dive: Model Intelligence vs Cost Comparison
+92|9|Day 2 - Vellum, SEAL, and LiveBench: Essential AI Model Leaderboards
+93|5|Day 2 - LM Arena: Blind Testing AI Models with Community Elo Ratings
+94|9|Day 2 - Commercial Use Cases: Automation, Augmentation & Agentic AI
+95|9|Day 3 - Selecting LLMs for Code Generation: Python to C++ with Cursor
+96|9|Day 3 - Selecting Frontier Models: GPT-5, Claude, Grok & Gemini for C++ Code Gen
+97|11|Day 3 - Porting Python to C++ with GPT-5: 230x Performance Speedup
+98|10|Day 3 - AI Coding Showdown: GPT-5 vs Claude vs Gemini vs Groq Performance
+99|10|Day 4 - Open Source Models for Code Generation: Qwen, DeepSeek & Ollama
+100|8|Day 4 - Building a Gradio UI to Test Python-to-C++ Code Conversion Models
+101|8|Day 4 - Qwen 3 Coder vs GPT OSS: OpenRouter Model Performance Showdown
+102|10|Day 5 - Model Evaluation: Technical Metrics vs Business Outcomes
+103|10|Day 5 - Python to Rust Code Translation: Testing Gemini 2.5 Pro with Cursor
+104|10|Day 5 - Porting Python to Rust: Testing GPT, Claude, and Qwen Models
+105|13|Day 5 - Open Source Model Wins? Rust Code Generation Speed Challenge
+#Week 5 - Mastering RAG: Build Advanced Solutions with Vector Embeddings
+106|9|Day 1 - Introduction to RAG: Retrieval Augmented Generation Fundamentals
+107|11|Day 1 - Building a Simple RAG Knowledge Assistant with GPT-4.1 Nano
+108|9|Day 1 - Building a Simple RAG System: Dictionary Lookup and Context Retrieval
+109|9|Day 1 - Vector Embeddings and Encoder LLMs: The Foundation of RAG
+110|8|Day 1 - How Vector Embeddings Represent Meaning: From word2vec to Encoders
+111|7|Day 1 - Understanding the Big Idea Behind RAG and Vector Data Stores
+112|8|Day 2 - Vectors for RAG: Introduction to LangChain and Vector Databases
+113|12|Day 2 - Breaking Documents into Chunks with LangChain Text Splitters
+114|9|Day 2 - Encoder Models vs Vector Databases: OpenAI, BERT, Chroma & FAISS
+115|10|Day 2 - Creating Vector Stores with Chroma and Visualizing Embeddings with t-SNE
+116|12|Day 2 - 3D Vector Visualizations and Comparing Embedding Models
+117|8|Day 3 - Building a Complete RAG Pipeline with LangChain and Chroma
+118|10|Day 3 - Building a RAG Pipeline with LangChain: LLM & Retriever Setup
+119|11|Day 3 - Building RAG with LangChain: Retriever and LLM Integration
+120|12|Day 3 - Building Production RAG with Python Modules and Gradio UI
+121|13|Day 3 - RAG with Conversation History: Building a Gradio UI and Debugging Chunki…
+122|10|Day 4 - RAG Evaluations: Measuring Performance and Iterating on Your Pipeline
+123|14|Day 4 - Evaluating RAG Systems: Retrieval Metrics, LLM as Judge, and Golden Data
+124|11|Day 4 - Evaluating RAG Systems: MRR, NDCG, and Test Data with Pydantic
+125|9|Day 4 - LLM as a Judge: Evaluating RAG Answers with Structured Outputs
+126|9|Day 4 - Running RAG Evaluations with Gradio: MRR, nDCG, and Test Results
+127|10|Day 4 - Experimenting with Chunking Strategies and Embedding Models in RAG
+128|7|Day 4 - Testing OpenAI Embeddings and Evaluating RAG Performance Gains
+129|9|Day 5 - Advanced RAG Techniques: Pre-processing, Re-ranking & Evals
+130|10|Day 5 - Advanced RAG Techniques: Chunking, Encoders, and Query Rewriting
+131|12|Day 5 - Advanced RAG Techniques: Query Expansion, Re-ranking & GraphRAG
+132|13|Day 5 - Building Advanced RAG Without LangChain: Semantic Chunking with LLMs
+133|11|Day 5 - Creating Embeddings with Chroma, Visualizing with t-SNE, and Re-ranking
+134|9|Day 5 - Building RAG Without LangChain: Re-ranking and Query Rewriting
+135|12|Day 5 - Building Production RAG with Query Expansion and Multiprocessing
+136|11|Day 5 - Advanced RAG Evaluation: From 0.73 to 0.91 MRR with GPT-4o
+137|9|Day 5 - RAG Challenge: Beat My Results & Build Your Knowledge Worker
+#Week 6 - From Traditional ML to DL to fine-tuning a frontier model
+138|9|Day 1 - Training, Datasets, and Generalization: Your Capstone Begins
+139|12|Day 1 - Finetuning LLMs & The Price is Right Capstone Project Intro
+140|10|Day 1 - Curating Datasets: Finding Data Sources and Building Training Sets
+141|13|Day 1 - Curating Amazon Data with Hugging Face for Price Prediction
+142|11|Day 1 - Exploring Amazon Dataset Distribution and Removing Duplicates
+143|12|Day 1 - Weighted Sampling with NumPy and Uploading Datasets to Hugging Face
+144|10|Day 2 - Five-Step Strategy for Selecting and Applying LLMs to Business Problems
+145|8|Day 2 - The Five-Step AI Process & Productionizing with MLOps
+146|10|Day 2 - Data Pre-processing with LLMs and Groq Batch Mode
+147|12|Day 2 - Batch Processing with Groq API and JSONL Files for LLM Workflows
+148|14|Day 2 - Batch Processing with Groq: Running 22K LLM Requests for Under $1
+149|12|Day 3 - Building Baseline Models with Traditional ML and XGBoost
+150|12|Day 3 - Building Your First Baseline with Random Pricer and Scikit-learn
+151|10|Day 3 - Baseline Models and Linear Regression with Scikit-Learn
+152|8|Day 3 - Bag of Words and CountVectorizer for Linear Regression NLP
+153|10|Day 3 - Random Forest and XGBoost: Ensemble Models in Scikit-Learn
+154|11|Day 4 - Training Your First Neural Network and Testing Frontier Models
+155|9|Day 4 - Human Baseline Performance vs Machine Learning Models in PyTorch
+156|10|Day 4 - Building Your First Neural Network with PyTorch
+157|11|Day 4 - Testing GPT-4o-mini and Claude Opus Against Neural Networks
+158|11|Day 4 - Testing Gemini 3, GPT-5.1, Claude 4.5 & Grok on Price Prediction
+159|13|Day 5 - Fine-Tuning OpenAI Frontier Models with Supervised Fine-Tuning
+160|9|Day 5 - Fine-Tuning GPT-4o Nano with OpenAI’s API for Custom Models
+161|9|Day 5 - Fine-Tuning GPT-4o-mini-nano: Running Jobs and Monitoring Training
+162|10|Day 5 - Fine-Tuning Results: When GPT-4o-mini Gets Worse, Not Better
+163|10|Day 5 - When Fine-Tuning Frontier Models Fails & Building Deep Neural Networks
+164|10|Day 5 - Deep Neural Network Redemption: 289M Parameters vs Frontier Models
+#Week 7 - Fine-tuned open-source model to compete with Frontier model
+165|8|Day 1 - Introduction to QLoRA for Fine-Tuning Open-Source Models
+166|9|Day 1 - LoRA: Training LLaMA 3.2 with Low-Rank Adapters
+167|12|Day 1 - LoRA Hyperparameters and QLoRA Quantization Explained
+168|15|Day 1 - Setting Up Google Colab and Exploring LLaMA 3.2 Model Architecture
+169|11|Day 1 - Loading Models with 8-bit and 4-bit Quantization Using QLoRA
+170|9|Day 1 - LoRA Parameter Calculations and Model Size on Hugging Face
+171|11|Day 2 - Preparing Your Dataset for Fine-Tuning with Token Limits
+172|12|Day 2 - Fine-Tuning Data Prep: Rounding Prices and Token Length Optimization
+173|11|Day 2 - Preparing Hugging Face Datasets and Testing Base LLaMA 3.2 Model
+174|11|Day 2 - Base Models vs Chat Models: Understanding LLaMA Fine-Tuning
+175|11|Day 3 - Fine-Tuning Hyperparameters: QLoRA Settings and Training Config
+176|10|Day 3 - Learning Rate, Optimizers, and Training Hyperparameters for LoRA
+177|14|Day 3 - Setting Up Training: Hyperparameters, qLoRA Config & Weights & Biases
+178|9|Day 3 - Setting Up Weights & Biases and the HuggingFace SFT Trainer
+179|9|Day 3 - Running Fine-Tuning with TRL and Monitoring Training in Weights & Biases
+180|11|Day 4 - Monitoring Your Fine-Tuning Run with Weights & Biases
+181|10|Day 4 - Full Dataset Training on Google Colab A100 with 800K Data Points
+182|9|Day 4 - Monitoring Training Loss and Learning Rate in Weights & Biases
+183|11|Day 4 - Analyzing Weights & Biases Results and Catching Overfitting
+184|6|Day 4 - Managing Runs in Weights & Biases and Selecting Best Model Checkpoints
+185|8|Day 5 - Results Day: Running Inference on Fine-Tuned Models & Loss Calculation D…
+186|9|Day 5 - Cross-Entropy Loss: How LLMs Calculate Probability Distributions
+187|7|Day 5 - Testing Our Fine-Tuned LoRA Model Against GPT-4o Nano
+188|10|Day 5 - Fine-Tuned LLaMA 3.2 Crushes GPT-5.1 and Frontier Models
+#Week 8 - Build Autonomous multi agent system
+189|12|Day 1 - Intro to Agentic AI & Serverless Deployment on Modal
+190|9|Day 1 - Designing Agent Architectures & Modal Platform Setup
+191|11|Day 1 - Running Python Locally and in the Cloud with Modal Remote Execution
+192|10|Day 1 - Setting Up Modal Secrets and Deploying LLaMA Models to the Cloud
+193|14|Day 1 - Deploying Fine-Tuned Models to Modal Cloud with Persistent Storage
+194|6|Day 1 - Building Your First Agent with Modal Serverless AI
+195|9|Day 2 - Building Advanced RAG with ChromaDB and Vector Stores (No LangChain)
+196|10|Day 2 - Visualizing Chroma Vectors with t-SNE and Building a RAG Pipeline
+197|10|Day 2 - RAG with GPT-4o vs Fine-Tuned Models: Building an Ensemble
+198|11|Day 2 - Ensemble Model Success: Combining RAG, Neural Networks & Modal
+199|5|Day 2 - Building and Testing an Ensemble Agent with Multiple LLM Calls
+200|7|Day 3 - Structured Outputs with Pydantic and Constrained Decoding
+201|9|Day 3 - Building a Deal Scanner with Structured Outputs and Pydantic
+202|12|Day 3 - Structured Outputs for Parsing & Building a Pushover Notification Agent
+203|8|Day 4 - Building Agentic AI: Planning Agents with Tool Orchestration
+204|8|Day 4 - Building an Autonomous Planner Agent with Tool Calling and GPT-4
+205|10|Day 4 - Building an Autonomous Multi-Agent System with Tool Calling and Agent Lo…
+206|3|Day 4 - Building a Multi-Model AI Platform: 34 Calls Across GPT-5, Claude & Open…
+207|3|Day 5 - Finalizing Your Agentic Workflow and Becoming an AI Engineer
+208|6|Day 5 - Building the Price-Is-Right Agent UI with Gradio and DealAgentFramework
+209|9|Day 5 - Course Wrap-Up: Your Journey to AI Engineer
+210|3|Bonus Lecture - Your Exclusive Links`;
+const mk2=(raw,p,re,name)=>{const L=[],sec=[];let n=0,qn=0,cn=0,rn=0;
+ raw.split("\n").forEach(r=>{if(r[0]=="#"){sec.push(r.slice(1));return}
+  const s=sec.length-1,a=r.split("|"),k=a[0];
+  if(k=="Q"){qn++;L.push({id:"Q"+qn,m:0,t:"Quiz "+qn+": "+a[1],s,q:true,p})}
+  else if(k=="C"){for(let i=1;i<=+a[1];i++){cn++;L.push({id:"C"+cn,m:0,t:"Coding Exercise "+cn+": "+a[2]+" - Exercise #"+i,s,q:true,p})}}
+  else if(k=="R"){rn++;L.push({id:"R"+rn,m:0,t:a[1],s,q:true,p})}
+  else{n++;L.push({id:""+n,m:+k,t:a[1],s,q:false,p})}});
+ L.sec=sec;L.re=re;L.name=name;return L};
+const RAW_AIE=`#Intro to AI Module: Getting started
+10|Building an AI tool in 5 minutes: A quick demo
+3|What does the course cover
+2|Natural vs Artificial Intelligence
+5|Brief history of AI
+2|Demystifying AI, Data science, Machine learning, and Deep learning
+3|Weak vs strong AI
+1|From generation to taking action
+Q|Quiz 1
+4|AI tools to accelerate your learning
+#Intro to AI Module: Data is essential for building AI
+2|Structured vs unstructured data
+4|How we collect data
+2|Labelled and unlabelled data
+2|Metadata: Data that describes data
+Q|Quiz 2
+#Intro to AI Module: Key AI techniques
+6|Machine learning
+6|Supervised, Unsupervised, and Reinforcement learning
+8|Deep learning
+Q|Quiz 3
+#Intro to AI Module: Important AI branches
+5|Robotics
+5|Computer vision
+1|Traditional ML
+6|Generative AI
+Q|Quiz 4
+#Intro to AI Module: Understanding Generative AI
+2|The rise of Gen AI: Introducing ChatGPT
+3|Early approaches to Natural Language Processing (NLP)
+3|Recent NLP advancements
+6|From Language Models to Large Language Models (LLMs)
+4|The efficiency of LLM training. Supervised vs Semi-supervised learning
+5|From N-Grams to RNNs to Transformers: The Evolution of NLP
+5|Phases in building LLMs
+4|Prompt engineering vs Fine-tuning vs RAG: Techniques for AI optimization
+3|The importance of foundation models
+3|Buy vs Make: foundation models vs private models
+#Intro to AI Module: Practical challenges in Generative AI
+3|Inconsistency and hallucination
+3|Budgeting and API costs
+2|Latency
+2|Running out of data
+#Intro to AI Module: The AI tech stack
+2|Python programming
+2|Working with APIs
+3|Vector databases
+7|The importance of open source
+2|Hugging Face
+3|LangChain
+3|AI evaluation tools
+2|AI agent tools
+2|AI coding tools
+#Intro to AI Module: AI job positions
+5|AI strategist
+4|AI developer
+4|AI engineer
+#Intro to AI Module: Looking ahead
+6|AI ethics
+5|Future of AI
+#Python Module: Why Python?
+5|Programming Explained in a Few Minutes
+5|Why Python
+#Python Module: Setting Up the Environment
+3|Jupyter - Introduction
+4|Jupyter - Installing Anaconda
+5|Jupyter - Introduction to Using Jupyter
+5|Jupyter - Working with Notebook Files
+7|Jupyter - Using Shortcuts
+6|Jupyter - Handling Error Messages
+2|Jupyter - Restarting the Kernel
+Q|Setting Up the Environment - Jupyter
+#Python Module: Python Variables and Data Types
+4|Python Variables
+8|Python Coding Exercises
+C|4|Python Variables
+Q|Python Variables
+3|Types of Data - Numbers and Boolean Values
+C|5|Numbers and Boolean Values
+Q|Types of Data - Numbers and Boolean Values
+6|Types of Data - Strings
+C|5|Strings
+Q|Types of Data - Strings
+2|Anaconda AI - Introduction
+4|Using the Anaconda Assistant: Strings
+#Python Module: Basic Python Syntax
+3|Basic Python Syntax - Arithmetic Operators
+C|8|Arithmetic Operators
+Q|Basic Python Syntax - Arithmetic Operators
+2|Basic Python Syntax - The Double Equality Sign
+C|1|The Double Equality Sign
+Q|Basic Python Syntax - The Double Equality Sign
+1|Basic Python Syntax - Reassign Values
+C|4|Reassign Values
+Q|Basic Python Syntax - Reassign Values
+2|Basic Python Syntax - Add Comments
+Q|Basic Python Syntax - Add Comments
+1|Basic Python Syntax - Line Continuation
+C|1|Line Continuation
+1|Basic Python Syntax - Indexing Elements
+C|2|Indexing Elements
+Q|Basic Python Syntax - Indexing Elements
+2|Basic Python Syntax - Indentation
+C|1|Indentation
+Q|Basic Python Syntax - Indentation
+#Python Module: More on Operators
+2|Operators - Comparison Operators
+C|4|Comparison Operators
+Q|Operators - Comparison Operators
+6|Operators - Logical and Identity Operators
+C|6|Logical and Identity Operators
+Q|Operators - Logical and Identity Operators
+#Python Module: Conditional Statements
+3|Conditional Statements - The IF Statement
+C|2|The IF Statement
+Q|Conditional Statements - The IF Statement
+3|Conditional Statements - The ELSE Statement
+C|1|The ELSE Statement
+6|Conditional Statements - The ELIF Statement
+C|2|The ELIF Statement
+2|Conditional Statements - A Note on Boolean Values
+Q|Conditional Statements - A Note on Boolean Values
+#Python Module: Functions
+2|Functions - Defining a Function in Python
+4|Functions - Creating a Function with a Parameter
+C|2|Creating a Function with a Parameter
+3|Functions - Another Way to Define a Function
+C|1|Another Way to Define a Function
+2|Functions - Using a Function in Another Function
+C|1|Using a Function in Another Function
+3|Functions - Combining Conditional Statements and Functions
+C|1|Combining Conditional Statements and Functions
+1|Functions - Creating Functions Containing a Few Arguments
+4|Functions - Notable Built-in Functions in Python
+C|9|Notable Built-in Functions in Python
+Q|Python Functions
+#Python Module: Sequences
+4|Sequences - Lists
+C|5|Lists
+Q|Sequences - Lists
+3|Sequences - Using Methods
+C|4|Using Methods
+Q|Sequences - Using Methods
+5|Sequences - List Slicing
+C|7|List Slicing
+3|Sequences - Tuples
+C|4|Tuples
+4|Sequences - Dictionaries
+C|6|Dictionaries
+Q|Sequences - Dictionaries
+#Python Module: Iteration
+3|Iteration - For Loops
+C|2|For Loops
+Q|Iteration - For Loops
+2|Iteration - While Loops and Incrementing
+C|1|While Loops and Incrementing
+4|Iteration - Create Lists with the range() Function
+C|3|Create Lists with the range() Function
+Q|Iteration - Create Lists with the range() Function
+3|Iteration - Use Conditional Statements and Loops Together
+C|3|Conditional Statements and Loops
+2|Iteration - Conditional Statements, Functions, and Loops
+C|1|Conditional Statements, Functions, and Loops
+6|Using the Anaconda Assistant: Several Python Tools
+3|Iteration - Iterating over Dictionaries
+C|2|Iterating over Dictionaries
+2|Using the Anaconda Assistant: Dictionaries
+#Python Module: A Few Important Python Concepts and Terms
+5|Introduction to Object Oriented Programming (OOP)
+4|Modules, Packages, and the Python Standard Library
+3|Importing Modules
+Q|Important Python Concepts and Terms
+9|Python List Comprehensions
+C|5|Python List Comprehensions
+7|Python Anonymous Functions (Lambda Functions)
+C|4|Python Anonymous Functions
+4|What is Software Documentation
+6|The Python Documentation
+R|Role Play 1: Practical Python at Work — Four Quick Questions
+#NLP Module: Introduction
+3|Introduction to the course
+1|Course materials and notebooks
+2|Introduction to NLP
+Q|Introduction to NLP
+1|NLP in everyday life
+2|Supervised vs unsupervised NLP
+Q|Supervised vs unsupervised NLP
+#NLP Module: Text Preprocessing
+2|The importance of data preparation
+6|Setting up the environment
+3|Setting up the environment and exploring the packages (text article)
+Q|Python environment for NLP
+3|Lowercasing text
+Q|Lowercasing text
+5|Removing stop words
+Q|Removing stop words
+10|Regular expressions (regex)
+Q|Regex
+3|Tokenization
+Q|Tokenization
+4|Stemming
+3|Lemmatization
+Q|Stemming and lemmatization
+6|N-grams
+2|The pandas library explanation
+Q|N-grams and pandas
+1|A note on the practical task
+14|Practical task: Text preprocessing
+7|Additional notes: Text preprocessing with pandas and NLTK
+Q|The NLTK library
+Q|Lambda functions with apply()
+#NLP Module: Identifying Parts of Speech and Named Entities
+1|Text tagging
+7|Parts of Speech (POS) tagging
+8|Named Entity Recognition (NER)
+Q|POS tagging and NER
+1|A note on the practical task
+16|Practical task: POS and NER
+#NLP Module: Sentiment Analysis
+2|What is sentiment analysis?
+5|Rule-based sentiment analysis
+6|Pre-trained transformer models
+1|A note on the practical task
+12|Practical Task: Sentiment analysis
+Q|Sentiment analysis
+#NLP Module: Vectorizing Text
+2|Numerical representation of text
+5|Bag of Words model
+3|TF-IDF
+Q|Vectorizing text
+#NLP Module: Topic Modelling
+3|What is topic modelling?
+2|When to use topic modelling?
+2|Latent Dirichlet Allocation (LDA)
+1|A note on the following lesson
+8|LDA in Python
+2|Latent Semantic Analysis (LSA)
+1|LSA in Python
+Q|LDA and LSA
+6|Determining the number of topics
+#NLP Module: Building Your Own Text Classifier
+1|Building a custom text classifier
+10|Logistic regression
+3|Naive Bayes
+3|Linear support vector machine
+Q|Building a custom text classifier
+#NLP Module: Categorizing Fake News (Case Study)
+1|A note on the case study
+4|Introducing the project
+9|Exploring our data through POS tags
+5|Extracting named entities
+9|Processing the text
+5|Does sentiment differ between news types?
+6|What topics appear in fake news? (Part 1)
+6|What topics appear in fake news? (Part 2)
+6|Categorizing fake news with a custom classifier
+#NLP Module: The Future of NLP
+3|What is deep learning?
+2|Deep learning for NLP
+2|Non-English NLP
+2|What’s next for NLP?
+#LLMs Module: Introduction to Large Language Models
+2|Introduction to the course
+1|Course materials and notebooks
+3|What are LLMs?
+3|How large is an LLM?
+1|General purpose models
+3|Pre-training and fine tuning
+3|What can LLMs be used for?
+#LLMs Module: The Transformer Architecture
+3|Deep learning recap
+4|The problem with RNNs
+3|The solution: attention is all you need
+1|The transformer architecture
+3|Input embeddings
+4|Multi-headed attention
+3|Feed-forward layer
+1|Masked multihead attention
+2|Predicting the final outputs
+#LLMs Module: Getting Started With GPT Models
+1|What does GPT mean?
+2|The development of ChatGPT
+2|Setting up the environment
+3|OpenAI API
+2|Generating text
+4|Customizing GPT output
+1|Important Update
+4|Key word text summarization
+6|Coding a simple chatbot
+1|Introduction to LangChain in Python
+3|LangChain
+5|Adding custom data to our chatbot
+#LLMs Module: Hugging Face Transformers
+3|Hugging Face package
+6|The transformer pipeline
+9|Pre-trained tokenizers
+3|Special tokens
+5|Hugging Face and PyTorch/TensorFlow
+1|Saving and loading models
+#LLMs Module: Question and Answer Models With BERT
+3|GPT vs BERT
+5|BERT architecture
+2|Loading the model and tokenizer
+4|BERT embeddings
+6|Calculating the response
+9|Creating a QA bot
+3|BERT, RoBERTa, DistilBERT
+#LLMs Module: Text Classification With XLNet
+4|GPT vs BERT vs XLNET
+1|A note on the following lecture
+10|Preprocessing our data
+4|XLNet Embeddings
+4|Fine tuning XLNet
+3|Evaluating our model
+#LangChain Module: Introduction
+5|Introduction to the course
+1|Course materials and notebooks
+5|Business applications of LangChain
+5|What makes LangChain powerful?
+6|What does the course cover?
+#LangChain Module: Tokens, Models, and Prices
+6|Tokens
+3|Models and Prices
+#LangChain Module: Setting Up the Environment
+4|Setting up a custom anaconda environment for Jupyter integration
+2|Obtaining an OpenAI API key
+7|Setting the API key as an environment variable
+#LangChain Module: The OpenAI API
+4|First Steps
+4|System, user, and assistant roles
+3|Creating a sarcastic chatbot
+6|Temperature, max tokens, and streaming
+#LangChain Module: Model Inputs
+6|The LangChain framework
+2|Note on LangChain updates and course notebooks
+6|ChatOpenAI
+4|System and human messages
+5|AI messages
+5|Prompt templates and prompt values
+6|Chat prompt templates and chat prompt values
+6|Few-shot chat message prompt templates
+#LangChain Module: Output Parsers
+2|String output parser
+3|Comma-separated list output parser
+1|A note on using langchain-classic
+3|Datetime output parser
+#LangChain Module: LangChain Expression Language (LCEL)
+7|Piping a prompt, model, and an output parser
+5|Batching
+4|Streaming
+1|A Note about the LangChain documentation
+5|The Runnable and RunnableSequence classes
+8|Piping chains and the RunnablePassthrough class
+2|Graphing Runnables
+6|RunnableParallel
+6|Piping a RunnableParallel with other Runnables
+5|RunnableLambda
+4|The @chain decorator
+#LangChain Module: Retrieval Augmented Generation (RAG)
+4|How to integrate custom data into an LLM
+4|Introduction to RAG
+4|Introduction to document loading and splitting
+7|Introduction to document embedding
+4|Introduction to document storing, retrieval, and generation
+1|A note on Chroma integration
+7|Indexing: Document loading with PyPDFLoader
+2|Indexing: Document loading with Docx2txtLoader
+3|Indexing: Document splitting with character text splitter (Theory)
+5|Indexing: Document splitting with character text splitter (Code along)
+6|Indexing: Document splitting with Markdown header text splitter
+6|Indexing: Text embedding with OpenAI
+6|Indexing: Creating a Chroma vectorstore
+4|Indexing: Inspecting and managing documents in a vectorstore
+5|Retrieval: Similarity search
+7|Retrieval: Maximal Marginal Relevance (MMR) search
+4|Retrieval: Vectorstore-backed retriever
+4|Generation: Stuffing documents
+4|Generation: Generating a response
+#LangGraph Module: Introduction
+3|Welcome to the course!
+3|What does the course cover?
+2|Course prerequisites
+#LangGraph Module: Setting Up the Environment
+5|Setting up the environment
+#LangGraph Module: Graph Components and Implementation
+5|States, nodes, and edges
+4|First graph: Importing relevant classes
+4|First graph: Defining a state and a node
+5|First graph: Building the graph
+6|Conditional edges: Defining nodes and a routing function
+5|Conditional edges: Building the graph
+#LangGraph Module: Message Management
+5|The Annotated construct and reducer functions
+4|Reducer functions in action
+4|The MessagesState class
+3|The RemoveMessages class
+4|Trimming messages
+8|Summarizing messages
+#LangGraph Module: Thread-Level Persistence
+3|Checkpointers and threads
+5|Short-term memory with the InMemorySaver class
+3|The StateSnapshot class
+5|Long-term memory with SQLite
+#Vector Databases Module: Introduction
+3|Introduction to the course
+1|Course materials and notebooks
+5|Database comparison: SQL, NoSQL, and Vector
+4|Understanding vector databases
+#Vector Databases Module: Basics of Vector Space and High-Dimensional Data
+5|Introduction to vector space
+6|Distance metrics in vector space
+4|Vector embeddings walkthrough
+#Vector Databases Module: Introduction to The Pinecone Vector Database
+7|Vector databases, comparison
+4|Pinecone registration, walkthrough and creating an Index
+3|Connecting to Pinecone using Python
+1|Assignment
+3|Creating and deleting a Pinecone index using Python
+4|Upserting data to a pinecone vector database
+2|Getting to know the fine web data set and loading it to Jupyter
+5|Upserting data from a text file and using an embedding algorithm
+#Vector Databases Module: Semantic Search with Pinecone and Custom (Case Study)
+4|Introduction to semantic search
+5|Introduction to the case study – smart search for data science courses
+2|Getting to know the data for the case study
+4|Data loading and preprocessing
+4|Pinecone Python APIs and connecting to the Pinecone server
+4|Embedding Algorithms
+3|Embedding the data and upserting the files to Pinecone
+4|Similarity search and querying the data
+4|How to update and change your vector database
+4|Data preprocessing and embedding for courses with section data
+1|Assignment 2
+2|Upserting the new updated files to Pinecone
+4|Similarity search and querying courses and sections data
+4|Using the BERT embedding algorithm
+1|Assignment 3
+4|Vector database for recommendation engines
+4|Vector database for semantic image search
+4|Vector database for biomedical research
+#Speech Recognition Module: Introduction
+5|Welcome to the world of Speech Recognition
+1|Module Resources
+4|Course Approach
+3|How it all started: Formants, harmonics, and phonemes
+4|Development and Evolution
+#Speech Recognition Module: Sound and Speech Basics
+3|How do humans recognize speech?
+Q|How do humanz recognize speech?
+3|Fundamentals of sound and sound waves
+6|Properties of sound waves
+#Speech Recognition Module: Analog to Digital Conversion
+5|Key concepts: Sample Rate, bit depth, and bit rate
+5|Audio signal processing for Machine Learning and AI
+#Speech Recognition Module: Audio Feature Extraction for AI Applications
+7|Time-domain audio features
+6|Frequency-domain and time-frequency-domain audio features
+5|Time-domain feature extraction: Framing and feature computation
+4|Frequency-domain feature extraction: Fourier transform
+#Speech Recognition Module: Technology Mechanics
+4|Acoustic and language modeling
+7|Hidden Markov Models (HMMs) and traditional neural networks
+7|Deep learning models: CNNs, RNNs, and LSTMs
+5|Advanced speech recognition systems: Transformers
+4|Building a speech recognition model part I
+4|Building a speech recognition model part II
+6|Selecting the appropriate speech recognition tool
+1|Expanding beyond the tools we’ve covered
+#Speech Recognition Module: Setting Up the Environment
+2|Installing Anaconda
+3|Setting up a new environment
+6|Installing packages for speech recognition
+3|Importing the relevant packages in Jupyter
+#Speech Recognition Module: Transcribing Audio with Google Web Speech API
+7|Audio file formats for speech recognition
+8|Importing audio files in Jupyter Notebook
+9|The SpeechRecognition library: Google Web Speech API
+3|Evaluation metrics: WER and CER
+6|Calculating WER and CER in Python
+#Speech Recognition Module: Background Noise and Spectrograms
+4|Understanding noise in audio files
+7|Creating a spectrogram with Python
+9|Dealing with background noise
+#Speech Recognition Module: Transcribing Audio with OpenAI’s Whisper
+8|9.1 Whisper AI: Transformer-based speech-to-text
+2|A note on variability
+5|Transcribing multiple audio files from a directory
+5|Saving audio transcriptions to CSV for easy analysis
+3|Reversing the process: AI-powered text-to-speech
+#Speech Recognition Module: Final Discussion and Future Directions
+5|Modern practices and applications
+3|Challenges and limitations
+4|The future of speech recognition with AI
+#LLM Engineering Module: Introduction
+3|Introduction to the Course
+2|What does the course cover?
+5|The Interview Tool’s Specifics
+#LLM Engineering Module: Planning stage
+4|Hosting an LLM vs Using an API
+7|Open-Source vs Closed-Source Models
+5|Tokens
+4|Pricing: Hosting an LLM vs Pay-by-Token
+5|Initial Prompt Development: Part 1
+5|Initial Prompt Development: Part 2
+3|Database Design and Schema Development
+4|What Is an Activity Diagram
+5|Creating an Activity Diagram
+2|Concluding the Planning Stage
+#LLM Engineering Module: Crafting and Testing AI Prompts
+1|Adding Funds to Your OpenAI API Account
+7|The OpenAI Playground
+5|Optimizing Temperature and Top P for Different Use Cases
+6|Prompt Engineering for Software Development
+4|How to Test Out a Prompt Template
+#LLM Engineering Module: Getting to Know Streamlit
+6|Setting up environment
+3|Streamlit’s Pros and Cons
+3|Streamlit Elements: Titles, Headers, and Formatting
+3|Streamlit Elements: Text Methods
+4|Streamlit Elements: Chat Elements
+6|Session State
+#LLM Engineering Module: Developing the prototype
+4|Initializing an OpenAI Client
+6|Implementing the Chat Functionality
+7|Building the Setup Page
+6|Enhancing Chatbot Interaction with Session State
+3|Refining Our Project
+4|Implementing Feedback Functionality: Part 1
+7|Implementing Feedback Functionality: Part 2
+1|Keeping Your API Key Safe Before Uploading to GitHub
+5|Uploading Your Project in GitHub
+4|Deploying Your Streamlit App
+#LLM Engineering Module: Solving Real-World AI Challenges
+2|Introduction
+3|Application Structure
+6|Prompt Structure of HR Interviews
+8|Prompt Structure of Technical Interviews
+3|Additional Protection From Errors
+7|Hallucinations
+4|Prompt Injection
+3|Counting Tokens
+9|Cost Reduction
+3|Scaling
+1|Conclusion
+#AI Ethics Module: Introduction to AI and Data Ethics
+5|What does the course cover
+6|The AI Lifecycle: From data collection to model application
+7|Why AI Ethics matter more than ever
+4|Ethics vs laws
+Q|Ethics vs laws
+#AI Ethics Module: The Core Principles of AI Ethics
+4|Privacy
+3|Transparency
+4|Accountability
+5|Fairness
+#AI Ethics Module: Ethical Data Collection
+4|Ethical sourcing and types of data
+3|Proprietary data
+2|Public data
+Q|Public data
+3|Web-scraped data
+2|Dealing with sensitive and protected information
+3|Data bias and fair representation
+#AI Ethics Module: Ethical AI Development
+4|Ethical challenges in working with labeled data
+4|Ethical considerations for unlabeled data
+4|Ethical challenges in unsupervised training
+4|Ethical considerations for supervised Fine-tuning
+3|RLHF and ethical AI behavior
+4|Inclusive and fair AI development practices
+#AI Ethics Module: Ethical AI Deployment
+4|Intellectual property and user consent in AI interactions
+3|Ethical responsibilities of foundation model developers
+4|Common issues in foundation models: Open-source data
+5|Inconsistency
+4|Hallucination
+1|Inconsistency and Hallucination
+2|Ongoing monitoring and risk mitigation for deployed AI
+#AI Ethics Module: Ethical AI for End-Users: Businesses
+5|Access to AI technology for businesses of all sizes
+5|Transparency in AI decision-making processes
+3|Ethical use of AI outputs in business
+3|Responsible AI adoption and risk management for businesses
+#AI Ethics Module: Ethical AI for End-Users: Individuals
+4|Equity in access to AI technology
+3|Ethical considerations in human-AI collaboration
+3|Responsible use of AI-generated outputs
+#AI Ethics Module: ChatGPT Ethics
+5|Understanding ChatGPT
+4|Privacy concerns with ChatGPT
+5|OpenAI’s privacy policies and data handling
+4|Misinformation and AI-generated content
+5|ChatGPT plagiarism
+4|ChatGPT and the environment
+#AI Ethics Module: Data and AI Regulatory Frameworks
+2|Global AI and data regulations
+5|European Union: GDPR and the EU Artificial Intelligence Act
+3|United States: AI regulation across states
+3|Asia-Pacific region: Strong government control
+3|Africa’s push for AI governance
+#Bonus
+1|Bonus lecture`;
+const RAW_AG=`#Week 1
+15|Day 1 - Build Your First Autonomous AI Agent with n8n (No-Code Demo)
+13|Day 1 - Course Roadmap: 6 Weeks, 8 Projects in Agentic AI Engineering
+4|Your Path to Becoming a Proficient AI Engineer
+12|Day 1 - Environment Setup Overview: UV, API Keys, Costs and GitHub Repo
+16|Day 1 - Windows Setup: Install Cursor, Git, Clone the Repo and Run UV
+12|Day 1 - Mac Setup: Install Cursor, Git, Clone the Repo and Run UV
+18|Day 1 - Set Up Your OpenAI API Key and .env File for the First Lab
+14|Day 1 - Your First OpenAI API Call and Chaining LLM Calls in Python
+12|Day 2 - What Is an AI Agent? Definitions, Workflows vs Agents Explained
+9|Day 2 - Agentic AI Design Patterns: Chaining, Routing, Orchestrator
+17|Day 2 - Agentic AI Risks, Guardrails, Evals and Traps to Avoid
+10|Day 3 - LLM Providers Compared: OpenAI, Claude, Gemini, Ollama, Groq
+8|Day 3 - Set Up Multiple LLM API Keys and Generate a Question to Ask
+11|Day 3 - Call 8 LLMs with the OpenAI-Compatible API: GPT, Claude, Gemini
+10|Day 3 - Install Ollama and Run Local LLMs: Llama, GPT-OSS and Gemma
+10|Day 3 - LLM as a Judge: Rank Multiple LLMs with an Orchestration Flow
+16|Day 4 - The Agent Landscape: Frameworks, Runtimes, Tools and Builders
+9|Day 4 - How Tool Calling Works: The Truth Behind AI Agent Autonomy
+14|Day 4 - Start the Digital Twin: Read a PDF and Master System Prompts
+16|Day 4 - Build a Chat UI with Gradio and Define Your First Agent Tool
+16|Day 4 - Build the Agent Loop From Scratch: Tool Calling with a While Loop
+11|Day 5 - Context Engineering for AI Agents: Memory, Tools and RAG
+9|Day 5 - Add Tools to Your Digital Twin Agent with Pushover Notifications
+4|Day 5 - Handle Multiple Tool Calls in Python with the globals Trick
+5|Day 5 - Build the Digital Twin Agent Loop and Test It Live in Gradio
+10|Day 5 - Refactor the Digital Twin Agent into Python Modules and Run It
+16|Day 5 - Deploy Your Digital Twin AI Agent to Hugging Face Spaces
+13|Day 5 - Build a Visible Agent Loop with Checklist Tools Like Claude Code
+#Week 2
+14|Day 1 - OpenAI Agents SDK Intro and Async Python (asyncio) Explained
+14|Day 1 - OpenAI Agents SDK Core Concepts: Agent, Trace and Runner.run
+14|Day 1 - Build Your First Agent with OpenAI Agents SDK: Runner and Tracing
+11|Day 1 - Add Tools to an Agent with the function_tool Decorator
+11|Day 1 - Adding Memory to Agents with Sessions and SQLiteSession
+3|Day 2 - Build a Multi-Agent Sales Team and Orchestrate Agents Three Ways
+9|Day 2 - Set Up Email Sending Tools for Your AI Sales Agents
+7|Day 2 - Agent Orchestration by Code vs by LLM in the OpenAI Agents SDK
+12|Day 2 - Orchestrate Multiple Sales Agents by Code with asyncio.gather
+8|Day 2 - Orchestrate Agents as Tools with a Sales Manager Agent
+10|Day 2 - Orchestrate Agents with Handoffs in the OpenAI Agents SDK
+16|Day 3 - Use Any LLM with the OpenAI Agents SDK: Gemini, Groq and More
+16|Day 3 - Structured Outputs with Pydantic in the OpenAI Agents SDK
+21|Day 3 - Build Guardrails for AI Agents Plus Sandboxes and MCP
+5|Day 4 - Plan a Deep Research AI Agent with the OpenAI Agents SDK
+8|Day 4 - Build a Web Search Agent with OpenAI Agents SDK Hosted Tools
+8|Day 4 - Build Planner, Writer and Email Agents with Structured Outputs
+13|Day 4 - Run the Full Deep Research Agent Orchestrated by Code
+9|Day 5 - Turn Your Deep Research Agent into Python Modules for Deploy
+9|Day 5 - Build a Gradio UI for Your Deep Research AI Agent
+10|Day 5 - Deploy Your Deep Research Gradio App to Hugging Face Spaces
+#Week 3
+6|Day 1 - Intro to CrewAI: Crews, Flows, and the Open Source Framework
+11|Day 1 - CrewAI Core Concepts: Agents, Tasks, Crews, and YAML Files
+9|Day 1 - Installing CrewAI with uv tool and Setting Up Skills
+15|Day 1 - Build Your First Crew: crewai create crew and crewai run
+7|Day 1 - Build a CrewAI Debate Crew: Define Agents and Tasks in YAML
+11|Day 1 - Wire Up crew.py and main.py to Run a CrewAI Debate
+9|Day 2 - The 5 Steps to Build Any CrewAI Project with Tools and Context
+12|Day 2 - Build a Financial Researcher Crew with YAML, Context, and Tools
+10|Day 2 - Add the Serper Tool to a CrewAI Financial Researcher and Run It
+7|Day 3 - Stock Picker Crew: Structured Outputs, Custom Tools, Memory
+12|Day 3 - Define Pydantic Structured Outputs for the Stock Picker Crew
+18|Day 3 - Custom Tools, Memory, and Hierarchical Process in CrewAI
+7|Day 4 - Build a CrewAI Coding Agent: Intro and Installing Docker
+9|Day 4 - Build Custom Sandbox Tools for a CrewAI Coding Agent
+8|Day 4 - Run Python in a Docker Sandbox with a CrewAI Coding Agent
+9|Day 5 - Build a CrewAI Engineering Team: Define the Four AI Agents
+9|Day 5 - Wire Up Engineering Team Tasks and crew.py with Context7 MCP
+11|Day 5 - Build UV Sandbox Tools and Set Requirements for the AI Team
+18|Day 5 - Run the CrewAI Engineering Team with Multiple LLM Models
+#Week 4
+14|Day 1 - LangChain Ecosystem Explained: The Four Layers for Building AI Agents
+9|Day 1 - LangChain Core Basics: ChatOpenAI, Invoke, Stream and the Tool Decorator
+7|Day 1 - Bind Tools and Structured Outputs: Your First LangChain AI Agent
+13|Day 2 - LangGraph Explained: Graphs, State, Nodes, Edges and Reducers
+17|Day 2 - Build Your First LangGraph Graph: Nodes, Edges and Tool Calling
+12|Day 2 - LangSmith, Supersteps and Checkpointers for LangGraph Agents
+12|Day 2 - LangGraph Memory and Time Travel: MemorySaver, SQLite and Replay
+4|Day 3 - Intro to LangChain create_agent: The Easy Way to Build AI Agents
+6|Day 3 - Build a Simple Agent with LangChain create_agent and Tools
+6|Day 3 - Agent Memory, Structured Outputs and Middleware in LangChain
+5|Day 3 - Browser Automation with Node and Playwright for AI Agents
+9|Day 3 - Build a Web Research Agent with create_agent and Playwright MCP
+4|Day 4 - Deep Agents Overview: The Agent Harness for Long-Running AI Tasks
+7|Day 4 - Deep Agents Skills Explained: SKILL.md and Progressive Disclosure
+7|Day 4 - Build Your First Deep Agent with a File System and To-Do Tools
+7|Day 4 - Deep Agents Sub-Agents: Delegation and the Task Tool Explained
+6|Day 4 - Add Skills to Deep Agents: Build a PowerPoint with SKILL.md
+4|Day 5 - Intro to the Sidekick: An Autonomous AI Coworker with create_agent
+5|Day 5 - Sidekick Setup: Tools, Middleware and Evaluator with create_agent
+6|Day 5 - Human in the Loop with LangChain create_agent: Approve and Reject
+7|Day 5 - Inside the Sidekick Module: create_agent, Middleware and Evaluator
+7|Day 5 - Run the Sidekick: An Autonomous AI Agent on Real-World Tasks
+7|Day 5 - Build a Gradio UI for the Sidekick AI Agent and Finish the Project
+#Week 5
+7|Day 1 - Intro to Google ADK and the Agent Development Kit
+9|Day 1 - Build Your First Google ADK Agent and Add Tools
+11|Day 1 - ADK Agent Loop with MCP Tools and the ADK Web Dashboard
+11|Day 1 - The A2A Protocol: Agent Cards and a Live Agent2Agent Demo
+9|Day 2 - Build AI Agents with Strands Agents from AWS and Bedrock
+8|Day 2 - Build AI Agents with Pydantic AI and Structured Outputs
+2|Day 2 - Run a Pydantic AI Agent in Python and Wrap Up Strands
+5|Day 3 - Intro to the Microsoft Agent Framework, AutoGen and Semantic Kernel
+6|Day 3 - Build an AI Agent with the Microsoft Agent Framework Lab
+3|Day 3 - Intro to Agno: The Fast, Lightweight AI Agent Framework
+7|Day 3 - Build an AI Agent with Agno: Tools, MCP and the Agent Loop
+3|Day 4 - Intro to Mastra: The TypeScript-Native AI Agent Framework
+9|Day 4 - Build AI Agents in TypeScript with Mastra: Tools and MCP
+4|Day 4 - Run the Mastra Agent Loop and Explore Mastra Studio
+11|Day 5 - The Agent Loop Project: Multi-Framework Agent Architecture
+8|Day 5 - Inside the Agent Loop: Orchestrator, QA and CSS Agents
+10|Day 5 - Run the Multi-Agent Loop: Six Frameworks Build in Parallel
+#Week 6 - MCP
+9|Day 1 - Welcome to MCP Week: Agent Frameworks and the Agent Harness
+13|Day 1 - What Is MCP? Host, Client and Server Architecture Explained
+9|Day 1 - How MCP Works: Local vs Remote Servers and Calling Tools
+11|Day 1 - Exploring Node-Based MCP Servers & Tool Access / MCP Transport Mech…
+11|Day 1 - First MCP Lab: Connecting Fetch, Playwright and Filesystem
+12|Day 1 - Build a Web-Browsing AI Agent with MCP Servers and Traces
+7|Day 2 - MCP Recap: Core Concepts Before Building Your Own MCP Server
+4|Day 2 - Why Build Your Own MCP Server (and When You Shouldn’t)
+10|Day 2 - MCP Marketplaces and Building an MCP Server with FastMCP
+5|Day 2 - Run and Call Your Own MCP Server from an AI Agent
+10|Day 3 - Context Engineering for AI Agents with MCP Servers
+9|Day 3 - Long-Term Memory and Web Search MCP Servers for AI Agents
+6|Day 3 - Agentic RAG with the Qdrant MCP Server for AI Agents
+10|Day 3 - Market Data MCP Server and Progressive Disclosure of Tools
+4|Day 4 - Capstone Kickoff: Build an Autonomous AI Trading Floor
+9|Day 4 - Trading Floor Architecture: Trader and Researcher AI Agents
+11|Day 4 - Wiring Up MCP Servers and the Researcher-as-Tool Pattern
+8|Day 4 - Orchestrate the Trading Floor and Launch the Gradio Dashboard
+6|Day 5 - Add Observability, Evaluation and Feedback to AI Traders
+11|Day 5 - Ship the Trading App: FastAPI Backend and React Front End
+2|Day 5 - Inspecting Traces and Your Capstone Trading Floor Challenge
+9|Day 5 - Choosing an Agent Framework and 10 Things That Really Matter
+3|Day 5 - Course Wrap-Up: Your Agentic AI Engineering Journey
+3|Bonus Lecture - Your Exclusive Links`;
+const CYB=mk(RAW,"cy.",/cyber/i,"Cyber Security"),IBK=mk(RAW_IB,"ib.",/investment/i,"Investment Banking"),LLM=mk(RAW_LLM,"ll.",/llm/i,"LLM Engineer"),AIE=mk2(RAW_AIE,"ai.",/ai engineer/i,"AI Engineer Training"),AGT=mk2(RAW_AG,"ag.",/ai agents/i,"AI Agents"),COURSES=[IBK,CYB,AIE,LLM,AGT];
+let LC=IBK;
+if(!S.seedIB){S.ld=S.ld||{};IBK.forEach(l=>{if(l.s<3)S.ld[l.p+l.id]=1});S.seedIB=1;save()}
+const lessons=c=>COURSES.find(L=>L.re.test(c.n))||null;
+const isd=l=>!!(S.ld&&S.ld[l.p+l.id]);
+const lb=l=>l.q?l.t:l.id+". "+l.t;
+function cov(ci,u,n){const L=S.c[ci]&&lessons(S.c[ci]);if(!L)return[];let ft=0;const o=[];
+ for(const l of L){if(isd(l))continue;const st=ft;ft+=l.m;if(st>=u+n)break;if(st>=u)o.push(l)}
+ return o}
+function upn(ci,u,n){const o=cov(ci,u,n);return o.length?"Up next: "+(o.length==1?lb(o[0]):lb(o[0])+" to "+lb(o[o.length-1])):""}
+const fo=L=>{const i=L.findIndex(l=>!isd(l));return i<0?0:L[i].s};let openS=new Set([fo(LC)]);
+function lesView(){
+ const L=LC,c=S.c.find(c=>L.re.test(c.n))||{n:L.name,h:215},sel=`<div class="nav">${COURSES.map((x,i)=>`<button data-lc="${i}"${x==LC?" class=\"on\"":""}>${esc((S.c.find(c=>x.re.test(c.n))||{n:x.name}).n)}</button>`).join("")}</div>`;
+ const tm=m=>m>=60?Math.floor(m/60)+" h "+String(m%60).padStart(2,"0")+" min":m+" min";
+ const tot=L.reduce((a,l)=>a+l.m,0),dm=L.reduce((a,l)=>a+(isd(l)?l.m:0),0),dc=L.filter(isd).length;
+ let h=sel+`<div class="box" style="--h:${c.h}"><h2>${esc(c.n)}</h2><div class="bar"><i style="width:${Math.round(dm/tot*100)}%"></i></div><small>${dc} of ${L.length} lessons done, ${tm(dm)} of ${tm(tot)} of video</small></div>`;
+ L.sec.forEach((sn,si)=>{const A=L.filter(l=>l.s==si),d=A.filter(isd).length,mm=A.reduce((a,l)=>a+l.m,0);
+  h+=`<details class="sc" data-s="${si}"${openS.has(si)?" open":""}><summary><b>Section ${si+1}: ${esc(sn)}</b><small>${d}/${A.length} lessons, ${tm(mm)}</small></summary>`+
+  A.map(l=>`<label class="ls${isd(l)?" dn":""}"><input type="checkbox" data-id="${l.id}"${isd(l)?" checked":""}><span class="lt">${esc(lb(l))}</span><small>${/^Coding/.test(l.t)?"Exercise":/^Role/.test(l.t)?"Role play":/^Lab/.test(l.t)?"Lab":/Practice/.test(l.t)?"Practice":l.q?"Quiz":""}</small><small>${l.m?l.m+" min":""}</small></label>`).join("")+`</details>`});
+ return h}
+$("#vc").addEventListener("change",e=>{const id=e.target.dataset.id;if(!id)return;S.ld=S.ld||{};const k=LC[0].p+id;if(S.ld[k])delete S.ld[k];else S.ld[k]=1;plan();render();$("#vc").innerHTML=lesView();const n=document.querySelector(`#vc [data-id="${id}"]`);if(n)n.focus()});
+$("#vc").addEventListener("click",e=>{const b=e.target.closest("[data-lc]");if(!b)return;LC=COURSES[+b.dataset.lc];openS=new Set([fo(LC)]);$("#vc").innerHTML=lesView()});
+$("#vc").addEventListener("toggle",e=>{const s=+e.target.dataset.s;e.target.open?openS.add(s):openS.delete(s)},true);
+function prof(){
+ const days=Object.keys(S.days).sort(),t=iso(new Date());
+ let cls=0,mins=0;const ds=new Set();
+ days.forEach(k=>S.days[k].forEach(x=>{if(x.d){cls++;mins+=x.m;ds.add(k)}}));
+ let st=0;for(const k of days.filter(k=>k<=t).reverse()){if(ds.has(k))st++;else if(k!=t)break}
+ const ls=Object.keys(S.ld||{}).length,nx=days.find(k=>k>=t&&S.days[k].some(x=>!x.d)),nm=S.name==null?"Diogo":S.name;
+ return `<div class="box pf"><img src="${IC}" alt="" width="72" height="72"><div><label for="pn" class="sub">Your name</label><br><input id="pn" value="${esc(nm)}" maxlength="40"></div></div>
+ <div class="stats"><div class="box"><b>${cls}</b><small>classes done</small></div><div class="box"><b>${(mins/60).toFixed(1)} h</b><small>studied</small></div><div class="box"><b>${ls}</b><small>lessons ticked</small></div><div class="box"><b>${st}</b><small>day streak</small></div></div>
+ <div class="box"><small>Next class day</small><br><b>${nx?fd(parse(nx),{weekday:"long",day:"numeric",month:"long"}):"No classes left"}</b></div>`}
+$("#vp").addEventListener("input",e=>{if(e.target.id=="pn"){S.name=e.target.value;save()}});
+function eff(k,j,nm){const L=S.days[k],A=S.adj&&S.adj[k],g=!!L[j].n;let sh=0;if(A&&A.n==L.length)for(let i=0;i<=j;i++)if(!!L[i].n==g)sh+=A.a[i]||0;return (g?nm[j]:L[j].s)+sh}
+function nightMap(k){let cur=1200;const o={};(S.days[k]||[]).forEach((x,i)=>{if(x.n){o[i]=cur;cur+=x.m+10}});return o}
+let view=ld("view")||"today",wk=-1,tt="today";if(!["profile","today","week","les","set"].includes(view))view="today";if(view=="week")tt="week";
+function weeks(){const ks=Object.keys(S.days).sort(),W=[];
+ ks.forEach(k=>{const m=parse(k);m.setDate(m.getDate()-(m.getDay()+6)%7);const mk=iso(m);let w=W.find(w=>w.k==mk);if(!w)W.push(w={k:mk,ks:[]});w.ks.push(k)});return W}
+function cur(W){const t=iso(new Date()),i=W.findIndex(w=>w.ks.some(k=>k>=t));return i<0?W.length-1:i}
+function today(){
+ const now=new Date(),k=iso(now),cl=S.days[k]||[],mins=now.getHours()*60+now.getMinutes();
+ let h=`<h2>${fd(now,{weekday:"long",day:"numeric",month:"long"})}</h2>`;
+ if(!cl.length)return h+`<p class="sub">No classes today.</p>`;
+ const used={};
+ const nm=nightMap(k);
+ return h+cl.map((x,j)=>{const st=eff(k,j,nm),en=st+x.m,on=mins>=st&&mins<en,c=S.c[x.c],u0=used[x.c]||0,up=x.d?"":upn(x.c,u0,x.m/c.f),ac=(used[x.c]=x.d?u0:u0+x.m/c.f),q=`data-k="${k}.${j}"`;
+  return `<div class="item${x.d?" done":""}${on?" on now":""}" style="--h:${c.h}"><div class="tmv">${f(st)}<br>${f(en)}</div><div class="grow"><b>${esc(c.n)}</b><small>${x.m} min of study, about ${Math.round(x.m/c.f)} min of video${on?", ends in "+(en-mins)+" min":""}</small>${up?`<br><small>${esc(up)}</small>`:""}</div><button class="${x.d?"":"ok"}" data-a="d" ${q}>${x.d?"Undo":"Done"}</button><button data-a="m" ${q}>${x.n?"Day":"Night"}</button></div>`}).join("")}
+function wcols(w){const m=parse(w.k),o=[];for(let i=0;i<7;i++){const d=new Date(m);d.setDate(m.getDate()+i);const k=iso(d),we=i>4;if((!we&&S.days[k])||(we&&(S.we||S.days[k])))o.push(k)}return o}
+function week(){
+ const W=weeks();if(!W.length){$("#grid").innerHTML="";return}
+ if(wk<0||wk>=W.length)wk=cur(W);
+ const w=W[wk],t=iso(new Date()),cols=wcols(w);
+ $("#wl").textContent="Week "+(wk+1)+" of "+W.length;$("#wkd").textContent=S.we?"Hide Sat & Sun":"Show Sat & Sun";$("#pv").disabled=wk==0;$("#nx").disabled=wk==W.length-1;
+ let g=`<div class="g" style="grid-template-columns:48px repeat(${cols.length},minmax(124px,1fr))"><div></div>`;
+ cols.forEach(k=>{g+=`<div class="dh${k==t?" today":""}">${fd(parse(k),{weekday:"short",day:"numeric",month:"short"})}${parse(k).getDay()%6==0?` <button class="add" data-add="${k}" title="Add a class" aria-label="Add a class">+</button>`:""}</div>`});
+ g+=`<div class="ax">`;for(let h=9;h<=24;h++)g+=`<span style="top:${(h-9)*60}px">${String(h%24).padStart(2,"0")}:00</span>`;g+=`</div>`;
+ cols.forEach(k=>{const nm=nightMap(k);
+  g+=`<div class="bd"><div class="nt"><small>Night</small></div><div class="lunch"><span>Lunch 12:00 to 13:30</span></div>`;
+  (S.days[k]||[]).forEach((x,j)=>{const q=k+"."+j,st=eff(k,j,nm),lb=x.n?"Move back to the day":"Move to night",c=S.c[x.c];
+   if(x.n)g+=`<div class="ghost" style="top:${x.s-540}px;height:${x.m-2}px">${esc(c.n)} moved to night</div>`;
+   g+=`<div class="seg${x.d?" done":""}${x.m<60?" tiny":""}${k<t&&!x.d?" past":""}" tabindex="0" role="button" data-a="d" data-k="${q}" style="--h:${c.h};top:${st-540}px;height:${x.m-2}px"><span class="gr" data-g="${q}" title="Drag to change the break before this class (double-click to reset this day)"></span><b>${esc(c.n)}</b><small>${f(st)} to ${f(st+x.m)}</small>${x.man?(x.d?"":`<button class="mv" data-a="x" data-k="${q}" title="Delete this class" aria-label="Delete this class">✕</button>`):`<button class="mv" data-a="m" data-k="${q}" title="${lb}" aria-label="${lb}">${x.n?"☀":"☾"}</button>`}</div>`});
+  g+=`</div>`});
+ $("#grid").innerHTML=g+"</div>"}
+function sett(){
+ return `<div class="box"><h2>Courses</h2><div class="row"><b>Course</b><b>Video hours</b><b>Done %</b><b>Study factor</b></div>`+
+ S.c.map((c,i)=>`<div class="row"><input data-f="n" data-i="${i}" value="${esc(c.n)}" aria-label="Course name"><input type="number" min="0" step="0.5" data-f="t" data-i="${i}" value="${c.t}" aria-label="Video hours"><input type="number" min="0" max="100" data-f="p" data-i="${i}" value="${c.p}" aria-label="Percent done"><input type="number" min="1" step="0.5" data-f="f" data-i="${i}" value="${c.f}" aria-label="Study factor"></div>`).join("")+
+ `<small>The first two courses get the fixed 1h30 blocks. A factor of 3 means 15 minutes of study for 5 minutes of video. Courses that have a Lessons list follow the lessons you tick, so Video hours and Done % only matter for courses without one.</small><p><label><input type="checkbox" id="au" ${S.auto===false?"":"checked"}> Adjust the study factor automatically from logged lessons</label></p><p><button id="ac">Add course</button></p></div>
+ <div class="box"><h2>Start date and days off</h2><p><input type="date" id="sd" value="${S.s}"> <label for="fs">first class of that day at (empty = normal 09:00)</label> <input type="time" id="fs" value="${S.fs||""}"></p><textarea id="off" aria-label="Days off, one date per line">${S.off.join("\n")}</textarea><small>One date per line (YYYY-MM-DD). Weekends are always off.</small><p><button id="hl">Add Portuguese holidays</button></p></div>
+ <p><button id="ap" class="on">Apply and re-plan</button></p>
+ <div class="box"><h2>Backup</h2><textarea id="bk" aria-label="Backup text">${esc(JSON.stringify(S))}</textarea><p><button id="ld">Load backup from text</button></p><small>Copy this text to keep your progress safe, and paste it here to restore it.</small></div>`}
+function read(){
+ document.querySelectorAll("#vs [data-f]").forEach(e=>{const c=S.c[+e.dataset.i],k=e.dataset.f;c[k]=k=="n"?e.value:(+e.value||0);if(k=="f"&&c.f<1)c.f=1});
+ S.s=$("#sd").value||S.s;S.fs=$("#fs")?$("#fs").value:S.fs;S.auto=$("#au")?$("#au").checked:S.auto;S.off=$("#off").value.split(/\s+/).filter(x=>/^\d{4}-\d\d-\d\d$/.test(x))}
+function buildLog(){$("#vl").innerHTML=`<h2>Log a lesson</h2><div class="row"><select id="lc" aria-label="Course">${S.c.map((c,i)=>`<option value="${i}">${esc(c.n)}</option>`).join("")}</select><input type="number" min="1" id="lv" placeholder="Video min" aria-label="Video minutes"><input type="number" min="1" id="lr" placeholder="Real min" aria-label="Real minutes"><button id="lg" class="ok">Log</button></div><small>Tick a class as Done to record progress. Log a lesson to teach the app your real speed: after 3 lessons it adjusts the study factor and re-plans by itself.</small>`}
+$("#vl").addEventListener("click",e=>{if(e.target.id!="lg")return;
+ const i=+$("#lc").value,v=+$("#lv").value,r=+$("#lr").value,m=$("#msg");
+ if(!(v>0&&r>0)){m.textContent="Enter the video minutes and the real minutes.";return}
+ const c=S.c[i];(c.L=c.L||[]).push([v,r]);const n=c.L.length;let t="";
+ if(S.auto!==false&&n>=3){const L=c.L.slice(-10);c.f=Math.max(1,Math.round(L.reduce((a,x)=>a+x[1],0)/L.reduce((a,x)=>a+x[0],0)*10)/10);plan();t=" Study factor is now "+c.f+" (average of your last "+L.length+" lessons) and the plan was updated."}
+ else{save();t=S.auto===false?"":" Log "+(3-n)+" more to start adjusting the factor."}
+ $("#lv").value="";$("#lr").value="";render();m.textContent=c.n+": "+v+" min of video took "+r+" min."+t});
+function render(){
+ const dn=doneMin(),W=weeks(),ks=Object.keys(S.days).sort();
+ $("#prog").innerHTML=S.c.map((c,i)=>{const L=lessons(c),T=L?L.reduce((a,l)=>a+l.m,0)/60:c.t,hr=L?L.reduce((a,l)=>a+(isd(l)?l.m:0),0)/60:c.t*c.p/100+dn[i]/60/c.f,pc=T?Math.min(100,Math.round(hr/T*100)):0;
+  return `<div class="pc" style="--h:${c.h}"><b>${esc(c.n)}</b><div class="bar"><i style="width:${pc}%"></i></div><small>${hr.toFixed(1)} of ${T.toFixed(1)} h of video (${pc}%)</small></div>`}).join("");
+ const left=S.c.reduce((a,c,i)=>{const L=lessons(c);return a+(L?L.reduce((s,l)=>s+(isd(l)?0:l.m),0)*c.f/60:Math.max(0,c.t*(1-c.p/100)*c.f-dn[i]/60))},0);
+ $("#sub").textContent=Math.round(left)+" hours of study left, 7.5 hours a day from 09:00 to 19:30."+(ks.length?" Plan ends "+fd(parse(ks[ks.length-1]),{weekday:"long",day:"numeric",month:"long",year:"numeric"})+".":"");
+ const grp=view=="today"||view=="week"?"tt":view;
+ document.querySelectorAll(".sn button").forEach(b=>b.className=b.dataset.v==grp?"on":"");
+ ["today","week"].forEach((v,i)=>$("#t"+(i+1)).className=view==v?"on":"");
+ $("#sub2").hidden=grp!="tt";$("#prog").hidden=!(grp=="tt"||grp=="profile");
+ $("#pt").textContent={profile:"Profile",tt:"Study Timetable",les:"Lessons",set:"Settings"}[grp];
+ $("#vt").hidden=view!="today";$("#vl").hidden=view!="today";$("#vw").hidden=view!="week";$("#vs").hidden=view!="set";$("#vc").hidden=view!="les";$("#vp").hidden=view!="profile";
+ if(view=="today"){$("#vt").innerHTML=today();if(!$("#vl").contains(document.activeElement))buildLog()}
+ if(view=="week")week();
+ if(view=="profile"&&!$("#vp").contains(document.activeElement))$("#vp").innerHTML=prof();
+ if(view=="les"&&!$("#vc").contains(document.activeElement))$("#vc").innerHTML=lesView();
+ if(view=="set")$("#vs").innerHTML=sett()}
+function act(e){
+ const el=e.target.closest("[data-a]");if(!el)return;
+ if(dragged){dragged=false;return}
+ if(e.type=="keydown"){if(e.target!==el||el.tagName=="BUTTON"||(e.key!="Enter"&&e.key!==" "))return;e.preventDefault()}
+ const q=el.dataset.k,k=q.slice(0,10),x=S.days[k][+q.slice(11)];let m="";
+ if(el.dataset.a=="x"){S.days[k].splice(+q.slice(11),1);if(!S.days[k].length)delete S.days[k];save();render();return}
+ if(el.dataset.a=="d"){if(x.d){(x.l||[]).forEach(z=>{if(S.ld)delete S.ld[z]});x.l=[];x.d=0}else{x.d=1;x.l=cov(x.c,0,x.m/S.c[x.c].f).map(l=>l.p+l.id);x.l.forEach(z=>{S.ld=S.ld||{};S.ld[z]=1})}plan()}
+ else if(x.n)x.n=0;
+ else{x.n=1;const o=nightMap(k);if(Object.keys(o).some(i=>o[i]+S.days[k][i].m>1440)){x.n=0;m="Not enough room that evening: night classes must fit between 20:00 and midnight."}}
+ save();render();$("#msg").textContent=m;
+ const n=document.querySelector(`[data-a="${el.dataset.a}"][data-k="${q}"]`);if(n)n.focus()}
+["#vt","#grid"].forEach(s=>{$(s).addEventListener("click",act);$(s).addEventListener("keydown",act)});
+$("#vs").addEventListener("click",e=>{
+ const id=e.target.id,m=$("#msg");m.textContent="";
+ if(id=="ac"){read();S.c.push({n:"New course",t:10,p:0,f:3,h:HUES[S.c.length%8]});render()}
+ if(id=="hl"){read();S.off=[...new Set([...S.off,...HOL])].sort();render()}
+ if(id=="ap"){read();plan();view="today";sv("view",view);render();m.textContent="Plan updated."}
+ if(id=="ld"){try{const b=JSON.parse($("#bk").value);if(!Array.isArray(b.c)||!b.days)throw 0;S=b;save();render();m.textContent="Backup loaded."}catch(x){m.textContent="That backup text is not valid."}}});
+document.querySelectorAll(".sn button").forEach(b=>b.onclick=()=>{const v=b.dataset.v;view=v=="tt"?tt:v;sv("view",view);$("#msg").textContent="";render()});
+[["t1","today"],["t2","week"]].forEach(([id,v])=>$("#"+id).onclick=()=>{view=tt=v;sv("view",v);$("#msg").textContent="";render()});
+$("#rp").onclick=()=>{plan();render();$("#msg").textContent="Re-planned from today: missed classes were rescheduled."};
+$("#pv").onclick=()=>{wk--;render()};$("#nx").onclick=()=>{wk++;render()};$("#td").onclick=()=>{wk=-1;render()};
+if((S.s=="2026-11-19"||S.s=="2026-11-20")&&!Object.values(S.days).some(c=>c.some(x=>x.d))){S.s="2026-11-23";S.fs=""}
+plan();render();
+setInterval(()=>{if(view=="today")render()},60000);
+const sbEl=document.querySelector(".sb");
+function setSb(c){sbEl.classList.toggle("col",c);$("#lbtn").setAttribute("aria-expanded",String(!c));sv("sbcol",c?"1":"0")}
+$("#lbtn").onclick=()=>setSb(!sbEl.classList.contains("col"));
+setSb(ld("sbcol")=="1");
+if("serviceWorker" in navigator)addEventListener("load",()=>{navigator.serviceWorker.register("sw.js").catch(()=>{})});
+const ICONS={"profile": "data:image/png;base64,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", "set": "data:image/png;base64,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", "les": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAKKUlEQVR42u2beYxdZRnGf++9M1OmUFqgUkqhsRDLUrAUFwhLoSKdIhAEUQQCYiQoW0QTRSMYGw2IAYnwB0pIjIASjAsaCLYsrZS2bKVKWUuRQllt6UY7bWe5j3/c58DH9d6550zLMIV+yU3P3O/cc97lefevsG1tWx/pFR/UiyUFUAIUEZUPvQDMcMZ0pZZpSWVfViJCHwoBJFomInpr9nYGDgJeiYjFNXulTFBGiLYKAdRouTcl3Bo+EDgG6AAOAFq9vQyYBdwDzI+INQOFjtgCTJey59TR8m7A4cA04EhgV+BNYB7wD+AhYA/geOBoYDzQBfzL+7Mi4qn3Ex2xGbCOOlpuBSYBn7emDwAELLJ2ZwKLagWV/H5PC6oDOAwYCbwK/BOYAcyLiBVbEh2xBbQ8Bphsoo8AdgZeAR4ww30RLT+3kTA/BXzOAp1grT9hYd5bK0wrp1wEHdEP59VuwqYCU4B9EtjOBO5rANswww0JayLo3Y2KaRb0KOAN4EG/94GIeLORoBuF2qgnvTohahxwlLV8CDAceCmB5kMRsXpLQlNSC1COiE119lrtUKdYEZ+0wp4yMu4DHo+I7mb8NULACGu5w85pHNAJPG7ndF9ELHk/nJOklojokXQ+8GMLeCYwNyJeavCbXYFDTe9kYHdgJfAIcJfNcGldBEiKiJCkscCx9tqTrOXXDLF7gUciYu37HZ4SesYAp9qZTgLagcXW7gxgYUSsb2BGE+w7pgD72/SeBeY73D76jpIMNSRN17vrZUnn2d7fQ5ykIZJa/aKByiJ3lDRV0jWSFkh6S9KLkm6XdI6k8Y3okTRF0oyEtwWSdjAvkfqA7YCJhtBRiV09aYnfGxGLBipja+KT9rGGp5rmFuAZYI6jz3Aj51DnGa95b5aR/N88BOwp6QxJN0t6XtJKSYsk3SDpREmj6vym7M+WzjBLktokDamzN1LSpZJWWMNdknp9/aSkabnCYBr6am3aXnei43GH7Wot8JwlOxN4YnNjcoGQONYoPQ74hHOPZfZXc4AdjJDDfH2W7b4E9OSixVIvJ44u3dtb0lJJsyUtlLRK0jOSbpJ0qqTRfaCjka1GH+8bKmmypJ9KmitpuaRlkv5mf3BRvefa1m+z3Zczu++XPVogrYkjfElSh/cnSfqunc1rkt60cC6T9FlJbY2YbSQUSeMkfd2ObqkZXSDpWkkdknb0fc9JOtnXbckz2/zdIaZnVILMd1ZLrny5ChmpGqNkWwxgmPcXAguBX0raxc5nGvBl4DvASkkPO4eY43heC+thwGccio8B9gLWA48BPwNm18k92m1mbWasNzOXTGk2wR6g13+rsADqgSLzFX5xi7+rRMRbTj7uMiH7JSXwz4F2Sc85t5htRk8EDga2A/7jWH+pPfb6OrlHWICVJNWVpFRpPb5/D9O3R0Ss2CwHnf1Y0jDnCqfUJETNbHm4pGMdzx8zrF+wnZ4t6eN9+KJSHTqGSFoi6SuJnwl/hkq6RdJqSa/73ysTZPQPAWYsY66U5ez1JOu9dwohNzru8QdJewHLI+Lt2hogK5wStKWEZ+puSejIkFF2Kn2e84RT3YPYH7jJpjRDUrlRWd4UAb5eKmnqB93VlbRY0hdqQjaSfivprpp7n5V0SSLofAjI8nPb2bHOEtuBU6zFcmKPRXoRUaPlIr/NELADcLKknYC7I2Kl77kNuEPSja4hDgM+Btyd+a+iDRGAG4HTgZedCA1N+nof1FoLDDFza4ATIuIF0/1V4ALvrwGuiIjZkkpZeh05bV6urO5weHvUjPf0Q3tberVYm+3W7jPAudVAUI0E9dCcywlmnjwiKr5eGRFzvd01SIY7GR0bJS0ChkVEbxKJZPqzDlclVx5gmGRJxaddk4+UdKcrLgaB9jMUV4AxwGnAHEknAXemNU3Tllitp7fDOwW4HBjrUPK6s79WBudaBYwG2oADI6KzFvJ5cv6yr692aXm9pAlsJcuNnGcTPqKZA0lXyfZzOXAhMC0i7veDRgO7DVK+MzMYDUwHfp/5gWbJTtTYfEXSRDcTT4+Iv7j2/pU7Rb0FhimlOvdmMb9IOy1PtqZEoX8Fvu1CimbwTwVQttR+B4yNiCmu7GYD3cAPgRcLOL9OYGPyjixxGerYnVeQI5rcW3Y4vgZYFRHnFI2hWWzsdZl7JHCVbediO739ImJDQVucAnwDWOevtgceBm4GrnRy0lf2uJ3HYpflydklrXF1WrIp9+QWQJJa7uKE4mlHgam2pw0WTneOZ5YN2+HWXjkRwAinrjs5kjQSwCajpysn8yXz0mszjkIIqLFbEsIiYTpvzt5j27vDmWO9dUYThnYBLrJGr27gMypGyWLg+s1JI1ObXmHJj5c0j+oY+zRJ0yNiIDO/Pe10N/Uh+IpR1WW0VmoaJrnDR60TvB0YGhEnupvyoKcql9omB+I8TxewwZpXDpNrB34DvB0R56bFTn8EcLgHCB0RMUvSAX74fiZqoOJ6kdZVr6OLgF8DP/F3yh0Ga3KB64EzgaMj4oms8+spy2DI/+vx0UN1KHotcLUbqVnFWsk7C8ja3y2SbpW03lOXUVtRKvxNSU/10dNoXgxl0pJ0IfADS3KpC6JNDnEahCgQ1WM1+7hiXeoO89/dJ/y/1LivEyJZRbg97w4hJ/vhtyYVYQwW5Sdhe6Prlr1N93LgksLN0NrWtqTjJb3KVrQ85L1BUrekr9WaQ56WWDbkDMfd2Zb2LU5nixRHeTVZr2Aq2jxdR/VUyQLzcQFwHTA5IuZlSIgCkkxPkvwCONnFUVdif30x1ZWT+TYzv6mOAFsL+IJWR60/ARdHxDpJt1I9i3hoFiKjIJyyXGEU1Vng1Ih4slnXxb363XJUkiWqg5INPhVWTtDQWXvcLkd9cIQF8OeIOF/SeDd0j8tQUNSeSv7s64nrxJy/O8ujqWWS3mjweVXSRklXeaK81iOt13344WlJI/N0edJ7fLRmrU+6IelxST/ydUvh0ZgTpdrJ7ogGaWsGx/nA2VR78919wD8Lt8upHn7I7L7sBseqZswn+9kobb7fe7CkLJSPydUWb2JnZaBT0pFUJ8Hr+nB0XX7XrIg4M6e/mdsgKpV8ncfpZilyO7DaPqwt9Uf9GY6W/IBeoDsi5kj6Yo7W1RCqR2jzoEwNvi8yzMxa+t9zB+oh+6JxwB/6K4BInGALcIKkJW5/NVNJJzDKs8SBWG3Al6hOh0+LiPVu8+9M9aAGQKVIGMwKpW8BVwCrrdXWgjF+oP57TC/wPDA9Iu73kZp/A3dGxMWF8oCE+QlUz/h/H/hjwtBgrAu6IqLT9O/u7lSbe57rszwgrwlkZ20mU50M32TNB4OzPAZokXQQcBLVGccS4KSIeDvNW4r6gE3AvsALSbNzsK6wxlcAVwHXRUR3bbcorwlkafBwZ1clBv/qNVqfzhguNCf8MK2+ju8WrQViK9H+eyrIj6TWt61tK9/6H79fmLKw3vPPAAAAAElFTkSuQmCC", "tt": "data:image/png;base64,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"};
+document.querySelectorAll(".ni").forEach(i=>{i.src=ICONS[i.dataset.i]});
+function openAdd(k){const af=$("#af");af.hidden=false;af.dataset.k=k;
+ af.innerHTML=`<h2>Add a class on ${fd(parse(k),{weekday:"long",day:"numeric",month:"long"})}</h2><div class="row"><select id="ac2" aria-label="Course">${S.c.map((c,i)=>`<option value="${i}">${esc(c.n)}</option>`).join("")}</select><input type="time" id="at" value="10:00" aria-label="Start time"><input type="number" id="al" min="15" step="15" value="60" aria-label="Length in minutes"><button id="aok" class="ok">Add</button></div><small>Start time from 09:00 and length in minutes. <button id="acx" type="button">Cancel</button></small>`}
+$("#grid").addEventListener("click",e=>{const b=e.target.closest("[data-add]");if(b)openAdd(b.dataset.add)});
+$("#af").addEventListener("click",e=>{const af=$("#af"),id=e.target.id;
+ if(id=="acx"){af.hidden=true;return}
+ if(id!="aok")return;
+ const k=af.dataset.k,c=+$("#ac2").value,t=$("#at").value.split(":").map(Number),s=t[0]*60+(t[1]||0),m=Math.round(+$("#al").value/15)*15,A=S.days[k]||[];
+ if(!(m>=15)||!(s>=540)||s+m>1440){$("#msg").textContent="Choose a start time from 09:00 and a length that ends before midnight.";return}
+ if(A.some(x=>s<x.s+x.m&&x.s<s+m)){$("#msg").textContent="That time overlaps another class.";return}
+ A.push({c,m,s,d:0,n:0,man:1});A.sort((a,b)=>a.s-b.s);S.days[k]=A;af.hidden=true;$("#msg").textContent="";save();render()});
+$("#wkd").onclick=()=>{S.we=!S.we;save();render()};
+let drag=null,dragged=false;
+const grpIdx=(k,g)=>S.days[k].map((x,i)=>i).filter(i=>!!S.days[k][i].n==g);
+function startsOf(k,g,jo,ao){const L=S.days[k],nm=nightMap(k),A=S.adj&&S.adj[k]&&S.adj[k].n==L.length?S.adj[k].a:[],o={};let sh=0;
+ for(const i of grpIdx(k,g)){sh+=(i==jo?ao:(A[i]||0));o[i]=(g?nm[i]:L[i].s)+sh}return o}
+$("#grid").addEventListener("pointerdown",e=>{const gr=e.target.closest(".gr");if(!gr)return;
+ e.preventDefault();const q=gr.dataset.g,k=q.slice(0,10),j=+q.slice(11),L=S.days[k];
+ S.adj=S.adj||{};if(!S.adj[k]||S.adj[k].n!=L.length)S.adj[k]={n:L.length,a:L.map(()=>0)};
+ drag={k,j,y0:e.clientY,a0:S.adj[k].a[j]||0,g:!!L[j].n}});
+window.addEventListener("pointermove",e=>{if(!drag)return;
+ const {k,j,g}=drag,L=S.days[k],dy=Math.round((e.clientY-drag.y0)/5)*5,grp=grpIdx(k,g),p=grp.indexOf(j),s0=startsOf(k,g,j,drag.a0),last=grp[grp.length-1];
+ const lo=p>0?(s0[grp[p-1]]+L[grp[p-1]].m)-s0[j]:(g?1170:540)-s0[j],hi=1440-(s0[last]+L[last].m),d=Math.max(lo,Math.min(hi,dy));
+ S.adj[k].a[j]=drag.a0+d;const s1=startsOf(k,g,j,drag.a0+d);
+ let tip=$("#dl");if(!tip){tip=document.createElement("div");tip.id="dl";document.body.appendChild(tip)}
+ tip.textContent=p>0?"Break: "+(s1[j]-(s1[grp[p-1]]+L[grp[p-1]].m))+" min":"Starts at "+f(s1[j]);
+ tip.style.left=(e.clientX+14)+"px";tip.style.top=(e.clientY-26)+"px";week()});
+window.addEventListener("pointerup",()=>{if(!drag)return;const t=$("#dl");if(t)t.remove();dragged=true;drag=null;save();render();setTimeout(()=>{dragged=false},0)});
+$("#grid").addEventListener("dblclick",e=>{const gr=e.target.closest(".gr");if(!gr)return;const k=gr.dataset.g.slice(0,10);if(S.adj)delete S.adj[k];save();render()});
+const sp=$("#splash");if(sp){sp.onclick=()=>sp.remove();setTimeout(()=>sp.remove(),3000)}
+</script>
+</body>
+</html>
