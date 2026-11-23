@@ -41,7 +41,7 @@ body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.4 "Bricolage Grot
 .pf{display:flex;gap:16px;align-items:center}.pf img{border-radius:18px}
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:12px}
 .stats b{font-size:24px;display:block}
-@media(max-width:760px){.app{flex-direction:column}.sb{width:auto;height:auto;position:static;flex-direction:row;flex-wrap:wrap;align-items:center;padding:10px 12px;gap:8px}.sn{flex-direction:row;flex-wrap:wrap}.sn button{padding:8px 10px;border-left:0;border-bottom:3px solid transparent}.sn button.on{border-bottom-color:var(--yl)}.sb .rp{margin:0 0 0 auto}.sb.col{width:auto}}
+
 h1{font-size:30px;font-weight:800;margin:0 0 4px;letter-spacing:-.02em}
 h2{margin:0 0 10px;font-size:20px}
 .hd{display:flex;align-items:center;gap:14px;background:linear-gradient(135deg,#0a3aa8,#1a6dff);color:#fff;border-radius:18px;padding:14px 18px;margin-bottom:16px}
@@ -93,6 +93,24 @@ small{color:var(--mut)}
 textarea{width:100%;box-sizing:border-box;min-height:70px}
 .box{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:12px;margin-bottom:12px}
 .note{color:var(--mut);margin-top:14px;font-size:13px}
+.gs{position:absolute;left:0;right:0;bottom:0;height:8px;cursor:ns-resize;touch-action:none;z-index:2}
+.gs::after{content:"";position:absolute;left:50%;bottom:2px;width:28px;height:3px;margin-left:-14px;border-radius:2px;background:currentColor;opacity:.22}
+.seg:hover .gs::after,.gs:hover::after{opacity:.7}
+@media(pointer:coarse){.gr,.gs{height:14px}}
+.crow{display:grid;grid-template-columns:2fr 1fr 1fr 1fr auto auto;gap:6px;margin-bottom:6px;align-items:center}
+.crow input[type=checkbox]{width:18px;height:18px;accent-color:var(--gr)}
+.prow{display:flex;gap:8px;align-items:center;padding:6px 0;border-top:1px solid var(--bd)}.prow b{flex:1}.prow.cur b{color:var(--acc)}
+.chip{background:rgba(255,255,255,.14);border:0;color:#fff;border-radius:10px;padding:6px 10px;text-align:left;width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sb.col .chip{display:none}
+#wlc{position:fixed;inset:0;z-index:250;display:flex;align-items:center;justify-content:center;background:rgba(6,25,77,.78)}
+#wlc[hidden]{display:none}#wlc .box{max-width:420px;width:90%}
+@media(max-width:760px){
+.app{padding-left:68px}
+.app .sb{position:fixed;left:0;top:0;bottom:0;height:auto;z-index:60;width:230px;padding:18px 14px;box-shadow:6px 0 24px rgba(0,0,0,.35)}
+.app .sb.col{width:68px;padding:12px 6px;box-shadow:none}
+.main{padding:12px 10px 40px}
+.crow{grid-template-columns:1fr 1fr}
+}
 .gr{position:absolute;left:0;right:0;top:0;height:8px;cursor:ns-resize;touch-action:none;z-index:2}
 .gr::after{content:"";position:absolute;left:50%;top:2px;width:28px;height:3px;margin-left:-14px;border-radius:2px;background:currentColor;opacity:.22}
 .seg:hover .gr::after,.gr:hover::after{opacity:.7}
@@ -123,7 +141,8 @@ textarea{width:100%;box-sizing:border-box;min-height:70px}
 </head>
 <body>
 <div id="splash" aria-hidden="true"><svg viewBox="0 0 200 200"><defs><linearGradient id="sg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0a3aa8"/><stop offset="1" stop-color="#1a6dff"/></linearGradient></defs><rect class="s-bg" width="200" height="200" rx="42" fill="url(#sg)"/><g class="s-cal"><rect x="58" y="40" width="122" height="112" rx="20" fill="#0a2e8a"/><rect x="63" y="66" width="112" height="82" rx="14" fill="#fff"/><rect x="78" y="28" width="12" height="28" rx="6" fill="#082377"/><circle cx="84" cy="50" r="9" fill="none" stroke="#fff" stroke-width="3"/><rect x="146" y="28" width="12" height="28" rx="6" fill="#082377"/><circle cx="152" cy="50" r="9" fill="none" stroke="#fff" stroke-width="3"/></g><rect class="s-c" style="--i:0" x="98" y="71" width="19" height="19" rx="4" fill="#b6cff0"/><rect class="s-c" style="--i:1" x="123" y="71" width="19" height="19" rx="4" fill="#b6cff0"/><rect class="s-c" style="--i:2" x="148" y="71" width="19" height="19" rx="4" fill="#b6cff0"/><rect class="s-c" style="--i:3" x="98" y="96" width="19" height="19" rx="4" fill="#b6cff0"/><rect class="s-y" x="123" y="96" width="19" height="19" rx="4" fill="#fbbd1c"/><rect class="s-c" style="--i:5" x="148" y="96" width="19" height="19" rx="4" fill="#b6cff0"/><rect class="s-c" style="--i:6" x="98" y="121" width="19" height="19" rx="4" fill="#b6cff0"/><rect class="s-c" style="--i:7" x="123" y="121" width="19" height="19" rx="4" fill="#b6cff0"/><rect class="s-c" style="--i:8" x="148" y="121" width="19" height="19" rx="4" fill="#b6cff0"/><g class="s-cap"><path d="M38 126 L38 150 Q72 172 106 148 L106 124 Z" fill="#0f7a44"/><polygon points="12,106 72,79 132,106 72,136" fill="#1a9a57"/><path d="M72 104 L36 121 L36 150" stroke="#fbbd1c" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="72" cy="104" r="7" fill="#fbbd1c"/><path class="s-tas" d="M36 148 L30 172 Q36 176 42 172 Z" fill="#fbbd1c"/></g><text class="s-t" style="--i:0" x="72" y="186" text-anchor="middle" font-size="34" font-weight="800" fill="#fff" font-family="'Bricolage Grotesque',system-ui,sans-serif">C</text><text class="s-t" style="--i:1" x="106" y="186" text-anchor="middle" font-size="34" font-weight="800" fill="#fff" font-family="'Bricolage Grotesque',system-ui,sans-serif">L</text><text class="s-t" style="--i:2" x="140" y="186" text-anchor="middle" font-size="34" font-weight="800" fill="#fff" font-family="'Bricolage Grotesque',system-ui,sans-serif">O</text></svg></div>
-<div class="app"><aside class="sb"><div class="brand"><button id="lbtn" class="lb" type="button" aria-label="Open or close the menu" aria-expanded="true"><img id="logo" alt="CLO logo" width="44" height="44"></button><span>CLO</span></div><nav class="sn"><button data-v="profile" title="Profile"><img class="ni" data-i="profile" alt=""><span>Profile</span></button><button data-v="tt" title="Study Timetable"><img class="ni" data-i="tt" alt=""><span>Study Timetable</span></button><button data-v="les" title="Lessons"><img class="ni" data-i="les" alt=""><span>Lessons</span></button><button data-v="set" title="Settings"><img class="ni" data-i="set" alt=""><span>Settings</span></button></nav><button id="rp" class="rp">Re-plan from today</button></aside>
+<div id="wlc" hidden><div class="box"><h2>Welcome to CLO</h2><p>Create your profile. You can add more profiles and courses later.</p><p><input id="wn" placeholder="Your name" maxlength="40"></p><p><button id="w1" class="ok">Start with the 5 ready-made courses</button></p><p><button id="w2">Start with no courses</button></p></div></div>
+<div class="app"><aside class="sb"><div class="brand"><button id="lbtn" class="lb" type="button" aria-label="Open or close the menu" aria-expanded="true"><img id="logo" alt="CLO logo" width="44" height="44"></button><span>CLO</span></div><button id="chip" class="chip" type="button" title="Profile"></button><nav class="sn"><button data-v="profile" title="Profile"><img class="ni" data-i="profile" alt=""><span>Profile</span></button><button data-v="tt" title="Study Timetable"><img class="ni" data-i="tt" alt=""><span>Study Timetable</span></button><button data-v="les" title="Lessons"><img class="ni" data-i="les" alt=""><span>Lessons</span></button><button data-v="set" title="Settings"><img class="ni" data-i="set" alt=""><span>Settings</span></button></nav><button id="rp" class="rp">Re-plan from today</button></aside>
 <main class="main"><header class="hd"><div><h1 id="pt">Study Timetable</h1><p class="sub" id="sub"></p></div></header>
 <div id="prog"></div>
 <div class="nav" id="sub2"><button id="t1">Today</button><button id="t2">Week</button></div>
@@ -134,7 +153,7 @@ textarea{width:100%;box-sizing:border-box;min-height:70px}
 <div id="vw"><div class="wh"><button id="pv">Previous</button><b id="wl" class="sp"></b><button id="wkd"></button><button id="td">This week</button><button id="nx">Next</button></div><div id="af" class="box" hidden></div><div id="grid"></div></div>
 <div id="vc"></div>
 <div id="vs"></div>
-<p class="note">Study factor = real study minutes per minute of video. Tap a class to mark it done, and the moon moves it to that evening (20:00 to midnight). The plan updates itself every day: missed classes are rescheduled automatically. In the week view, drag the grip at the top of a class to make the break before it longer or shorter (double-click it to reset that day). Breaks between evening classes are 10 minutes.</p>
+<p class="note">Study factor = real study minutes per minute of video. Tap a class to mark it done, and the moon moves it to that evening (20:00 to midnight). The plan updates itself every day: missed classes are rescheduled automatically. In the week view, drag the top grip of a class to move it (this changes its breaks) and the bottom grip to make it longer or shorter. Only that class changes, and double-clicking a grip resets the day. Breaks between evening classes are 10 minutes.</p>
 </main></div>
 <script>
 const $=s=>document.querySelector(s);
@@ -150,16 +169,22 @@ const iso=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+Stri
 const parse=s=>{const [y,m,d]=s.split("-").map(Number);return new Date(y,m-1,d)};
 const f=m=>String(Math.floor(m/60)%24).padStart(2,"0")+":"+String(m%60).padStart(2,"0");
 const fd=(x,o)=>x.toLocaleDateString("en-GB",o);
-let S;try{S=JSON.parse(ld("st3"));if(!S||!Array.isArray(S.c)||!S.days)throw 0}catch(e){S=JSON.parse(JSON.stringify(DEF))}
-const save=()=>sv("st3",JSON.stringify(S));
-const doneMin=()=>{const dn=S.c.map(()=>0);Object.values(S.days).forEach(cl=>cl.forEach(x=>{if(x.d&&x.c<dn.length)dn[x.c]+=x.m}));return dn};
+let META;try{META=JSON.parse(ld("clo-meta"));if(!META||!META.list||!META.list.length)throw 0}catch(e){META={cur:"main",list:[{id:"main",name:"Diogo"}]}}
+const ONB=ld("clo-onb")=="0"||(!ld("st3")&&!ld("clo-meta")&&ld("clo-onb")==null);if(ONB)sv("clo-onb","0");
+const skey=id=>(id||META.cur)=="main"?"st3":"st3."+(id||META.cur);
+const saveMeta=()=>sv("clo-meta",JSON.stringify(META));
+function newState(name){const d=new Date();d.setDate(d.getDate()+((8-d.getDay())%7||7));return{s:iso(d),off:[],days:{},c:[],name,seedIB:1,auto:true}}
+let S;try{S=JSON.parse(ld(skey()));if(!S||!Array.isArray(S.c)||!S.days)throw 0}catch(e){S=META.cur=="main"?JSON.parse(JSON.stringify(DEF)):newState("Profile")}
+const save=()=>sv(skey(),JSON.stringify(S));
+const doneMin=()=>{const dn=S.c.map(()=>0);Object.values(S.days).forEach(cl=>cl.forEach(x=>{if(x.d&&x.c<dn.length)dn[x.c]+=x.dm||x.m}));return dn};
 function slotsFor(k){if(k!=S.s||!S.fs)return SL;const f=S.fs.split(":").map(Number),s0=f[0]*60+(f[1]||0);
  if(!(s0>540))return SL;const o=[];let cur=s0;
  for(const q of [[90,0],[90,1],[60],[60],[90]]){if(cur+q[0]>1170)break;o.push([cur,q[0],q[1]]);cur+=q[0]+20}
  return o}
 function plan(){
  const t0=iso(new Date()),n=S.c.length,dn=doneMin(),al=dn.slice(),old=S.days;
- const rem=S.c.map((c,i)=>{const L=lessons(c);if(L)return Math.round(L.reduce((a,l)=>a+(isd(l)?0:l.m),0)*c.f/30)*30;return Math.max(0,Math.round(c.t*(1-c.p/100)*c.f*2)*30-dn[i])});
+ const PR=S.c.map((c,i)=>i).filter(i=>S.c[i].pri&&!S.c[i].off).slice(0,2);
+ const rem=S.c.map((c,i)=>{if(c.off)return 0;const L=lessons(c);if(L)return Math.round(L.reduce((a,l)=>a+(isd(l)?0:l.m),0)*c.f/30)*30;return Math.max(0,Math.round(c.t*(1-c.p/100)*c.f*2)*30-dn[i])});
  S.days={};for(const k in old)if(k<t0||(parse(k).getDay()%6==0&&old[k].some(x=>x.man||x.d)))S.days[k]=old[k];
  const w=c=>S.c[c].t*S.c[c].f||1;
  let d=parse(S.s<t0?t0:S.s),g=0;
@@ -170,9 +195,9 @@ function plan(){
    slotsFor(k).forEach(([s,cap,pr])=>{
     if(cl.some(x=>x.s>=s&&x.s<s+cap))return;
     let off=0;
-    const put=(c,m)=>{cl.push({c,m,s:s+off,d:0,n:oc.some(y=>!y.d&&y.c==c&&y.s==s+off&&y.n)?1:0});rem[c]-=m;if(c>1)al[c]+=m;off+=m};
-    if(pr!==undefined&&S.c[pr]&&rem[pr]>0)put(pr,Math.min(cap,rem[pr]));
-    while(off<cap){let b=-1;for(let i=2;i<n;i++)if(rem[i]>0&&(b<0||al[i]/w(i)<al[b]/w(b)))b=i;
+    const put=(c,m)=>{cl.push({c,m,s:s+off,d:0,n:oc.some(y=>!y.d&&y.c==c&&y.s==s+off&&y.n)?1:0});rem[c]-=m;if(!PR.includes(c))al[c]+=m;off+=m};
+    const pi=pr!==undefined?PR[pr]:undefined;if(pi!==undefined&&rem[pi]>0)put(pi,Math.min(cap,rem[pi]));
+    while(off<cap){let b=-1;for(let i=0;i<n;i++)if(!PR.includes(i)&&rem[i]>0&&(b<0||al[i]/w(i)<al[b]/w(b)))b=i;
      if(b<0)break;put(b,Math.min(cap-off,rem[b]))}});
    cl.sort((a,b)=>a.s-b.s);if(cl.length)S.days[k]=cl}
   d.setDate(d.getDate()+1)}
@@ -1520,18 +1545,23 @@ const RAW_AG=`#Week 1
 3|Day 5 - Course Wrap-Up: Your Agentic AI Engineering Journey
 3|Bonus Lecture - Your Exclusive Links`;
 const CYB=mk(RAW,"cy.",/cyber/i,"Cyber Security"),IBK=mk(RAW_IB,"ib.",/investment/i,"Investment Banking"),LLM=mk(RAW_LLM,"ll.",/llm/i,"LLM Engineer"),AIE=mk2(RAW_AIE,"ai.",/ai engineer/i,"AI Engineer Training"),AGT=mk2(RAW_AG,"ag.",/ai agents/i,"AI Agents"),COURSES=[IBK,CYB,AIE,LLM,AGT];
-let LC=IBK;
+let lcSel=-1;const lcourses=()=>S.c.map((c,i)=>i).filter(i=>!S.c[i].off&&lessons(S.c[i]));const curCi=()=>{const a=lcourses();return a.length?(a.includes(lcSel)?lcSel:a[0]):-1};
+function migrate(s){s.c.forEach(c=>{if(!c.lib&&!c.raw&&!c.kind){const L=COURSES.find(L=>L.re.test(c.n));if(L)c.lib=L[0].p.slice(0,2)}});if(s.c.length&&s.c.every(c=>c.pri===undefined))s.c.forEach((c,i)=>{c.pri=i<2?1:0})}
+if(ONB)S.seedIB=1;
+migrate(S);
 if(!S.seedIB){S.ld=S.ld||{};IBK.forEach(l=>{if(l.s<3)S.ld[l.p+l.id]=1});S.seedIB=1;save()}
-const lessons=c=>COURSES.find(L=>L.re.test(c.n))||null;
+const cust=new Map();
+const LIBS={ib:IBK,cy:CYB,ai:AIE,ll:LLM,ag:AGT};
+function lessons(c){if(c.raw){const key=c.uid+"|"+c.raw;let L=cust.get(key);if(!L){L=mk2(c.raw,c.uid+".",null,c.n);cust.set(key,L)}return L.length?L:null}return c.lib?LIBS[c.lib]||null:null}
 const isd=l=>!!(S.ld&&S.ld[l.p+l.id]);
 const lb=l=>l.q?l.t:l.id+". "+l.t;
 function cov(ci,u,n){const L=S.c[ci]&&lessons(S.c[ci]);if(!L)return[];let ft=0;const o=[];
  for(const l of L){if(isd(l))continue;const st=ft;ft+=l.m;if(st>=u+n)break;if(st>=u)o.push(l)}
  return o}
 function upn(ci,u,n){const o=cov(ci,u,n);return o.length?"Up next: "+(o.length==1?lb(o[0]):lb(o[0])+" to "+lb(o[o.length-1])):""}
-const fo=L=>{const i=L.findIndex(l=>!isd(l));return i<0?0:L[i].s};let openS=new Set([fo(LC)]);
+const fo=L=>{const i=L.findIndex(l=>!isd(l));return i<0?0:L[i].s};let openS=new Set([0]);
 function lesView(){
- const L=LC,c=S.c.find(c=>L.re.test(c.n))||{n:L.name,h:215},sel=`<div class="nav">${COURSES.map((x,i)=>`<button data-lc="${i}"${x==LC?" class=\"on\"":""}>${esc((S.c.find(c=>x.re.test(c.n))||{n:x.name}).n)}</button>`).join("")}</div>`;
+ const ci=curCi(),c=S.c[ci]||{n:"",h:215},L=ci>=0?lessons(c):null,sel=`<div class="nav">${lcourses().map(i=>`<button data-lc="${i}"${i==ci?" class=\"on\"":""}>${esc(S.c[i].n)}</button>`).join("")}</div>`;if(!L)return sel+`<p class="sub">No lessons yet. Add a course with a lessons list in Settings.</p>`;
  const tm=m=>m>=60?Math.floor(m/60)+" h "+String(m%60).padStart(2,"0")+" min":m+" min";
  const tot=L.reduce((a,l)=>a+l.m,0),dm=L.reduce((a,l)=>a+(isd(l)?l.m:0),0),dc=L.filter(isd).length;
  let h=sel+`<div class="box" style="--h:${c.h}"><h2>${esc(c.n)}</h2><div class="bar"><i style="width:${Math.round(dm/tot*100)}%"></i></div><small>${dc} of ${L.length} lessons done, ${tm(dm)} of ${tm(tot)} of video</small></div>`;
@@ -1539,8 +1569,8 @@ function lesView(){
   h+=`<details class="sc" data-s="${si}"${openS.has(si)?" open":""}><summary><b>Section ${si+1}: ${esc(sn)}</b><small>${d}/${A.length} lessons, ${tm(mm)}</small></summary>`+
   A.map(l=>`<label class="ls${isd(l)?" dn":""}"><input type="checkbox" data-id="${l.id}"${isd(l)?" checked":""}><span class="lt">${esc(lb(l))}</span><small>${/^Coding/.test(l.t)?"Exercise":/^Role/.test(l.t)?"Role play":/^Lab/.test(l.t)?"Lab":/Practice/.test(l.t)?"Practice":l.q?"Quiz":""}</small><small>${l.m?l.m+" min":""}</small></label>`).join("")+`</details>`});
  return h}
-$("#vc").addEventListener("change",e=>{const id=e.target.dataset.id;if(!id)return;S.ld=S.ld||{};const k=LC[0].p+id;if(S.ld[k])delete S.ld[k];else S.ld[k]=1;plan();render();$("#vc").innerHTML=lesView();const n=document.querySelector(`#vc [data-id="${id}"]`);if(n)n.focus()});
-$("#vc").addEventListener("click",e=>{const b=e.target.closest("[data-lc]");if(!b)return;LC=COURSES[+b.dataset.lc];openS=new Set([fo(LC)]);$("#vc").innerHTML=lesView()});
+$("#vc").addEventListener("change",e=>{const id=e.target.dataset.id;if(!id)return;S.ld=S.ld||{};const k=lessons(S.c[curCi()])[0].p+id;if(S.ld[k])delete S.ld[k];else S.ld[k]=1;plan();render();$("#vc").innerHTML=lesView();const n=document.querySelector(`#vc [data-id="${id}"]`);if(n)n.focus()});
+$("#vc").addEventListener("click",e=>{const b=e.target.closest("[data-lc]");if(!b)return;lcSel=+b.dataset.lc;openS=new Set([fo(lessons(S.c[lcSel]))]);$("#vc").innerHTML=lesView()});
 $("#vc").addEventListener("toggle",e=>{const s=+e.target.dataset.s;e.target.open?openS.add(s):openS.delete(s)},true);
 function prof(){
  const days=Object.keys(S.days).sort(),t=iso(new Date());
@@ -1552,7 +1582,9 @@ function prof(){
  <div class="stats"><div class="box"><b>${cls}</b><small>classes done</small></div><div class="box"><b>${(mins/60).toFixed(1)} h</b><small>studied</small></div><div class="box"><b>${ls}</b><small>lessons ticked</small></div><div class="box"><b>${st}</b><small>day streak</small></div></div>
  <div class="box"><small>Next class day</small><br><b>${nx?fd(parse(nx),{weekday:"long",day:"numeric",month:"long"}):"No classes left"}</b></div>`}
 $("#vp").addEventListener("input",e=>{if(e.target.id=="pn"){S.name=e.target.value;save()}});
-function eff(k,j,nm){const L=S.days[k],A=S.adj&&S.adj[k],g=!!L[j].n;let sh=0;if(A&&A.n==L.length)for(let i=0;i<=j;i++)if(!!L[i].n==g)sh+=A.a[i]||0;return (g?nm[j]:L[j].s)+sh}
+function adjA(k){const A=S.adj&&S.adj[k],L=S.days[k];return A&&L&&A.n==L.length?A:null}
+function eff(k,j,nm){const A=adjA(k),x=S.days[k][j];return (x.n?nm[j]:x.s)+(A?(A.a[j]||0):0)}
+function dur(k,j){const A=adjA(k);return S.days[k][j].m+(A&&A.d?(A.d[j]||0):0)}
 function nightMap(k){let cur=1200;const o={};(S.days[k]||[]).forEach((x,i)=>{if(x.n){o[i]=cur;cur+=x.m+10}});return o}
 let view=ld("view")||"today",wk=-1,tt="today";if(!["profile","today","week","les","set"].includes(view))view="today";if(view=="week")tt="week";
 function weeks(){const ks=Object.keys(S.days).sort(),W=[];
@@ -1564,8 +1596,8 @@ function today(){
  if(!cl.length)return h+`<p class="sub">No classes today.</p>`;
  const used={};
  const nm=nightMap(k);
- return h+cl.map((x,j)=>{const st=eff(k,j,nm),en=st+x.m,on=mins>=st&&mins<en,c=S.c[x.c],u0=used[x.c]||0,up=x.d?"":upn(x.c,u0,x.m/c.f),ac=(used[x.c]=x.d?u0:u0+x.m/c.f),q=`data-k="${k}.${j}"`;
-  return `<div class="item${x.d?" done":""}${on?" on now":""}" style="--h:${c.h}"><div class="tmv">${f(st)}<br>${f(en)}</div><div class="grow"><b>${esc(c.n)}</b><small>${x.m} min of study, about ${Math.round(x.m/c.f)} min of video${on?", ends in "+(en-mins)+" min":""}</small>${up?`<br><small>${esc(up)}</small>`:""}</div><button class="${x.d?"":"ok"}" data-a="d" ${q}>${x.d?"Undo":"Done"}</button><button data-a="m" ${q}>${x.n?"Day":"Night"}</button></div>`}).join("")}
+ return h+cl.map((x,j)=>{const st=eff(k,j,nm),du=dur(k,j),en=st+du,on=mins>=st&&mins<en,c=S.c[x.c],u0=used[x.c]||0,up=x.d?"":upn(x.c,u0,du/c.f),ac=(used[x.c]=x.d?u0:u0+du/c.f),q=`data-k="${k}.${j}"`;
+  return `<div class="item${x.d?" done":""}${on?" on now":""}" style="--h:${c.h}"><div class="tmv">${f(st)}<br>${f(en)}</div><div class="grow"><b>${esc(c.n)}</b><small>${du} min of study, about ${Math.round(du/c.f)} min of video${on?", ends in "+(en-mins)+" min":""}</small>${up?`<br><small>${esc(up)}</small>`:""}</div><button class="${x.d?"":"ok"}" data-a="d" ${q}>${x.d?"Undo":"Done"}</button><button data-a="m" ${q}>${x.n?"Day":"Night"}</button></div>`}).join("")}
 function wcols(w){const m=parse(w.k),o=[];for(let i=0;i<7;i++){const d=new Date(m);d.setDate(m.getDate()+i);const k=iso(d),we=i>4;if((!we&&S.days[k])||(we&&(S.we||S.days[k])))o.push(k)}return o}
 function week(){
  const W=weeks();if(!W.length){$("#grid").innerHTML="";return}
@@ -1579,20 +1611,20 @@ function week(){
   g+=`<div class="bd"><div class="nt"><small>Night</small></div><div class="lunch"><span>Lunch 12:00 to 13:30</span></div>`;
   (S.days[k]||[]).forEach((x,j)=>{const q=k+"."+j,st=eff(k,j,nm),lb=x.n?"Move back to the day":"Move to night",c=S.c[x.c];
    if(x.n)g+=`<div class="ghost" style="top:${x.s-540}px;height:${x.m-2}px">${esc(c.n)} moved to night</div>`;
-   g+=`<div class="seg${x.d?" done":""}${x.m<60?" tiny":""}${k<t&&!x.d?" past":""}" tabindex="0" role="button" data-a="d" data-k="${q}" style="--h:${c.h};top:${st-540}px;height:${x.m-2}px"><span class="gr" data-g="${q}" title="Drag to change the break before this class (double-click to reset this day)"></span><b>${esc(c.n)}</b><small>${f(st)} to ${f(st+x.m)}</small>${x.man?(x.d?"":`<button class="mv" data-a="x" data-k="${q}" title="Delete this class" aria-label="Delete this class">✕</button>`):`<button class="mv" data-a="m" data-k="${q}" title="${lb}" aria-label="${lb}">${x.n?"☀":"☾"}</button>`}</div>`});
+   g+=`<div class="seg${x.d?" done":""}${dur(k,j)<60?" tiny":""}${k<t&&!x.d?" past":""}" tabindex="0" role="button" data-a="d" data-k="${q}" style="--h:${c.h};top:${st-540}px;height:${dur(k,j)-2}px"><span class="gr" data-g="${q}" title="Drag to move this class and change its breaks (double-click to reset the day)"></span><span class="gs" data-g="${q}" title="Drag to make this class longer or shorter"></span><b>${esc(c.n)}</b><small>${f(st)} to ${f(st+dur(k,j))}</small>${x.man?(x.d?"":`<button class="mv" data-a="x" data-k="${q}" title="Delete this class" aria-label="Delete this class">✕</button>`):`<button class="mv" data-a="m" data-k="${q}" title="${lb}" aria-label="${lb}">${x.n?"☀":"☾"}</button>`}</div>`});
   g+=`</div>`});
  $("#grid").innerHTML=g+"</div>"}
 function sett(){
- return `<div class="box"><h2>Courses</h2><div class="row"><b>Course</b><b>Video hours</b><b>Done %</b><b>Study factor</b></div>`+
- S.c.map((c,i)=>`<div class="row"><input data-f="n" data-i="${i}" value="${esc(c.n)}" aria-label="Course name"><input type="number" min="0" step="0.5" data-f="t" data-i="${i}" value="${c.t}" aria-label="Video hours"><input type="number" min="0" max="100" data-f="p" data-i="${i}" value="${c.p}" aria-label="Percent done"><input type="number" min="1" step="0.5" data-f="f" data-i="${i}" value="${c.f}" aria-label="Study factor"></div>`).join("")+
- `<small>The first two courses get the fixed 1h30 blocks. A factor of 3 means 15 minutes of study for 5 minutes of video. Courses that have a Lessons list follow the lessons you tick, so Video hours and Done % only matter for courses without one.</small><p><label><input type="checkbox" id="au" ${S.auto===false?"":"checked"}> Adjust the study factor automatically from logged lessons</label></p><p><button id="ac">Add course</button></p></div>
+ return `<div class="box"><h2>Courses</h2><div class="crow"><b>Course</b><b>Video hours</b><b>Done %</b><b>Study factor</b><b>Priority</b><b></b></div>`+
+ S.c.map((c,i)=>{if(c.off)return"";const L=lessons(c),tot=L?(L.reduce((a,l)=>a+l.m,0)/60).toFixed(1):c.t;return `<div class="crow"><input data-f="n" data-i="${i}" value="${esc(c.n)}" aria-label="Course name"><input type="number" min="0" step="0.5" data-f="t" data-i="${i}" value="${tot}" ${L?"disabled ":""}aria-label="Video hours"><input type="number" min="0" max="100" data-f="p" data-i="${i}" value="${c.p}" ${L?"disabled ":""}aria-label="Percent done"><input type="number" min="1" step="0.5" data-f="f" data-i="${i}" value="${c.f}" aria-label="Study factor"><input type="checkbox" data-f="pri" data-i="${i}" ${c.pri?"checked ":""}aria-label="Priority"><button data-rm="${i}" title="Remove this course" aria-label="Remove this course">✕</button></div>`}).join("")+
+ `<small>Courses marked Priority (up to 2) get the fixed 1h30 blocks. A factor of 3 means 15 minutes of study for 5 minutes of video. Courses that have a Lessons list follow the lessons you tick, so Video hours and Done % only matter for courses without one.</small><p><label><input type="checkbox" id="au" ${S.auto===false?"":"checked"}> Adjust the study factor automatically from logged lessons</label></p><p><button id="ac">Add course…</button> ${S.c.some(c=>c.off)?`<button id="rs">Restore removed courses</button>`:""}</p><div id="nc"></div></div>
  <div class="box"><h2>Start date and days off</h2><p><input type="date" id="sd" value="${S.s}"> <label for="fs">first class of that day at (empty = normal 09:00)</label> <input type="time" id="fs" value="${S.fs||""}"></p><textarea id="off" aria-label="Days off, one date per line">${S.off.join("\n")}</textarea><small>One date per line (YYYY-MM-DD). Weekends are always off.</small><p><button id="hl">Add Portuguese holidays</button></p></div>
  <p><button id="ap" class="on">Apply and re-plan</button></p>
  <div class="box"><h2>Backup</h2><textarea id="bk" aria-label="Backup text">${esc(JSON.stringify(S))}</textarea><p><button id="ld">Load backup from text</button></p><small>Copy this text to keep your progress safe, and paste it here to restore it.</small></div>`}
 function read(){
- document.querySelectorAll("#vs [data-f]").forEach(e=>{const c=S.c[+e.dataset.i],k=e.dataset.f;c[k]=k=="n"?e.value:(+e.value||0);if(k=="f"&&c.f<1)c.f=1});
+ document.querySelectorAll("#vs [data-f]").forEach(e=>{const c=S.c[+e.dataset.i],k=e.dataset.f;c[k]=k=="n"?e.value:k=="pri"?(e.checked?1:0):(+e.value||0);if(k=="f"&&c.f<1)c.f=1});
  S.s=$("#sd").value||S.s;S.fs=$("#fs")?$("#fs").value:S.fs;S.auto=$("#au")?$("#au").checked:S.auto;S.off=$("#off").value.split(/\s+/).filter(x=>/^\d{4}-\d\d-\d\d$/.test(x))}
-function buildLog(){$("#vl").innerHTML=`<h2>Log a lesson</h2><div class="row"><select id="lc" aria-label="Course">${S.c.map((c,i)=>`<option value="${i}">${esc(c.n)}</option>`).join("")}</select><input type="number" min="1" id="lv" placeholder="Video min" aria-label="Video minutes"><input type="number" min="1" id="lr" placeholder="Real min" aria-label="Real minutes"><button id="lg" class="ok">Log</button></div><small>Tick a class as Done to record progress. Log a lesson to teach the app your real speed: after 3 lessons it adjusts the study factor and re-plans by itself.</small>`}
+function buildLog(){$("#vl").innerHTML=`<h2>Log a lesson</h2><div class="row"><select id="lc" aria-label="Course">${S.c.map((c,i)=>c.off?"":`<option value="${i}">${esc(c.n)}</option>`).join("")}</select><input type="number" min="1" id="lv" placeholder="Video min" aria-label="Video minutes"><input type="number" min="1" id="lr" placeholder="Real min" aria-label="Real minutes"><button id="lg" class="ok">Log</button></div><small>Tick a class as Done to record progress. Log a lesson to teach the app your real speed: after 3 lessons it adjusts the study factor and re-plans by itself.</small>`}
 $("#vl").addEventListener("click",e=>{if(e.target.id!="lg")return;
  const i=+$("#lc").value,v=+$("#lv").value,r=+$("#lr").value,m=$("#msg");
  if(!(v>0&&r>0)){m.textContent="Enter the video minutes and the real minutes.";return}
@@ -1602,14 +1634,14 @@ $("#vl").addEventListener("click",e=>{if(e.target.id!="lg")return;
  $("#lv").value="";$("#lr").value="";render();m.textContent=c.n+": "+v+" min of video took "+r+" min."+t});
 function render(){
  const dn=doneMin(),W=weeks(),ks=Object.keys(S.days).sort();
- $("#prog").innerHTML=S.c.map((c,i)=>{const L=lessons(c),T=L?L.reduce((a,l)=>a+l.m,0)/60:c.t,hr=L?L.reduce((a,l)=>a+(isd(l)?l.m:0),0)/60:c.t*c.p/100+dn[i]/60/c.f,pc=T?Math.min(100,Math.round(hr/T*100)):0;
+ $("#prog").innerHTML=S.c.map((c,i)=>{if(c.off)return"";const L=lessons(c),T=L?L.reduce((a,l)=>a+l.m,0)/60:c.t,hr=L?L.reduce((a,l)=>a+(isd(l)?l.m:0),0)/60:c.t*c.p/100+dn[i]/60/c.f,pc=T?Math.min(100,Math.round(hr/T*100)):0;
   return `<div class="pc" style="--h:${c.h}"><b>${esc(c.n)}</b><div class="bar"><i style="width:${pc}%"></i></div><small>${hr.toFixed(1)} of ${T.toFixed(1)} h of video (${pc}%)</small></div>`}).join("");
- const left=S.c.reduce((a,c,i)=>{const L=lessons(c);return a+(L?L.reduce((s,l)=>s+(isd(l)?0:l.m),0)*c.f/60:Math.max(0,c.t*(1-c.p/100)*c.f-dn[i]/60))},0);
+ const left=S.c.reduce((a,c,i)=>{if(c.off)return a;const L=lessons(c);return a+(L?L.reduce((s,l)=>s+(isd(l)?0:l.m),0)*c.f/60:Math.max(0,c.t*(1-c.p/100)*c.f-dn[i]/60))},0);
  $("#sub").textContent=Math.round(left)+" hours of study left, 7.5 hours a day from 09:00 to 19:30."+(ks.length?" Plan ends "+fd(parse(ks[ks.length-1]),{weekday:"long",day:"numeric",month:"long",year:"numeric"})+".":"");
  const grp=view=="today"||view=="week"?"tt":view;
  document.querySelectorAll(".sn button").forEach(b=>b.className=b.dataset.v==grp?"on":"");
  ["today","week"].forEach((v,i)=>$("#t"+(i+1)).className=view==v?"on":"");
- $("#sub2").hidden=grp!="tt";$("#prog").hidden=!(grp=="tt"||grp=="profile");
+ $("#sub2").hidden=grp!="tt";$("#prog").hidden=!(grp=="tt"||grp=="les");$("#sub").hidden=!(grp=="tt"||grp=="les");
  $("#pt").textContent={profile:"Profile",tt:"Study Timetable",les:"Lessons",set:"Settings"}[grp];
  $("#vt").hidden=view!="today";$("#vl").hidden=view!="today";$("#vw").hidden=view!="week";$("#vs").hidden=view!="set";$("#vc").hidden=view!="les";$("#vp").hidden=view!="profile";
  if(view=="today"){$("#vt").innerHTML=today();if(!$("#vl").contains(document.activeElement))buildLog()}
@@ -1623,7 +1655,7 @@ function act(e){
  if(e.type=="keydown"){if(e.target!==el||el.tagName=="BUTTON"||(e.key!="Enter"&&e.key!==" "))return;e.preventDefault()}
  const q=el.dataset.k,k=q.slice(0,10),x=S.days[k][+q.slice(11)];let m="";
  if(el.dataset.a=="x"){S.days[k].splice(+q.slice(11),1);if(!S.days[k].length)delete S.days[k];save();render();return}
- if(el.dataset.a=="d"){if(x.d){(x.l||[]).forEach(z=>{if(S.ld)delete S.ld[z]});x.l=[];x.d=0}else{x.d=1;x.l=cov(x.c,0,x.m/S.c[x.c].f).map(l=>l.p+l.id);x.l.forEach(z=>{S.ld=S.ld||{};S.ld[z]=1})}plan()}
+ if(el.dataset.a=="d"){if(x.d){(x.l||[]).forEach(z=>{if(S.ld)delete S.ld[z]});x.l=[];x.d=0}else{x.d=1;x.dm=dur(k,+q.slice(11));x.l=cov(x.c,0,x.dm/S.c[x.c].f).map(l=>l.p+l.id);x.l.forEach(z=>{S.ld=S.ld||{};S.ld[z]=1})}plan()}
  else if(x.n)x.n=0;
  else{x.n=1;const o=nightMap(k);if(Object.keys(o).some(i=>o[i]+S.days[k][i].m>1440)){x.n=0;m="Not enough room that evening: night classes must fit between 20:00 and midnight."}}
  save();render();$("#msg").textContent=m;
@@ -1631,11 +1663,11 @@ function act(e){
 ["#vt","#grid"].forEach(s=>{$(s).addEventListener("click",act);$(s).addEventListener("keydown",act)});
 $("#vs").addEventListener("click",e=>{
  const id=e.target.id,m=$("#msg");m.textContent="";
- if(id=="ac"){read();S.c.push({n:"New course",t:10,p:0,f:3,h:HUES[S.c.length%8]});render()}
+ if(id=="ac"){read();addUI()}
  if(id=="hl"){read();S.off=[...new Set([...S.off,...HOL])].sort();render()}
  if(id=="ap"){read();plan();view="today";sv("view",view);render();m.textContent="Plan updated."}
  if(id=="ld"){try{const b=JSON.parse($("#bk").value);if(!Array.isArray(b.c)||!b.days)throw 0;S=b;save();render();m.textContent="Backup loaded."}catch(x){m.textContent="That backup text is not valid."}}});
-document.querySelectorAll(".sn button").forEach(b=>b.onclick=()=>{const v=b.dataset.v;view=v=="tt"?tt:v;sv("view",view);$("#msg").textContent="";render()});
+document.querySelectorAll(".sn button").forEach(b=>b.onclick=()=>{const v=b.dataset.v;view=v=="tt"?tt:v;sv("view",view);$("#msg").textContent="";if(innerWidth<=760)setSb(true);render()});
 [["t1","today"],["t2","week"]].forEach(([id,v])=>$("#"+id).onclick=()=>{view=tt=v;sv("view",v);$("#msg").textContent="";render()});
 $("#rp").onclick=()=>{plan();render();$("#msg").textContent="Re-planned from today: missed classes were rescheduled."};
 $("#pv").onclick=()=>{wk--;render()};$("#nx").onclick=()=>{wk++;render()};$("#td").onclick=()=>{wk=-1;render()};
@@ -1645,12 +1677,12 @@ setInterval(()=>{if(view=="today")render()},60000);
 const sbEl=document.querySelector(".sb");
 function setSb(c){sbEl.classList.toggle("col",c);$("#lbtn").setAttribute("aria-expanded",String(!c));sv("sbcol",c?"1":"0")}
 $("#lbtn").onclick=()=>setSb(!sbEl.classList.contains("col"));
-setSb(ld("sbcol")=="1");
+setSb(ld("sbcol")==null?innerWidth<=760:ld("sbcol")=="1");
 if("serviceWorker" in navigator)addEventListener("load",()=>{navigator.serviceWorker.register("sw.js").catch(()=>{})});
 const ICONS={"profile": "data:image/png;base64,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", "set": "data:image/png;base64,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", "les": "data:image/png;base64,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", "tt": "data:image/png;base64,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"};
 document.querySelectorAll(".ni").forEach(i=>{i.src=ICONS[i.dataset.i]});
 function openAdd(k){const af=$("#af");af.hidden=false;af.dataset.k=k;
- af.innerHTML=`<h2>Add a class on ${fd(parse(k),{weekday:"long",day:"numeric",month:"long"})}</h2><div class="row"><select id="ac2" aria-label="Course">${S.c.map((c,i)=>`<option value="${i}">${esc(c.n)}</option>`).join("")}</select><input type="time" id="at" value="10:00" aria-label="Start time"><input type="number" id="al" min="15" step="15" value="60" aria-label="Length in minutes"><button id="aok" class="ok">Add</button></div><small>Start time from 09:00 and length in minutes. <button id="acx" type="button">Cancel</button></small>`}
+ af.innerHTML=`<h2>Add a class on ${fd(parse(k),{weekday:"long",day:"numeric",month:"long"})}</h2><div class="row"><select id="ac2" aria-label="Course">${S.c.map((c,i)=>c.off?"":`<option value="${i}">${esc(c.n)}</option>`).join("")}</select><input type="time" id="at" value="10:00" aria-label="Start time"><input type="number" id="al" min="15" step="15" value="60" aria-label="Length in minutes"><button id="aok" class="ok">Add</button></div><small>Start time from 09:00 and length in minutes. <button id="acx" type="button">Cancel</button></small>`}
 $("#grid").addEventListener("click",e=>{const b=e.target.closest("[data-add]");if(b)openAdd(b.dataset.add)});
 $("#af").addEventListener("click",e=>{const af=$("#af"),id=e.target.id;
  if(id=="acx"){af.hidden=true;return}
@@ -1662,22 +1694,89 @@ $("#af").addEventListener("click",e=>{const af=$("#af"),id=e.target.id;
 $("#wkd").onclick=()=>{S.we=!S.we;save();render()};
 let drag=null,dragged=false;
 const grpIdx=(k,g)=>S.days[k].map((x,i)=>i).filter(i=>!!S.days[k][i].n==g);
-function startsOf(k,g,jo,ao){const L=S.days[k],nm=nightMap(k),A=S.adj&&S.adj[k]&&S.adj[k].n==L.length?S.adj[k].a:[],o={};let sh=0;
- for(const i of grpIdx(k,g)){sh+=(i==jo?ao:(A[i]||0));o[i]=(g?nm[i]:L[i].s)+sh}return o}
-$("#grid").addEventListener("pointerdown",e=>{const gr=e.target.closest(".gr");if(!gr)return;
+function geo(k,g,ov){const L=S.days[k],nm=nightMap(k),A=adjA(k),o={};
+ for(const i of grpIdx(k,g)){let a=A?(A.a[i]||0):0,d=A&&A.d?(A.d[i]||0):0;if(ov&&ov.j==i){a=ov.a;d=ov.d}o[i]={s:(g?nm[i]:L[i].s)+a,m:L[i].m+d}}return o}
+$("#grid").addEventListener("pointerdown",e=>{const gr=e.target.closest(".gr,.gs");if(!gr)return;
  e.preventDefault();const q=gr.dataset.g,k=q.slice(0,10),j=+q.slice(11),L=S.days[k];
- S.adj=S.adj||{};if(!S.adj[k]||S.adj[k].n!=L.length)S.adj[k]={n:L.length,a:L.map(()=>0)};
- drag={k,j,y0:e.clientY,a0:S.adj[k].a[j]||0,g:!!L[j].n}});
+ S.adj=S.adj||{};let A=S.adj[k];if(!A||A.n!=L.length)A=S.adj[k]={n:L.length,a:L.map(()=>0),d:L.map(()=>0)};if(!A.d)A.d=A.a.map(()=>0);
+ drag={k,j,mode:gr.classList.contains("gs")?"s":"m",y0:e.clientY,a0:A.a[j]||0,d0:A.d[j]||0,g:!!L[j].n}});
 window.addEventListener("pointermove",e=>{if(!drag)return;
- const {k,j,g}=drag,L=S.days[k],dy=Math.round((e.clientY-drag.y0)/5)*5,grp=grpIdx(k,g),p=grp.indexOf(j),s0=startsOf(k,g,j,drag.a0),last=grp[grp.length-1];
- const lo=p>0?(s0[grp[p-1]]+L[grp[p-1]].m)-s0[j]:(g?1170:540)-s0[j],hi=1440-(s0[last]+L[last].m),d=Math.max(lo,Math.min(hi,dy));
- S.adj[k].a[j]=drag.a0+d;const s1=startsOf(k,g,j,drag.a0+d);
- let tip=$("#dl");if(!tip){tip=document.createElement("div");tip.id="dl";document.body.appendChild(tip)}
- tip.textContent=p>0?"Break: "+(s1[j]-(s1[grp[p-1]]+L[grp[p-1]].m))+" min":"Starts at "+f(s1[j]);
- tip.style.left=(e.clientX+14)+"px";tip.style.top=(e.clientY-26)+"px";week()});
+ const {k,j,g,mode}=drag,dy=Math.round((e.clientY-drag.y0)/5)*5,grp=grpIdx(k,g),p=grp.indexOf(j),G=geo(k,g,{j,a:drag.a0,d:drag.d0}),cur=G[j],prev=p>0?G[grp[p-1]]:null,next=p<grp.length-1?G[grp[p+1]]:null;
+ const room=(next?next.s:1440)-(cur.s+cur.m);let ov,tip="";
+ if(mode=="m"){const lo=(prev?prev.s+prev.m:(g?1170:540))-cur.s,d=Math.min(room,Math.max(lo,dy));ov={j,a:drag.a0+d,d:drag.d0}}
+ else{const lo=15-cur.m,d=Math.min(room,Math.max(lo,dy));ov={j,a:drag.a0,d:drag.d0+d}}
+ S.adj[k].a[j]=ov.a;S.adj[k].d[j]=ov.d;const N=geo(k,g,ov),n=N[j];
+ if(mode=="s")tip="Length: "+n.m+" min";
+ else{const b1=prev?n.s-(N[grp[p-1]].s+N[grp[p-1]].m):null,b2=next?N[grp[p+1]].s-(n.s+n.m):null;tip=(b1==null?"Starts at "+f(n.s):"Break before: "+b1+" min")+(b2==null?"":" | after: "+b2+" min")}
+ let t=$("#dl");if(!t){t=document.createElement("div");t.id="dl";document.body.appendChild(t)}
+ t.textContent=tip;t.style.left=(e.clientX+14)+"px";t.style.top=(e.clientY-26)+"px";week()});
 window.addEventListener("pointerup",()=>{if(!drag)return;const t=$("#dl");if(t)t.remove();dragged=true;drag=null;save();render();setTimeout(()=>{dragged=false},0)});
-$("#grid").addEventListener("dblclick",e=>{const gr=e.target.closest(".gr");if(!gr)return;const k=gr.dataset.g.slice(0,10);if(S.adj)delete S.adj[k];save();render()});
+$("#grid").addEventListener("dblclick",e=>{const gr=e.target.closest(".gr,.gs");if(!gr)return;const k=gr.dataset.g.slice(0,10);if(S.adj)delete S.adj[k];save();render()});
 const sp=$("#splash");if(sp){sp.onclick=()=>sp.remove();setTimeout(()=>sp.remove(),3000)}
+/* ---- profiles ---- */
+const chip=()=>{const p=META.list.find(p=>p.id==META.cur);$("#chip").textContent=p?p.name:"Profile"};
+function switchTo(id){save();META.cur=id;saveMeta();let s=null;try{s=JSON.parse(ld(skey()))}catch(e){}
+ if(!s||!Array.isArray(s.c)||!s.days)s=newState((META.list.find(p=>p.id==id)||{}).name||"Profile");
+ S=s;migrate(S);plan();wk=-1;lcSel=-1;openS=new Set([0]);chip();$("#msg").textContent="";render()}
+function addProfile(name){const id="p"+Date.now().toString(36);META.list.push({id,name});saveMeta();sv(skey(id),JSON.stringify(newState(name)));switchTo(id)}
+function prof(){
+ const days=Object.keys(S.days).sort(),t=iso(new Date());
+ let cls=0,mins=0;const ds=new Set();
+ days.forEach(k=>S.days[k].forEach(x=>{if(x.d){cls++;mins+=x.dm||x.m;ds.add(k)}}));
+ let st=0;for(const k of days.filter(k=>k<=t).reverse()){if(ds.has(k))st++;else if(k!=t)break}
+ const ls=Object.keys(S.ld||{}).length,nx=days.find(k=>k>=t&&S.days[k].some(x=>!x.d)),me=META.list.find(p=>p.id==META.cur)||{name:"Profile"},nm=S.name==null?me.name:S.name;
+ const pl=META.list.map(p=>`<div class="prow${p.id==META.cur?" cur":""}"><b>${esc(p.name)}</b>${p.id==META.cur?"<small>current profile</small>":`<button data-sw="${p.id}">Switch</button>`}${p.id!="main"&&p.id!=META.cur?`<button data-dl="${p.id}" title="Delete this profile" aria-label="Delete this profile">✕</button>`:""}</div>`).join("");
+ return `<div class="box pf"><img src="${IC}" alt="" width="72" height="72"><div><label for="pn" class="sub">Your name</label><br><input id="pn" value="${esc(nm)}" maxlength="40"></div></div>
+ <div class="stats"><div class="box"><b>${cls}</b><small>classes done</small></div><div class="box"><b>${(mins/60).toFixed(1)} h</b><small>studied</small></div><div class="box"><b>${ls}</b><small>lessons ticked</small></div><div class="box"><b>${st}</b><small>day streak</small></div></div>
+ <div class="box"><small>Next class day</small><br><b>${nx?fd(parse(nx),{weekday:"long",day:"numeric",month:"long"}):"No classes left"}</b></div>
+ <div class="box"><h2>Profiles on this device</h2>${pl}<p><input id="np" placeholder="New profile name" maxlength="40"> <button id="npb">Add profile</button></p><small>Each profile has its own courses, plan and progress. Nothing is shared between profiles.</small></div>`}
+$("#vp").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;
+ if(b.dataset.sw)switchTo(b.dataset.sw);
+ else if(b.dataset.dl){if(!confirm("Delete this profile and all its progress?"))return;META.list=META.list.filter(p=>p.id!=b.dataset.dl);try{localStorage.removeItem(skey(b.dataset.dl))}catch(x){}saveMeta();render()}
+ else if(b.id=="npb"){const n=$("#np").value.trim();if(!n){$("#msg").textContent="Type a name for the new profile.";return}addProfile(n)}});
+$("#vp").addEventListener("input",e=>{if(e.target.id=="pn"){const p=META.list.find(p=>p.id==META.cur);if(p){p.name=e.target.value||"Profile";saveMeta();chip()}}});
+$("#chip").onclick=()=>{view="profile";sv("view",view);if(innerWidth<=760)setSb(true);render()};
+chip();
+/* ---- course types ---- */
+const msg=t=>{$("#msg").textContent=t};
+const uid=()=>"u"+Math.random().toString(36).slice(2,8);
+const TOP=["Greetings and introductions","Family and friends","Food and drinks","Shopping","Travel and directions","Daily routine","Work and school","Hobbies and free time","Health and the body","Weather and seasons","The past","Plans for the future","Opinions and feelings","Culture and traditions"];
+function langRaw(units,per,mins){const o=[];for(let u=1;u<=units;u++){o.push("#Unit "+u+": "+(TOP[u-1]||"Practice"));for(let k=1;k<=per;k++)o.push(mins+"|Lesson "+k);o.push("10|Unit "+u+" test")}return o.join("\n")}
+function parseVid(t){const out=[];let open=0,last=-1,any=0;
+ for(let r of t.split("\n")){r=r.trim();if(!r)continue;let x;
+  if(r[0]=="#"){out.push("#"+r.replace(/^#+\s*/,""));open=1;last=-1;continue}
+  if((x=r.match(/^(\d+)\s*min$/i))&&last>=0){out[last]=x[1]+"|"+out[last].split("|").slice(1).join("|");continue}
+  let m=5,ti=r;
+  if(x=r.match(/^(\d+)\s*\|\s*(.+)$/)){m=+x[1];ti=x[2]}
+  else if(x=r.match(/^(.+?)\s*\|\s*(\d+)\s*(?:min|m)?$/i)){ti=x[1];m=+x[2]}
+  else if(x=r.match(/^(.+?)\s*[\(\[]?\s*(\d+)\s*min[\)\]]?$/i)){ti=x[1];m=+x[2]}
+  if(!open){out.push("#Course");open=1}
+  out.push(m+"|"+ti.replace(/\|/g," "));last=out.length-1;any++}
+ return any?out.join("\n"):""}
+function addUI(){const lib=Object.keys(LIBS).filter(k=>!S.c.some(c=>!c.off&&c.lib==k));
+ $("#nc").innerHTML=`<div class="box"><h2>Add a course</h2><p><select id="ty" aria-label="Course type"><option value="lib">Ready-made course</option><option value="vid">Video course (paste the lessons)</option><option value="lang">Language course (Duolingo style)</option><option value="simple">Simple course (hours only)</option></select></p>
+ <div class="ty" data-t="lib"><select id="lb" aria-label="Ready-made course">${lib.length?lib.map(k=>`<option value="${k}">${esc(LIBS[k].name)}</option>`).join(""):`<option value="">All ready-made courses are already added</option>`}</select></div>
+ <div class="ty" data-t="vid" hidden><p><input id="vn" placeholder="Course name"></p><textarea id="vt" aria-label="Lessons" placeholder="One lesson per line, for example:\nIntro to Python | 8\nVariables (12 min)\nStart a new section with a line like: # Section 2"></textarea></div>
+ <div class="ty" data-t="lang" hidden><p><input id="ln" placeholder="Language, for example Spanish"></p><p><label>Units <input type="number" id="lu" value="10" min="1" max="40"></label> <label>Lessons per unit <input type="number" id="ll" value="6" min="1" max="20"></label> <label>Minutes per lesson <input type="number" id="lm" value="8" min="1" max="60"></label></p><small>Like Duolingo: units with short lessons and a unit test. The study factor starts at 1 because the lessons are already practice time.</small></div>
+ <div class="ty" data-t="simple" hidden><p><input id="sn" placeholder="Course name"></p><p><label>Total hours <input type="number" id="sh" value="10" min="1"></label> <label>Study factor <input type="number" id="sf" value="1.5" min="1" step="0.5"></label></p></div>
+ <p><button id="ad" class="ok">Add</button> <button id="adx">Cancel</button></p></div>`}
+function addCourse(){const t=$("#ty").value,h=HUES.find(x=>!S.c.some(c=>!c.off&&c.h==x))||HUES[S.c.length%8];let c=null;
+ if(t=="lib"){const k=$("#lb").value;if(!k)return;const L=LIBS[k];c={n:L.name,t:+(L.reduce((a,l)=>a+l.m,0)/60).toFixed(1),p:0,f:3,h:HUES[["ib","cy","ai","ll","ag"].indexOf(k)],lib:k,kind:"lib"}}
+ else if(t=="vid"){const n=$("#vn").value.trim(),raw=parseVid($("#vt").value);if(!n||!raw){msg("Add a course name and at least one lesson.");return}c={n,t:0,p:0,f:3,h,uid:uid(),raw,kind:"vid"}}
+ else if(t=="lang"){const n=$("#ln").value.trim();if(!n){msg("Type the language you want to learn.");return}c={n,t:0,p:0,f:1,h,uid:uid(),raw:langRaw(+$("#lu").value||10,+$("#ll").value||6,+$("#lm").value||8),kind:"lang"}}
+ else{const n=$("#sn").value.trim();if(!n){msg("Add a course name.");return}c={n,t:+$("#sh").value||10,p:0,f:+$("#sf").value||1.5,h,kind:"simple"}}
+ S.c.push(c);if(c.raw)c.t=+(lessons(c).reduce((a,l)=>a+l.m,0)/60).toFixed(1);plan();render();msg("Course added: "+c.n)}
+$("#vs").addEventListener("change",e=>{if(e.target.id=="ty")document.querySelectorAll("#nc .ty").forEach(d=>{d.hidden=d.dataset.t!=e.target.value})});
+$("#vs").addEventListener("click",e=>{const id=e.target.id,rm=e.target.closest("[data-rm]");
+ if(rm){read();S.c[+rm.dataset.rm].off=1;plan();render();msg("Course removed. Use Restore removed courses to bring it back.");return}
+ if(id=="rs"){read();S.c.forEach(c=>{c.off=0});plan();render();return}
+ if(id=="adx"){$("#nc").innerHTML="";return}
+ if(id=="ad")addCourse()});
+/* ---- first launch ---- */
+if(ONB)$("#wlc").hidden=false;
+$("#wlc").addEventListener("click",e=>{const id=e.target.id;if(id!="w1"&&id!="w2")return;const n=$("#wn").value.trim()||"My profile";
+ META.list[0].name=n;saveMeta();if(id=="w2"){S=newState(n)}else{S.name=n;S.seedIB=1}
+ sv("clo-onb","1");migrate(S);plan();chip();$("#wlc").hidden=true;render()});
 </script>
 </body>
 </html>
