@@ -104,12 +104,31 @@ textarea{width:100%;box-sizing:border-box;min-height:70px}
 .sb.col .chip{display:none}
 #wlc{position:fixed;inset:0;z-index:250;display:flex;align-items:center;justify-content:center;background:rgba(6,25,77,.78)}
 #wlc[hidden]{display:none}#wlc .box{max-width:420px;width:90%}
+[hidden]{display:none!important}
+#pop{position:fixed;inset:0;z-index:150;display:flex;align-items:center;justify-content:center;background:rgba(6,25,77,.55);padding:12px}
+#pop .card{background:var(--card);color:var(--fg);border-radius:14px;max-width:520px;width:100%;max-height:92vh;overflow:auto;padding:16px;border-top:6px solid hsl(var(--h) 60% 50%);box-shadow:0 12px 40px rgba(0,0,0,.4)}
+#pop h2{margin:0 0 4px}#pop .x{float:right}
+#pop .sec{border-top:1px solid var(--bd);margin-top:12px;padding-top:10px}
+#pop .btns{display:flex;flex-wrap:wrap;gap:6px}
+#pop .lst{max-height:220px;overflow:auto;border:1px solid var(--bd);border-radius:8px;padding:4px 8px;margin-top:6px}
+#pop .lst label{display:flex;gap:8px;align-items:center;padding:3px 0;cursor:pointer}
+#pop .row3{display:grid;grid-template-columns:1fr 1fr auto;gap:6px;margin-top:6px}
+#pop .row3 input,#pop .row3 select{min-width:0}
+#tm{position:fixed;right:14px;bottom:14px;z-index:140;background:var(--fg);color:var(--bg);border-radius:14px;padding:10px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 8px 28px rgba(0,0,0,.35)}
+#tm b{font-size:22px;font-variant-numeric:tabular-nums}
+#tm button{background:transparent;color:inherit;border-color:rgba(128,128,128,.6)}
 @media(max-width:760px){
-.app{padding-left:68px}
-.app .sb{position:fixed;left:0;top:0;bottom:0;height:auto;z-index:60;width:230px;padding:18px 14px;box-shadow:6px 0 24px rgba(0,0,0,.35)}
-.app .sb.col{width:68px;padding:12px 6px;box-shadow:none}
-.main{padding:12px 10px 40px}
+.app{padding-left:0;padding-bottom:calc(68px + env(safe-area-inset-bottom,0px))}
+.app .sb,.app .sb.col{position:fixed;left:0;right:0;top:auto;bottom:0;width:auto;height:auto;flex-direction:row;align-items:stretch;padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));gap:0;z-index:60;box-shadow:0 -4px 16px rgba(0,0,0,.3)}
+.app .sb .brand,.app .sb .chip,.app .sb .rp{display:none}
+.app .sb .sn{flex-direction:row;flex:1;gap:2px;align-items:stretch}
+.app .sb .sn button,.app .sb.col .sn button{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:6px 2px;font-size:11px;text-align:center;border-left:0;border-bottom:3px solid transparent}
+.app .sb .sn button span,.app .sb.col .sn button span{display:block}
+.app .sb .sn .ni,.app .sb.col .sn .ni{display:block;width:26px;height:26px}
+.app .sb .sn button.on{border-bottom-color:var(--yl)}
+.main{padding:12px 10px 20px}
 .crow{grid-template-columns:1fr 1fr}
+#tm{bottom:calc(76px + env(safe-area-inset-bottom,0px));right:8px;left:8px;justify-content:space-between}
 }
 .gr{position:absolute;left:0;right:0;top:0;height:8px;cursor:ns-resize;touch-action:none;z-index:2}
 .gr::after{content:"";position:absolute;left:50%;top:2px;width:28px;height:3px;margin-left:-14px;border-radius:2px;background:currentColor;opacity:.22}
@@ -142,6 +161,7 @@ textarea{width:100%;box-sizing:border-box;min-height:70px}
 <body>
 <div id="splash" aria-hidden="true"><svg viewBox="0 0 200 200"><defs><linearGradient id="sg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0a3aa8"/><stop offset="1" stop-color="#1a6dff"/></linearGradient></defs><rect class="s-bg" width="200" height="200" rx="42" fill="url(#sg)"/><g class="s-cal"><rect x="58" y="40" width="122" height="112" rx="20" fill="#0a2e8a"/><rect x="63" y="66" width="112" height="82" rx="14" fill="#fff"/><rect x="78" y="28" width="12" height="28" rx="6" fill="#082377"/><circle cx="84" cy="50" r="9" fill="none" stroke="#fff" stroke-width="3"/><rect x="146" y="28" width="12" height="28" rx="6" fill="#082377"/><circle cx="152" cy="50" r="9" fill="none" stroke="#fff" stroke-width="3"/></g><rect class="s-c" style="--i:0" x="98" y="71" width="19" height="19" rx="4" fill="#b6cff0"/><rect class="s-c" style="--i:1" x="123" y="71" width="19" height="19" rx="4" fill="#b6cff0"/><rect class="s-c" style="--i:2" x="148" y="71" width="19" height="19" rx="4" fill="#b6cff0"/><rect class="s-c" style="--i:3" x="98" y="96" width="19" height="19" rx="4" fill="#b6cff0"/><rect class="s-y" x="123" y="96" width="19" height="19" rx="4" fill="#fbbd1c"/><rect class="s-c" style="--i:5" x="148" y="96" width="19" height="19" rx="4" fill="#b6cff0"/><rect class="s-c" style="--i:6" x="98" y="121" width="19" height="19" rx="4" fill="#b6cff0"/><rect class="s-c" style="--i:7" x="123" y="121" width="19" height="19" rx="4" fill="#b6cff0"/><rect class="s-c" style="--i:8" x="148" y="121" width="19" height="19" rx="4" fill="#b6cff0"/><g class="s-cap"><path d="M38 126 L38 150 Q72 172 106 148 L106 124 Z" fill="#0f7a44"/><polygon points="12,106 72,79 132,106 72,136" fill="#1a9a57"/><path d="M72 104 L36 121 L36 150" stroke="#fbbd1c" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="72" cy="104" r="7" fill="#fbbd1c"/><path class="s-tas" d="M36 148 L30 172 Q36 176 42 172 Z" fill="#fbbd1c"/></g><text class="s-t" style="--i:0" x="72" y="186" text-anchor="middle" font-size="34" font-weight="800" fill="#fff" font-family="'Bricolage Grotesque',system-ui,sans-serif">C</text><text class="s-t" style="--i:1" x="106" y="186" text-anchor="middle" font-size="34" font-weight="800" fill="#fff" font-family="'Bricolage Grotesque',system-ui,sans-serif">L</text><text class="s-t" style="--i:2" x="140" y="186" text-anchor="middle" font-size="34" font-weight="800" fill="#fff" font-family="'Bricolage Grotesque',system-ui,sans-serif">O</text></svg></div>
 <div id="wlc" hidden><div class="box"><h2>Welcome to CLO</h2><p>Create your profile. You can add more profiles and courses later.</p><p><input id="wn" placeholder="Your name" maxlength="40"></p><p><button id="w1" class="ok">Start with the 5 ready-made courses</button></p><p><button id="w2">Start with no courses</button></p></div></div>
+<div id="pop" hidden></div><div id="tm" hidden></div>
 <div class="app"><aside class="sb"><div class="brand"><button id="lbtn" class="lb" type="button" aria-label="Open or close the menu" aria-expanded="true"><img id="logo" alt="CLO logo" width="44" height="44"></button><span>CLO</span></div><button id="chip" class="chip" type="button" title="Profile"></button><nav class="sn"><button data-v="profile" title="Profile"><img class="ni" data-i="profile" alt=""><span>Profile</span></button><button data-v="tt" title="Study Timetable"><img class="ni" data-i="tt" alt=""><span>Study Timetable</span></button><button data-v="les" title="Lessons"><img class="ni" data-i="les" alt=""><span>Lessons</span></button><button data-v="set" title="Settings"><img class="ni" data-i="set" alt=""><span>Settings</span></button></nav><button id="rp" class="rp">Re-plan from today</button></aside>
 <main class="main"><header class="hd"><div><h1 id="pt">Study Timetable</h1><p class="sub" id="sub"></p></div></header>
 <div id="prog"></div>
@@ -185,15 +205,18 @@ function plan(){
  const t0=iso(new Date()),n=S.c.length,dn=doneMin(),al=dn.slice(),old=S.days;
  const PR=S.c.map((c,i)=>i).filter(i=>S.c[i].pri&&!S.c[i].off).slice(0,2);
  const rem=S.c.map((c,i)=>{if(c.off)return 0;const L=lessons(c);if(L)return Math.round(L.reduce((a,l)=>a+(isd(l)?0:l.m),0)*c.f/30)*30;return Math.max(0,Math.round(c.t*(1-c.p/100)*c.f*2)*30-dn[i])});
- S.days={};for(const k in old)if(k<t0||(parse(k).getDay()%6==0&&old[k].some(x=>x.man||x.d)))S.days[k]=old[k];
+ S.days={};for(const k in old)if(k<t0)S.days[k]=old[k];
+ for(const k in old)if(k>=t0)old[k].forEach(x=>{if(x.rep&&!x.d&&S.c[x.c]&&!S.c[x.c].off)rem[x.c]=Math.max(0,rem[x.c]-x.m)});
+ const repBy={};for(const k in old)old[k].forEach(x=>{if(x.rep&&x.od)(repBy[x.od]=repBy[x.od]||[]).push(x)});
  const w=c=>S.c[c].t*S.c[c].f||1;
  let d=parse(S.s<t0?t0:S.s),g=0;
  while(rem.some(r=>r>0)&&g++<600){
   const k=iso(d);
   if(d.getDay()%6&&!S.off.includes(k)){
-   const oc=old[k]||[],cl=oc.filter(x=>x.d);
+   const oc=old[k]||[],cl=oc.filter(x=>x.d||x.man);
    slotsFor(k).forEach(([s,cap,pr])=>{
-    if(cl.some(x=>x.s>=s&&x.s<s+cap))return;
+    if(cl.some(x=>x.d&&!x.man&&x.s>=s&&x.s<s+cap))return;
+    if(((S.vac&&S.vac[k])||[]).some(o=>o>=s&&o<s+cap)){(repBy[k]||[]).forEach(x=>{if(!x.d&&x.os>=s&&x.os<s+cap&&!PR.includes(x.c))al[x.c]+=x.m});return}
     let off=0;
     const put=(c,m)=>{cl.push({c,m,s:s+off,d:0,n:oc.some(y=>!y.d&&y.c==c&&y.s==s+off&&y.n)?1:0});rem[c]-=m;if(!PR.includes(c))al[c]+=m;off+=m};
     const pi=pr!==undefined?PR[pr]:undefined;if(pi!==undefined&&rem[pi]>0)put(pi,Math.min(cap,rem[pi]));
@@ -201,6 +224,7 @@ function plan(){
      if(b<0)break;put(b,Math.min(cap-off,rem[b]))}});
    cl.sort((a,b)=>a.s-b.s);if(cl.length)S.days[k]=cl}
   d.setDate(d.getDate()+1)}
+ for(const k in old)if(k>=t0&&!S.days[k]){const kp=old[k].filter(x=>x.d||x.man);if(kp.length)S.days[k]=kp}
  save()}
 const RAW=`#Foundations
 1|4|Welcome to the Course.
@@ -1592,12 +1616,12 @@ function weeks(){const ks=Object.keys(S.days).sort(),W=[];
 function cur(W){const t=iso(new Date()),i=W.findIndex(w=>w.ks.some(k=>k>=t));return i<0?W.length-1:i}
 function today(){
  const now=new Date(),k=iso(now),cl=S.days[k]||[],mins=now.getHours()*60+now.getMinutes();
- let h=`<h2>${fd(now,{weekday:"long",day:"numeric",month:"long"})}</h2>`;
+ let h=`<h2>${fd(now,{weekday:"long",day:"numeric",month:"long"})}</h2><p><button data-add="${k}">+ Add a class</button></p>`;
  if(!cl.length)return h+`<p class="sub">No classes today.</p>`;
  const used={};
  const nm=nightMap(k);
  return h+cl.map((x,j)=>{const st=eff(k,j,nm),du=dur(k,j),en=st+du,on=mins>=st&&mins<en,c=S.c[x.c],u0=used[x.c]||0,up=x.d?"":upn(x.c,u0,du/c.f),ac=(used[x.c]=x.d?u0:u0+du/c.f),q=`data-k="${k}.${j}"`;
-  return `<div class="item${x.d?" done":""}${on?" on now":""}" style="--h:${c.h}"><div class="tmv">${f(st)}<br>${f(en)}</div><div class="grow"><b>${esc(c.n)}</b><small>${du} min of study, about ${Math.round(du/c.f)} min of video${on?", ends in "+(en-mins)+" min":""}</small>${up?`<br><small>${esc(up)}</small>`:""}</div><button class="${x.d?"":"ok"}" data-a="d" ${q}>${x.d?"Undo":"Done"}</button><button data-a="m" ${q}>${x.n?"Day":"Night"}</button></div>`}).join("")}
+  return `<div class="item${x.d?" done":""}${on?" on now":""}" style="--h:${c.h}"><div class="tmv">${f(st)}<br>${f(en)}</div><div class="grow" data-a="o" data-k="${k}.${j}" style="cursor:pointer"><b>${esc(c.n)}</b><small>${du} min of study, about ${Math.round(du/c.f)} min of video${on?", ends in "+(en-mins)+" min":""}</small>${up?`<br><small>${esc(up)}</small>`:""}</div><button class="${x.d?"":"ok"}" data-a="d" ${q}>${x.d?"Undo":"Done"}</button><button data-a="m" ${q}>${x.n?"Day":"Night"}</button></div>`}).join("")}
 function wcols(w){const m=parse(w.k),o=[];for(let i=0;i<7;i++){const d=new Date(m);d.setDate(m.getDate()+i);const k=iso(d),we=i>4;if((!we&&S.days[k])||(we&&(S.we||S.days[k])))o.push(k)}return o}
 function week(){
  const W=weeks();if(!W.length){$("#grid").innerHTML="";return}
@@ -1605,13 +1629,13 @@ function week(){
  const w=W[wk],t=iso(new Date()),cols=wcols(w);
  $("#wl").textContent="Week "+(wk+1)+" of "+W.length;$("#wkd").textContent=S.we?"Hide Sat & Sun":"Show Sat & Sun";$("#pv").disabled=wk==0;$("#nx").disabled=wk==W.length-1;
  let g=`<div class="g" style="grid-template-columns:48px repeat(${cols.length},minmax(124px,1fr))"><div></div>`;
- cols.forEach(k=>{g+=`<div class="dh${k==t?" today":""}">${fd(parse(k),{weekday:"short",day:"numeric",month:"short"})}${parse(k).getDay()%6==0?` <button class="add" data-add="${k}" title="Add a class" aria-label="Add a class">+</button>`:""}</div>`});
+ cols.forEach(k=>{g+=`<div class="dh${k==t?" today":""}">${fd(parse(k),{weekday:"short",day:"numeric",month:"short"})}${1?` <button class="add" data-add="${k}" title="Add a class" aria-label="Add a class">+</button>`:""}</div>`});
  g+=`<div class="ax">`;for(let h=9;h<=24;h++)g+=`<span style="top:${(h-9)*60}px">${String(h%24).padStart(2,"0")}:00</span>`;g+=`</div>`;
  cols.forEach(k=>{const nm=nightMap(k);
   g+=`<div class="bd"><div class="nt"><small>Night</small></div><div class="lunch"><span>Lunch 12:00 to 13:30</span></div>`;
   (S.days[k]||[]).forEach((x,j)=>{const q=k+"."+j,st=eff(k,j,nm),lb=x.n?"Move back to the day":"Move to night",c=S.c[x.c];
    if(x.n)g+=`<div class="ghost" style="top:${x.s-540}px;height:${x.m-2}px">${esc(c.n)} moved to night</div>`;
-   g+=`<div class="seg${x.d?" done":""}${dur(k,j)<60?" tiny":""}${k<t&&!x.d?" past":""}" tabindex="0" role="button" data-a="d" data-k="${q}" style="--h:${c.h};top:${st-540}px;height:${dur(k,j)-2}px"><span class="gr" data-g="${q}" title="Drag to move this class and change its breaks (double-click to reset the day)"></span><span class="gs" data-g="${q}" title="Drag to make this class longer or shorter"></span><b>${esc(c.n)}</b><small>${f(st)} to ${f(st+dur(k,j))}</small>${x.man?(x.d?"":`<button class="mv" data-a="x" data-k="${q}" title="Delete this class" aria-label="Delete this class">✕</button>`):`<button class="mv" data-a="m" data-k="${q}" title="${lb}" aria-label="${lb}">${x.n?"☀":"☾"}</button>`}</div>`});
+   g+=`<div class="seg${x.d?" done":""}${dur(k,j)<60?" tiny":""}${k<t&&!x.d?" past":""}" tabindex="0" role="button" data-a="o" data-k="${q}" style="--h:${c.h};top:${st-540}px;height:${dur(k,j)-2}px"><span class="gr" data-g="${q}" title="Drag to move this class and change its breaks (double-click to reset the day)"></span><span class="gs" data-g="${q}" title="Drag to make this class longer or shorter"></span><b>${esc(c.n)}</b><small>${f(st)} to ${f(st+dur(k,j))}</small>${x.man?(x.d?"":`<button class="mv" data-a="x" data-k="${q}" title="Delete this class" aria-label="Delete this class">✕</button>`):`<button class="mv" data-a="m" data-k="${q}" title="${lb}" aria-label="${lb}">${x.n?"☀":"☾"}</button>`}</div>`});
   g+=`</div>`});
  $("#grid").innerHTML=g+"</div>"}
 function sett(){
@@ -1620,10 +1644,11 @@ function sett(){
  `<small>Courses marked Priority (up to 2) get the fixed 1h30 blocks. A factor of 3 means 15 minutes of study for 5 minutes of video. Courses that have a Lessons list follow the lessons you tick, so Video hours and Done % only matter for courses without one.</small><p><label><input type="checkbox" id="au" ${S.auto===false?"":"checked"}> Adjust the study factor automatically from logged lessons</label></p><p><button id="ac">Add course…</button> ${S.c.some(c=>c.off)?`<button id="rs">Restore removed courses</button>`:""}</p><div id="nc"></div></div>
  <div class="box"><h2>Start date and days off</h2><p><input type="date" id="sd" value="${S.s}"> <label for="fs">first class of that day at (empty = normal 09:00)</label> <input type="time" id="fs" value="${S.fs||""}"></p><textarea id="off" aria-label="Days off, one date per line">${S.off.join("\n")}</textarea><small>One date per line (YYYY-MM-DD). Weekends are always off.</small><p><button id="hl">Add Portuguese holidays</button></p></div>
  <p><button id="ap" class="on">Apply and re-plan</button></p>
+ <div class="box"><h2>Reminders</h2><p><label><input type="checkbox" id="rm1" ${S.rem===false?"":"checked"}> Remind me when a class starts and ends</label></p><p><label>Also remind me <input type="number" id="rm2" min="0" max="60" value="${S.pre==null?5:S.pre}" style="width:70px"> minutes before a class (0 = off)</label></p><p><button id="rm3">Allow system notifications</button> <button id="rm4">Send a test</button></p><small>System notifications: ${"Notification" in window?Notification.permission:"not supported here"}. Reminders work while CLO is open (on iPhone, open it from the home-screen icon).</small></div>
  <div class="box"><h2>Backup</h2><textarea id="bk" aria-label="Backup text">${esc(JSON.stringify(S))}</textarea><p><button id="ld">Load backup from text</button></p><small>Copy this text to keep your progress safe, and paste it here to restore it.</small></div>`}
 function read(){
  document.querySelectorAll("#vs [data-f]").forEach(e=>{const c=S.c[+e.dataset.i],k=e.dataset.f;c[k]=k=="n"?e.value:k=="pri"?(e.checked?1:0):(+e.value||0);if(k=="f"&&c.f<1)c.f=1});
- S.s=$("#sd").value||S.s;S.fs=$("#fs")?$("#fs").value:S.fs;S.auto=$("#au")?$("#au").checked:S.auto;S.off=$("#off").value.split(/\s+/).filter(x=>/^\d{4}-\d\d-\d\d$/.test(x))}
+ S.s=$("#sd").value||S.s;S.fs=$("#fs")?$("#fs").value:S.fs;S.auto=$("#au")?$("#au").checked:S.auto;S.rem=$("#rm1")?$("#rm1").checked:S.rem;S.pre=$("#rm2")?(+$("#rm2").value||0):S.pre;S.off=$("#off").value.split(/\s+/).filter(x=>/^\d{4}-\d\d-\d\d$/.test(x))}
 function buildLog(){$("#vl").innerHTML=`<h2>Log a lesson</h2><div class="row"><select id="lc" aria-label="Course">${S.c.map((c,i)=>c.off?"":`<option value="${i}">${esc(c.n)}</option>`).join("")}</select><input type="number" min="1" id="lv" placeholder="Video min" aria-label="Video minutes"><input type="number" min="1" id="lr" placeholder="Real min" aria-label="Real minutes"><button id="lg" class="ok">Log</button></div><small>Tick a class as Done to record progress. Log a lesson to teach the app your real speed: after 3 lessons it adjusts the study factor and re-plans by itself.</small>`}
 $("#vl").addEventListener("click",e=>{if(e.target.id!="lg")return;
  const i=+$("#lc").value,v=+$("#lv").value,r=+$("#lr").value,m=$("#msg");
@@ -1654,10 +1679,10 @@ function act(e){
  if(dragged){dragged=false;return}
  if(e.type=="keydown"){if(e.target!==el||el.tagName=="BUTTON"||(e.key!="Enter"&&e.key!==" "))return;e.preventDefault()}
  const q=el.dataset.k,k=q.slice(0,10),x=S.days[k][+q.slice(11)];let m="";
- if(el.dataset.a=="x"){S.days[k].splice(+q.slice(11),1);if(!S.days[k].length)delete S.days[k];save();render();return}
+ if(el.dataset.a=="o"){openPop(k,+q.slice(11));return}
+ if(el.dataset.a=="x"){delBlock(k,+q.slice(11));return}
  if(el.dataset.a=="d"){if(x.d){(x.l||[]).forEach(z=>{if(S.ld)delete S.ld[z]});x.l=[];x.d=0}else{x.d=1;x.dm=dur(k,+q.slice(11));x.l=cov(x.c,0,x.dm/S.c[x.c].f).map(l=>l.p+l.id);x.l.forEach(z=>{S.ld=S.ld||{};S.ld[z]=1})}plan()}
- else if(x.n)x.n=0;
- else{x.n=1;const o=nightMap(k);if(Object.keys(o).some(i=>o[i]+S.days[k][i].m>1440)){x.n=0;m="Not enough room that evening: night classes must fit between 20:00 and midnight."}}
+ else m=toggleNight(k,+q.slice(11));
  save();render();$("#msg").textContent=m;
  const n=document.querySelector(`[data-a="${el.dataset.a}"][data-k="${q}"]`);if(n)n.focus()}
 ["#vt","#grid"].forEach(s=>{$(s).addEventListener("click",act);$(s).addEventListener("keydown",act)});
@@ -1777,6 +1802,101 @@ if(ONB)$("#wlc").hidden=false;
 $("#wlc").addEventListener("click",e=>{const id=e.target.id;if(id!="w1"&&id!="w2")return;const n=$("#wn").value.trim()||"My profile";
  META.list[0].name=n;saveMeta();if(id=="w2"){S=newState(n)}else{S.name=n;S.seedIB=1}
  sv("clo-onb","1");migrate(S);plan();chip();$("#wlc").hidden=true;render()});
+/* ---- classes: popup, move, add, delete ---- */
+const pm=t=>{const e=$("#pm");if(e)e.textContent=t};
+const clash=(k,s,m,skip)=>{const L=S.days[k]||[];if(!L.length)return false;const nm=nightMap(k);return L.some((y,i)=>{if(i==skip)return false;const a=eff(k,i,nm),b=a+dur(k,i);return s<b&&a<s+m})};
+function toggleNight(k,j){const x=S.days[k][j];
+ if(x.n){x.n=0;if(clash(k,eff(k,j,{}),dur(k,j),j)){x.n=1;return "That time is taken by another class. Move or delete it first."}return ""}
+ x.n=1;const o=nightMap(k);if(Object.keys(o).some(i=>o[i]+S.days[k][i].m>1440)){x.n=0;return "Not enough room that evening: night classes must fit between 20:00 and midnight."}return ""}
+function vacate(k,s){S.vac=S.vac||{};(S.vac[k]=S.vac[k]||[]).push(s)}
+function dropBlock(k,j){S.days[k].splice(j,1);if(!S.days[k].length)delete S.days[k];if(S.adj)delete S.adj[k]}
+function delBlock(k,j){const x=S.days[k][j];if(x.rep&&x.od&&S.vac&&S.vac[x.od])S.vac[x.od]=S.vac[x.od].filter(o=>o!=x.os);dropBlock(k,j);plan();render()}
+function skipBlock(k,j){const x=S.days[k][j];vacate(k,x.s);dropBlock(k,j);plan();render()}
+function moveBlock(k,j,k2,s2){const x=S.days[k][j],du=dur(k,j);
+ if(!(s2>=540)||s2+du>1440)return "Choose a start from 09:00 so the class ends before midnight.";
+ if(clash(k2,s2,du,k2==k?j:-1))return "That time overlaps another class.";
+ const y=Object.assign({},x,{s:s2,m:du,n:0});
+ if(!x.man){y.man=1;y.rep=1;y.od=k;y.os=x.s;vacate(k,x.s)}
+ dropBlock(k,j);if(S.adj)delete S.adj[k2];
+ const A=S.days[k2]=S.days[k2]||[];A.push(y);A.sort((a,b)=>a.s-b.s);plan();return ""}
+function offsetFor(k,j){const x=S.days[k][j];let u=0;S.days[k].forEach((y,i)=>{if(i<j&&y.c==x.c&&!y.d)u+=dur(k,i)/S.c[y.c].f});return u}
+function doneBlock(k,j){const x=S.days[k][j],c=S.c[x.c];x.d=1;x.dm=dur(k,j);x.l=cov(x.c,offsetFor(k,j),x.dm/c.f).map(l=>l.p+l.id);x.l.forEach(z=>{S.ld=S.ld||{};S.ld[z]=1});plan();render()}
+function logLesson(i,v,r){if(!(v>0&&r>0))return "Enter the video minutes and the real minutes.";const c=S.c[i];(c.L=c.L||[]).push([v,r]);const n=c.L.length;let t="";
+ if(S.auto!==false&&n>=3){const L=c.L.slice(-10);c.f=Math.max(1,Math.round(L.reduce((a,x)=>a+x[1],0)/L.reduce((a,x)=>a+x[0],0)*10)/10);plan();t=" Study factor is now "+c.f+" (average of your last "+L.length+" lessons) and the plan was updated."}else{save();t=S.auto===false?"":" Log "+(3-n)+" more to start adjusting the factor."}
+ return c.n+": "+v+" min of video took "+r+" min."+t}
+let pop=null;
+const closePop=()=>{pop=null;const p=$("#pop");p.hidden=true;p.innerHTML=""};
+const dayOpts=k=>{const o=[];for(let i=0;i<35;i++){const d=new Date();d.setDate(d.getDate()+i);o.push(iso(d))}if(!o.includes(k))o.unshift(k);return o.map(v=>`<option value="${v}"${v==k?" selected":""}>${fd(parse(v),{weekday:"short",day:"numeric",month:"short"})}</option>`).join("")};
+function openPop(k,j){const x=S.days[k][j];pop={k,c:x.c,s:x.s};drawPop()}
+function drawPop(){const k=pop.k,L0=S.days[k]||[],j=L0.findIndex(y=>y.c==pop.c&&y.s==pop.s),x=L0[j];if(!x){closePop();return}
+ const c=S.c[x.c],nm=nightMap(k),st=eff(k,j,nm),du=dur(k,j),L=lessons(c);let pend=[],extra=[];
+ if(L){pend=x.d?(x.l||[]).map(id=>L.find(l=>l.p+l.id==id)).filter(Boolean):cov(x.c,offsetFor(k,j),du/c.f);
+  const last=pend.length?L.indexOf(pend[pend.length-1]):-1;extra=L.slice(last+1).filter(l=>!isd(l)).slice(0,6)}
+ const li=(l,on)=>`<label><input type="checkbox" data-pl="${l.p+l.id}"${on?" checked":""}> <span>Section ${l.s+1}: ${esc(lb(l))}${l.m?` (${l.m} min)`:""}</span></label>`;
+ const status=x.d?"Done":(x.n?"Planned, moved to the evening":"Planned");
+ $("#pop").hidden=false;
+ $("#pop").innerHTML=`<div class="card" style="--h:${c.h}" role="dialog" aria-modal="true"><button class="x" data-pa="x" aria-label="Close">✕</button><h2>${esc(c.n)}</h2>
+ <div>${fd(parse(k),{weekday:"long",day:"numeric",month:"long"})}, ${f(st)} to ${f(st+du)}</div>
+ <small>${du} min of study, about ${Math.round(du/c.f)} min of video at a factor of ${c.f}. Status: ${status}${x.man?(x.rep?". Moved class":". Added by you"):""}.</small>
+ <div class="sec btns"><button data-pa="done" class="${x.d?"":"ok"}">${x.d?"Undo done":"Mark as done"}</button><button data-pa="night">${x.n?"Move back to the day":"Move to the evening"}</button><button data-pa="timer">Start timer (${du} min)</button>${x.man?`<button data-pa="del">Delete</button>`:(x.d?"":`<button data-pa="skip">Skip this class</button>`)}</div>
+ ${L?`<div class="sec"><b>Lessons in this class</b><br><small>${x.d?"Untick what you did not finish and save the correction.":"Untick what you will not finish, then mark the class as done."} Tick the next lessons if you did more.</small><div class="lst">${pend.map(l=>li(l,x.d?isd(l):true)).join("")||"<small>No lessons left in this course.</small>"}${extra.length?`<small>Next lessons</small>`+extra.map(l=>li(l,false)).join(""):""}</div>${x.d?`<p><button data-pa="save" class="ok">Save correction</button></p>`:""}</div>`:""}
+ <div class="sec"><b>Move this class</b><div class="row3"><select id="pd" aria-label="Day">${dayOpts(k)}</select><input type="time" id="pt" value="${f(st)}" aria-label="Start time"><button data-pa="move">Move</button></div></div>
+ <div class="sec"><b>Log a lesson</b><br><small>Tell the app how long a lesson of this course really took, so it learns your pace.</small><div class="row3"><input type="number" id="pv" min="1" placeholder="Video min" aria-label="Video minutes"><input type="number" id="pr" min="1" placeholder="Real min" aria-label="Real minutes"><button data-pa="log">Log</button></div></div>
+ <p id="pm" role="status" class="sub"></p></div>`}
+function openAdd(k){pop={add:1,k};$("#pop").hidden=false;
+ $("#pop").innerHTML=`<div class="card" style="--h:215" role="dialog" aria-modal="true"><button class="x" data-pa="x" aria-label="Close">✕</button><h2>Add a class</h2><p><select id="ac3" aria-label="Course">${S.c.map((c,i)=>c.off?"":`<option value="${i}">${esc(c.n)}</option>`).join("")}</select></p><div class="row3"><select id="ad3" aria-label="Day">${dayOpts(k)}</select><input type="time" id="at3" value="10:00" aria-label="Start time"><input type="number" id="al3" min="15" step="15" value="60" aria-label="Length in minutes"></div><p><button data-pa="addok" class="ok">Add class</button></p><small>Start time from 09:00, and the length in minutes.</small><p id="pm" role="status" class="sub"></p></div>`}
+$("#pop").addEventListener("click",e=>{if(e.target.id=="pop"){closePop();return}const b=e.target.closest("[data-pa]");if(!b||!pop)return;const a=b.dataset.pa;if(a=="x"){closePop();return}
+ if(pop.add){if(a!="addok")return;if(!S.c.some(c=>!c.off)){pm("Add a course first (Settings).");return}
+  const c=+$("#ac3").value,k2=$("#ad3").value,t=$("#at3").value.split(":").map(Number),s=t[0]*60+(t[1]||0),m=Math.round(+$("#al3").value/15)*15;
+  if(!(m>=15)||!(s>=540)||s+m>1440){pm("Choose a start from 09:00 and a length that ends before midnight.");return}
+  if(clash(k2,s,m,-1)){pm("That time overlaps another class.");return}
+  const A=S.days[k2]=S.days[k2]||[];A.push({c,m,s,d:0,n:0,man:1});A.sort((p,q)=>p.s-q.s);if(S.adj)delete S.adj[k2];plan();render();closePop();return}
+ const k=pop.k,L0=S.days[k]||[],j=L0.findIndex(y=>y.c==pop.c&&y.s==pop.s);if(j<0){closePop();return}const x=L0[j];
+ const picked=()=>[...document.querySelectorAll("#pop [data-pl]")].filter(i=>i.checked).map(i=>i.dataset.pl);
+ if(a=="done"){if(x.d){(x.l||[]).forEach(z=>{if(S.ld)delete S.ld[z]});x.l=[];x.d=0}
+  else{const ids=lessons(S.c[x.c])?picked():[];x.d=1;x.dm=dur(k,j);x.l=ids;ids.forEach(z=>{S.ld=S.ld||{};S.ld[z]=1})}
+  plan();render();closePop();return}
+ if(a=="save"){const ids=picked();(x.l||[]).forEach(z=>{if(!ids.includes(z)&&S.ld)delete S.ld[z]});ids.forEach(z=>{S.ld=S.ld||{};S.ld[z]=1});x.l=ids;plan();render();closePop();return}
+ if(a=="night"){const m=toggleNight(k,j);if(m){pm(m);return}save();render();closePop();return}
+ if(a=="skip"){skipBlock(k,j);closePop();return}
+ if(a=="del"){delBlock(k,j);closePop();return}
+ if(a=="move"){const t=$("#pt").value.split(":").map(Number),m=moveBlock(k,j,$("#pd").value,t[0]*60+(t[1]||0));if(m){pm(m);return}render();closePop();return}
+ if(a=="log"){const m=logLesson(x.c,+$("#pv").value,+$("#pr").value);render();pm(m);return}
+ if(a=="timer"){startTimer(k,x,dur(k,j));closePop();return}});
+document.addEventListener("keydown",e=>{if(e.key=="Escape"&&pop)closePop()});
+$("#vt").addEventListener("click",e=>{const b=e.target.closest("[data-add]");if(b)openAdd(b.dataset.add)});
+/* ---- timer, sound, notifications, reminders ---- */
+let timer=null;try{timer=JSON.parse(ld("clo-timer")||"null")}catch(e){}
+const tsave=()=>sv("clo-timer",JSON.stringify(timer));
+function beep(){try{const A=new (window.AudioContext||window.webkitAudioContext)();[0,.3,.6].forEach(t=>{const o=A.createOscillator(),g=A.createGain();o.frequency.value=880;o.connect(g);g.connect(A.destination);g.gain.setValueAtTime(.15,A.currentTime+t);g.gain.exponentialRampToValueAtTime(.001,A.currentTime+t+.22);o.start(A.currentTime+t);o.stop(A.currentTime+t+.25)})}catch(e){}}
+function notify(t,b){beep();msg(t+": "+b);
+ if(!("Notification" in window)||Notification.permission!="granted")return;
+ try{if(navigator.serviceWorker&&navigator.serviceWorker.getRegistration){navigator.serviceWorker.getRegistration().then(r=>{if(r)r.showNotification(t,{body:b,icon:"icon-192.png",tag:"clo"});else new Notification(t,{body:b})}).catch(()=>{})}else new Notification(t,{body:b})}catch(e){try{new Notification(t,{body:b})}catch(x){}}}
+function startTimer(k,x,mins){timer={k,c:x.c,s:x.s,label:S.c[x.c].n,end:Date.now()+mins*60000,left:null,fin:0};tsave();tick()}
+function tick(){const el=$("#tm");if(!timer){el.hidden=true;return}
+ const left=timer.end?Math.max(0,timer.end-Date.now()):(timer.left||0);
+ if(timer.end&&left<=0&&!timer.fin){timer.fin=1;timer.end=null;timer.left=0;tsave();notify("Time is up","The timer for "+timer.label+" finished.")}
+ const mode=(timer.fin?"f":timer.end?"r":"p")+timer.label;
+ if(el.dataset.mode!=mode){el.dataset.mode=mode;el.hidden=false;
+  el.innerHTML=timer.fin?`<span>Time is up: ${esc(timer.label)}</span><button data-ta="done">Mark done</button><button data-ta="stop">Close</button>`:`<span>${esc(timer.label)}</span><b></b><button data-ta="pause">${timer.end?"Pause":"Resume"}</button><button data-ta="plus">+5 min</button><button data-ta="stop">Stop</button>`}
+ const b=el.querySelector("b");if(b)b.textContent=String(Math.floor(left/60000)).padStart(2,"0")+":"+String(Math.floor(left/1000)%60).padStart(2,"0")}
+$("#tm").addEventListener("click",e=>{const a=e.target.dataset.ta;if(!a||!timer)return;
+ if(a=="stop"){timer=null;sv("clo-timer","null")}
+ else if(a=="pause"){if(timer.end){timer.left=Math.max(0,timer.end-Date.now());timer.end=null}else{timer.end=Date.now()+timer.left;timer.left=null}tsave()}
+ else if(a=="plus"){if(timer.end)timer.end+=300000;else timer.left=(timer.left||0)+300000;tsave()}
+ else if(a=="done"){const L=S.days[timer.k]||[],i=L.findIndex(y=>y.c==timer.c&&y.s==timer.s);if(i>=0&&!L[i].d)doneBlock(timer.k,i);timer=null;sv("clo-timer","null")}
+ $("#tm").dataset.mode="";tick()});
+setInterval(tick,1000);tick();
+const fired=new Set();
+function remind(){if(S.rem===false)return;const now=new Date(),k=iso(now),L=S.days[k];if(!L)return;const nm=nightMap(k),mn=now.getHours()*60+now.getMinutes(),pre=S.pre==null?5:S.pre;
+ L.forEach((x,j)=>{if(x.d)return;const st=eff(k,j,nm),en=st+dur(k,j),c=S.c[x.c].n,key=k+"."+x.c+"."+x.s+".";
+  const go=(t,title,body)=>{if(!fired.has(key+t)){fired.add(key+t);notify(title,body)}};
+  if(pre>0&&mn>=st-pre&&mn<st)go("p","Class in "+(st-mn)+" min",c+" starts at "+f(st));
+  if(mn>=st&&mn<st+2)go("s","Class starting",c+", "+f(st)+" to "+f(en));
+  if(mn>=en&&mn<en+2){const nx=L.map((y,i)=>eff(k,i,nm)).filter(a=>a>=en).sort((a,b)=>a-b)[0];go("e","Class finished",c+". Take a break"+(nx!=null?"; next class at "+f(nx):"")+".")}})}
+setInterval(remind,15000);setTimeout(remind,2000);
+$("#vs").addEventListener("click",e=>{if(e.target.id=="rm3"){if(!("Notification" in window)){msg("This device does not support system notifications.");return}Notification.requestPermission().then(p=>{msg("System notifications: "+p);if(view=="set")render()})}
+ if(e.target.id=="rm4")notify("CLO test","Reminders are working.")});
 </script>
 </body>
 </html>
